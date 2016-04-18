@@ -1,5 +1,7 @@
 ﻿using CarClassified.DataLayer.Interfaces;
 using CarClassified.DataLayer.Queries;
+using CarClassified.DataLayer.Queries.PostingQueries;
+using CarClassified.Models.SimpleDTOs;
 using CarClassified.Models.Tables;
 using System;
 using System.Collections.Generic;
@@ -26,12 +28,12 @@ namespace CarClassified.Web.ApiControllers
         [Route("colors")]
         public IHttpActionResult GetColors()
         {
-            var result = _db.Query<ICollection<Color>>(new DebugQuery());
-            if (result.Count > 0)
-            {
-                return Ok(result);
-            }
-
+            //var result = _db.Query<ICollection<Color>>(new DebugQuery());
+            //if (result.Count > 0)
+            //{
+            //    return Ok(result);
+            //}
+            var v = _db.Query<VerificationDTO>(new GetPosterVerification("derick@d.com"));
             return BadRequest();
         }
     }

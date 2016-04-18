@@ -10,9 +10,12 @@ namespace CarClassified.Web.Controllers
 {
     public class PostController : Controller
     {
+        public PostController()
+        {
+        }
+
         public ActionResult Create()
         {
-            // ViewBag.states = GetStates();
             var posterVM = new PosterVM
             {
                 UserStates = GetStates()
@@ -23,6 +26,12 @@ namespace CarClassified.Web.Controllers
         [HttpPost]
         public ActionResult Create(PosterVM post)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(post);
+            }
+            //TODO: check for user email in db
+
             return RedirectToAction("Index");
         }
 

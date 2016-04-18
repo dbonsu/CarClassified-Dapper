@@ -58,6 +58,7 @@
     <Compile Include="IOC\DataLayerIoc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\DebugQuery.cs" />
+    <Compile Include="Queries\PostingQueries\GetPosterVerification.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

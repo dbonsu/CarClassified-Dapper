@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleDTOs\VerificationDTO.cs" />
     <Compile Include="Tables\Color.cs" />
     <Compile Include="Tables\Poster.cs" />
     <Compile Include="Tables\State.cs" />
