@@ -13,6 +13,8 @@ namespace CarClassified.DataLayer.Base
         private IDbConnection _connection;
         private string _connectionString;
 
+        private bool disposedValue = false;
+
         public CarClassifiedContext(string connectionString)
         {
             _connectionString = connectionString;
@@ -41,7 +43,7 @@ namespace CarClassified.DataLayer.Base
 
         #region IDisposable Support
 
-        private bool disposedValue = false; // To detect redundant calls
+        // To detect redundant calls
 
         public void Commit()
         {
@@ -115,7 +117,7 @@ namespace CarClassified.DataLayer.Base
         {
             if (!disposedValue)
             {
-                if (disposing)
+                if (disposing && _connection != null)
                 {
                     // TODO: dispose managed state (managed objects).
 
