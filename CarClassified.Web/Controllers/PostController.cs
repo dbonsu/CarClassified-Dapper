@@ -41,6 +41,28 @@ namespace CarClassified.Web.Controllers
             return View();
         }
 
+        public ActionResult Email(string token)
+        {
+            //read token and get emailaddress
+            //user has not already be verified and exists
+
+            // if ()
+            //{
+            TempData["validuser"] = new PosterVM { };
+            return RedirectToAction("Complete");
+            //}else(){
+            //send user to error page with decription
+            //return RedirectToAction("InvalidToken", "Error");
+            //}
+        }
+
+        public ActionResult Complete()
+        {
+            var poster = TempData["validuser"] as PosterVM;
+            //open with with default data and partial of other values to add
+            return View(poster);
+        }
+
         private IEnumerable<SelectListItem> GetStates()
         {
             ICollection<State> states = new List<State>

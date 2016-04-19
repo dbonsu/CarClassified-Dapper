@@ -13,6 +13,8 @@ namespace CarClassified.DataLayer.Base
         private IDbConnection _connection;
         private string _connectionString;
 
+        private bool disposedValue = false;
+
         public CarClassifiedContext(string connectionString)
         {
             _connectionString = connectionString;

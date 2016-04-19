@@ -16,8 +16,10 @@ namespace CarClassified.Web.Utilities
 
         public async void SendEmail(string emailAddress, string url)
         {
-            var body = "<div><p>Please follow the link below to complete your posting.</p></div" +
-                           "<div><p>{0}</p></div";
+            var body = "<div>" +
+                            "<p>Please follow the link below to complete your posting.</p>" +
+                        "</div>" +
+                   "<div><p><a href=\"{0}\">Confirm Your Email</a></p></div";
             var message = new MailMessage();
             message.To.Add(new MailAddress(emailAddress));
 

@@ -3,11 +3,13 @@ using CarClassified.DataLayer.Queries;
 using CarClassified.DataLayer.Queries.PostingQueries;
 using CarClassified.Models.SimpleDTOs;
 using CarClassified.Models.Tables;
+using CarClassified.Web.Utilities.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace CarClassified.Web.ApiControllers
@@ -17,11 +19,13 @@ namespace CarClassified.Web.ApiControllers
     {
         private IDatabase _db;
         private IUnitOfWork _unit;
+        private IVeryBasicEmail _email;
 
-        public DebugController(IDatabase db, IUnitOfWork unit)
+        public DebugController(IDatabase db, IUnitOfWork unit, IVeryBasicEmail email)
         {
             _db = db;
             _unit = unit;
+            _email = email;
         }
 
         [HttpGet]
@@ -35,6 +39,15 @@ namespace CarClassified.Web.ApiControllers
             //}
             var v = _db.Query<VerificationDTO>(new GetPosterVerification("derick@d.com"));
             return BadRequest();
+        }
+
+        [HttpPost]
+        [Route("email")]
+        public void SendEmail(string email)
+        {
+            var url = HttpUtility.UrlEncode("http://localhost:58604/api/email?verify=" + "2jcn9w82fn9wef9ncdscs98cdcs9c");
+
+            _email.SendEmail(email, url);
         }
     }
 }
