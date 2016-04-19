@@ -9,7 +9,7 @@ namespace CarClassified.Web.ViewModels
 {
     public class StateVM
     {
-        public string Code { get; set; }
+        public string Name { get; set; }
         public int Id { get; set; }
     }
 }

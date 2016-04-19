@@ -97,7 +97,7 @@ namespace CarClassified.DataLayer.Base
 
         #region IDisposable Support
 
-        private bool disposedValue = false; // To detect redundant calls
+        // To detect redundant calls
 
         // This code added to correctly implement the disposable pattern.
         public void Dispose()

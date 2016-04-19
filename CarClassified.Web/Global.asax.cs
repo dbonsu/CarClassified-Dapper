@@ -1,4 +1,7 @@
-﻿using CarClassified.Web.IOC;
+﻿using Autofac;
+using Autofac.Integration.Mvc;
+using AutoMapper;
+using CarClassified.Web.IOC;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +19,12 @@ namespace CarClassified.Web
         private void Application_Start(object sender, EventArgs e)
         {
             // Code that runs on application startup
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             AutofacConfiguration();
-            AutoMapperConfiguration();
+            // AutoMapperConfiguration();
         }
 
         private void AutofacConfiguration()
@@ -30,6 +34,15 @@ namespace CarClassified.Web
 
         private void AutoMapperConfiguration()
         {
+            MapperConfiguration mapperConfig = new MapperConfiguration(cfg =>
+
+            {
+                cfg.AddProfile(new WebAutomapping.WebAutomappingProfile());
+            });
+
+            var mapper = mapperConfig.CreateMapper();
+            ContainerBuilder b = new ContainerBuilder();
+            b.RegisterInstance(mapper).As<IMapper>();
         }
     }
 }

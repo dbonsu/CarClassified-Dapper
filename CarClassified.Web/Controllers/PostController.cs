@@ -1,4 +1,13 @@
-﻿using CarClassified.Models.Tables;
+﻿using AutoMapper;
+using CarClassified.Common;
+using CarClassified.Common.Constants;
+using CarClassified.Common.Interfaces;
+using CarClassified.DataLayer.Commands.PostingCommands;
+using CarClassified.DataLayer.Interfaces;
+using CarClassified.DataLayer.Queries.AssetsQueries;
+using CarClassified.DataLayer.Queries.PostingQueries;
+using CarClassified.Models.Tables;
+using CarClassified.Web.Utilities.Interfaces;
 using CarClassified.Web.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -10,8 +19,17 @@ namespace CarClassified.Web.Controllers
 {
     public class PostController : Controller
     {
-        public PostController()
+        private IDatabase _db;
+        private IVeryBasicEmail _email;
+        private ITokenUtility _tokenUtil;
+        private IMapper _mapper;
+
+        public PostController(IDatabase db, IVeryBasicEmail email, ITokenUtility tokenUtil, IMapper mapper)
         {
+            _db = db;
+            _email = email;
+            _tokenUtil = tokenUtil;
+            _mapper = mapper;
         }
 
         public ActionResult Create()
@@ -31,6 +49,23 @@ namespace CarClassified.Web.Controllers
                 return View(post);
             }
             //TODO: check for user email in db
+            var user = _db.Query(new GetPosterVerification(post.Email));
+            if (user != null)
+            {
+                //user cannot not have a user in the system
+                if (user.IsVerified)
+                {
+                    TempData["error"] = ErrorConstants.ERROR_lIMIT_ONE;
+                    RedirectToAction("LimitPost", "Error");
+                }
+                else
+                {
+                    TempData["error"] = ErrorConstants.ERROR_CHECK_EMAIL;
+                    RedirectToAction("LimitPost", "Error");
+                }
+            }
+            //register user and send email
+            RegisterAndSendEmail(post);
 
             return RedirectToAction("Index");
         }
@@ -63,22 +98,29 @@ namespace CarClassified.Web.Controllers
             return View(poster);
         }
 
+        private void RegisterAndSendEmail(PosterVM post)
+        {
+            Poster poster = Mapper.Map<Poster>(post);
+
+            _db.Execute(new CreateNewPoster(poster));
+            string url = HttpUtility.UrlEncode(BaseSettings.BaseUrl + BaseSettings.EmailVerificationUrl);
+            string token = _tokenUtil.GenerateToken(post.Email);
+            _email.SendEmail(post.Email, url + token);
+        }
+
         private IEnumerable<SelectListItem> GetStates()
         {
-            ICollection<State> states = new List<State>
-            {
-                new State {Id = 1, Code="AL", Name="Alabama" },
-                new State {Id =2, Code="AZ", Name="Arizona" }
-            };
+            ICollection<State> statesdb = _db.Query(new GetAllStates());
+            ICollection<StateVM> states = _mapper.Map<ICollection<StateVM>>(statesdb);
 
             var result = states.Select(x =>
-           new SelectListItem
-           {
-               Value = x.Id.ToString(),
-               Text = x.Code
-           });
+            new SelectListItem
+            {
+                Value = x.Id.ToString(),
+                Text = x.Name
+            });
 
-            return new SelectList(states, "Id", "Code");
+            return new SelectList(result, "Id", "Name");
         }
     }
 }

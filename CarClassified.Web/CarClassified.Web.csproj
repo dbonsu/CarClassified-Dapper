@@ -47,6 +47,10 @@
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=3.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.3.3.4\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Autofac.Integration.WebApi, Version=3.4.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.WebApi2.3.4.0\lib\net45\Autofac.Integration.WebApi.dll</HintPath>
       <Private>True</Private>
@@ -173,6 +177,7 @@
     <Compile Include="Utilities\VeryBasicEmail.cs" />
     <Compile Include="ViewModels\PosterVM.cs" />
     <Compile Include="ViewModels\StateVM.cs" />
+    <Compile Include="WebAutomapping\WebAutomappingProfile.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -189,6 +194,7 @@
     <Content Include="scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\Error\InvalidToken.cshtml" />
+    <Content Include="Views\Error\LimitPost.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

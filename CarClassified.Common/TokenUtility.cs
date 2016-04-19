@@ -13,11 +13,11 @@ namespace CarClassified.Common
 {
     public class TokenUtility : ITokenUtility
     {
-        private string audienceId = ConfigurationManager.AppSettings["audienceID"];
+        private string audienceId = BaseSettings.AudienceId; //ConfigurationManager.AppSettings["audienceID"];
         private string issuer = "self";
         private byte[] keyByteArray;
         private HmacSigningCredentials signingKey;
-        private string symmetricKeyAsBase64 = ConfigurationManager.AppSettings["SymmetricKey"];
+        private string symmetricKeyAsBase64 = BaseSettings.SymmetricKey; //ConfigurationManager.AppSettings["SymmetricKey"];
 
         public TokenUtility()
         {
