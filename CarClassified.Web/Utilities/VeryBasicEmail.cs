@@ -14,7 +14,7 @@ namespace CarClassified.Web.Utilities
     {
         private const string SUBJECT = "CarClassified Email Verification";
 
-        public async void SendEmail(string emailAddress, string url)
+        public void SendEmail(string emailAddress, string url)
         {
             var body = "<div>" +
                             "<p>Please follow the link below to complete your posting.</p>" +
@@ -29,7 +29,7 @@ namespace CarClassified.Web.Utilities
 
             using (var smtp = new SmtpClient())
             {
-                await smtp.SendMailAsync(message);
+                smtp.Send(message);
             }
         }
     }

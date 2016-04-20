@@ -60,7 +60,7 @@ namespace CarClassified.Web.Controllers
             var user = _db.Query(new GetPosterVerification(post.Email));
             if (user != null)
             {
-                //user cannot not have a user in the system
+                //user cannot have a user in the system
                 if (user.IsVerified)
                 {
                     TempData["error"] = ErrorConstants.ERROR_lIMIT_ONE;

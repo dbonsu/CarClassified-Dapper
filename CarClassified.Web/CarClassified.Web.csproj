@@ -178,7 +178,6 @@
     <Compile Include="ViewModels\PosterVM.cs" />
     <Compile Include="ViewModels\StateVM.cs" />
     <Compile Include="WebAutomapping\WebAutomappingProfile.cs" />
-    <Compile Include="WebAutomapping\WebMapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />

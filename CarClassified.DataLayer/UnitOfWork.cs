@@ -20,14 +20,14 @@ namespace CarClassified.DataLayer
 
         public void Execute(string query, object parameter = null)
         {
-            _context.Transaction(transaction => _context.Connection.Execute(query, parameter, transaction));
+            _context.Transaction(t => _context.Connection.Execute(query, parameter, t));
         }
 
         public IEnumerable<T> Query<T>(string query, object parameter = null)
         {
-            return _context.Transaction(transaction =>
+            return _context.Transaction(t =>
             {
-                var result = _context.Connection.Query<T>(query, parameter, transaction);
+                var result = _context.Connection.Query<T>(query, parameter, t);
                 return result;
             });
         }

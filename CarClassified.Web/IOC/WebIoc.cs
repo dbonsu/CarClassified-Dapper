@@ -3,6 +3,7 @@ using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using AutoMapper;
 using CarClassified.Common.IOCModule;
+using CarClassified.DataLayer.DataAutomapping;
 using CarClassified.Web.Utilities;
 using CarClassified.Web.Utilities.Interfaces;
 using CarClassified.Web.WebAutomapping;
@@ -17,40 +18,19 @@ using System.Web.Mvc;
 
 namespace CarClassified.Web.IOC
 {
-    public static class WebIoc
+    public class WebIoc : CustomModule
     {
-        public static void Configure()
+        protected override void Load(ContainerBuilder builder)
         {
-            var builder = new ContainerBuilder();
-            var config = GlobalConfiguration.Configuration;
-            var executingAssembly = Assembly.GetExecutingAssembly();
+            MapperConfiguration mapperConfig = new MapperConfiguration(cfg =>
 
-            var domainAssemblies = BuildManager.GetReferencedAssemblies().Cast<Assembly>();
-            //Assembly Modules
-
-            builder.RegisterAssemblyModules<CustomModule>(domainAssemblies.ToArray());
-
-            // Register your Web API controllers.
-            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
-            //Register controllers
-            builder.RegisterControllers(Assembly.GetExecutingAssembly())
-               .InstancePerRequest();
-
-            //Components
-
-            var container = builder.Build();
-            config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
-        }
-
-        public class WebCustomIoc : CustomModule
-        {
-            protected override void Load(ContainerBuilder builder)
             {
-                var mapper = WebMapper.GetWebLayerMappings().CreateMapper();
-                builder.RegisterType<VeryBasicEmail>().As<IVeryBasicEmail>();
-                builder.RegisterInstance(mapper).As<IMapper>();
-            }
+                cfg.AddProfile(new WebAutomappingProfile());
+                cfg.AddProfile(new DataAutomappingProfile());
+            });
+            var mapper = mapperConfig.CreateMapper();
+            builder.RegisterInstance(mapper).As<IMapper>();
+            builder.RegisterType<VeryBasicEmail>().As<IVeryBasicEmail>();
         }
     }
 }
