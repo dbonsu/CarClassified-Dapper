@@ -19,8 +19,9 @@ namespace CarClassified.DataLayer.Commands.PostingCommands
 
         public void Execute(IUnitOfWork unit)
         {
-            var sql = @"INSERT INTO Poster(Email,Phone,FirstName,LastName,IsVerified,StatedId)
-                    VALUES(@Email,@Phone,@FirstName,@LastName,@IsVerified,@StatedId)";
+            _poster.Id = Guid.NewGuid();
+            var sql = @"INSERT INTO Poster(Id,Email,Phone,FirstName,LastName,IsVerified,StateId)
+                    VALUES(@Id,@Email,@Phone,@FirstName,@LastName,@IsVerified,@StateId)";
             unit.Execute(sql, _poster);
         }
     }

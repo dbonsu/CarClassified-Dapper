@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarClassified.Common;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -24,8 +25,15 @@ namespace CarClassified.DataLayer.Base
         {
             get
             {
-                _connection = _connection ?? new SqlConnection(_connectionString);
-                if (_connection.State == ConnectionState.Closed) _connection.Open();
+                if (_connection == null)
+                    _connection = new SqlConnection(_connectionString);
+
+                if (_connection.State == ConnectionState.Closed)
+                {
+                    _connection.ConnectionString = _connectionString ?? BaseSettings.ConnectionString;
+                    _connection.Open();
+                }
+
                 return _connection;
             }
         }

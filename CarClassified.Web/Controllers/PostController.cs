@@ -21,8 +21,8 @@ namespace CarClassified.Web.Controllers
     {
         private IDatabase _db;
         private IVeryBasicEmail _email;
-        private ITokenUtility _tokenUtil;
         private IMapper _mapper;
+        private ITokenUtility _tokenUtil;
 
         public PostController(IDatabase db, IVeryBasicEmail email, ITokenUtility tokenUtil, IMapper mapper)
         {
@@ -30,6 +30,13 @@ namespace CarClassified.Web.Controllers
             _email = email;
             _tokenUtil = tokenUtil;
             _mapper = mapper;
+        }
+
+        public ActionResult Complete()
+        {
+            var poster = TempData["validuser"] as PosterVM;
+            //open with with default data and partial of other values to add
+            return View(poster);
         }
 
         public ActionResult Create()
@@ -46,6 +53,7 @@ namespace CarClassified.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
+                post.UserStates = GetStates();
                 return View(post);
             }
             //TODO: check for user email in db
@@ -56,24 +64,18 @@ namespace CarClassified.Web.Controllers
                 if (user.IsVerified)
                 {
                     TempData["error"] = ErrorConstants.ERROR_lIMIT_ONE;
-                    RedirectToAction("LimitPost", "Error");
+                    return RedirectToAction("LimitPost", "Error");
                 }
                 else
                 {
                     TempData["error"] = ErrorConstants.ERROR_CHECK_EMAIL;
-                    RedirectToAction("LimitPost", "Error");
+                    return RedirectToAction("LimitPost", "Error");
                 }
             }
             //register user and send email
             RegisterAndSendEmail(post);
 
             return RedirectToAction("Index");
-        }
-
-        // GET: Post
-        public ActionResult Index()
-        {
-            return View();
         }
 
         public ActionResult Email(string token)
@@ -91,21 +93,10 @@ namespace CarClassified.Web.Controllers
             //}
         }
 
-        public ActionResult Complete()
+        // GET: Post
+        public ActionResult Index()
         {
-            var poster = TempData["validuser"] as PosterVM;
-            //open with with default data and partial of other values to add
-            return View(poster);
-        }
-
-        private void RegisterAndSendEmail(PosterVM post)
-        {
-            Poster poster = Mapper.Map<Poster>(post);
-
-            _db.Execute(new CreateNewPoster(poster));
-            string url = HttpUtility.UrlEncode(BaseSettings.BaseUrl + BaseSettings.EmailVerificationUrl);
-            string token = _tokenUtil.GenerateToken(post.Email);
-            _email.SendEmail(post.Email, url + token);
+            return View();
         }
 
         private IEnumerable<SelectListItem> GetStates()
@@ -120,7 +111,17 @@ namespace CarClassified.Web.Controllers
                 Text = x.Name
             });
 
-            return new SelectList(result, "Id", "Name");
+            return new SelectList(result, "Value", "Text");
+        }
+
+        private void RegisterAndSendEmail(PosterVM post)
+        {
+            Poster poster = _mapper.Map<Poster>(post);
+
+            _db.Execute(new CreateNewPoster(poster));
+            string url = HttpUtility.UrlEncode(BaseSettings.BaseUrl + BaseSettings.EmailVerificationUrl);
+            string token = _tokenUtil.GenerateToken(post.Email);
+            _email.SendEmail(post.Email, url + token);
         }
     }
 }

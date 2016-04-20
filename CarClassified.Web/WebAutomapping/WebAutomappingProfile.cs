@@ -12,15 +12,10 @@ namespace CarClassified.Web.WebAutomapping
     {
         protected override void Configure()
         {
-            //var config = new MapperConfiguration(cfg =>
-            //{
-            //    cfg.CreateMap<PosterVM, Poster>();
-            //    cfg.CreateMap<Poster, PosterVM>();
-            //    cfg.CreateMap<State, StateVM>();
-            //});
-            //config.CreateMapper();
             CreateMap<PosterVM, Poster>();
-            CreateMap<Poster, PosterVM>();
+
+            CreateMap<Poster, PosterVM>()
+                .ForMember(dest => dest.UserStates, opt => opt.Ignore());
             CreateMap<State, StateVM>();
         }
     }

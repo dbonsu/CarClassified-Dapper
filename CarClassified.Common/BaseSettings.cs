@@ -9,8 +9,6 @@ namespace CarClassified.Common
 {
     public static class BaseSettings
     {
-        private static string _connectionString;
-
         public static string AudienceId
         {
             get
@@ -31,11 +29,7 @@ namespace CarClassified.Common
         {
             get
             {
-                if (string.IsNullOrEmpty(_connectionString))
-                {
-                    _connectionString = ConfigurationManager.ConnectionStrings["CarClassifiedDb"].ConnectionString;
-                }
-                return _connectionString;
+                return ConfigurationManager.ConnectionStrings["CarClassifiedDb"].ConnectionString;
             }
         }
 

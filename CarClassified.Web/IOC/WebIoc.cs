@@ -5,6 +5,7 @@ using AutoMapper;
 using CarClassified.Common.IOCModule;
 using CarClassified.Web.Utilities;
 using CarClassified.Web.Utilities.Interfaces;
+using CarClassified.Web.WebAutomapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,20 +47,9 @@ namespace CarClassified.Web.IOC
         {
             protected override void Load(ContainerBuilder builder)
             {
-                MapperConfiguration mapperConfig = new MapperConfiguration(cfg =>
-
-                {
-                    cfg.AddProfile(new WebAutomapping.WebAutomappingProfile());
-                });
-
-                var mapper = mapperConfig.CreateMapper();
-                ContainerBuilder b = new ContainerBuilder();
-
+                var mapper = WebMapper.GetWebLayerMappings().CreateMapper();
                 builder.RegisterType<VeryBasicEmail>().As<IVeryBasicEmail>();
-                b.RegisterInstance(mapper).As<IMapper>();
-                // builder.Register<ICarClassifiedContext>(c =>
-                //new CarClassifiedContext(BaseSettings.ConnectionString)
-                // ).InstancePerDependency();
+                builder.RegisterInstance(mapper).As<IMapper>();
             }
         }
     }
