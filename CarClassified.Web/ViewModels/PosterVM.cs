@@ -31,5 +31,6 @@ namespace CarClassified.Web.ViewModels
         public int StateId { get; set; }
 
         public IEnumerable<SelectListItem> UserStates { get; set; }
+        public string StateName { get; set; }
     }
 }

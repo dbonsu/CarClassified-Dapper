@@ -163,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllers\DebugController.cs" />
+    <Compile Include="ApiControllers\PostController.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
@@ -195,6 +196,8 @@
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\Error\InvalidToken.cshtml" />
     <Content Include="Views\Error\LimitPost.cshtml" />
+    <Content Include="Views\Post\Success.cshtml" />
+    <Content Include="Views\Post\Complete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

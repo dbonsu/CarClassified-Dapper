@@ -12,6 +12,8 @@ using CarClassified.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -34,9 +36,14 @@ namespace CarClassified.Web.Controllers
 
         public ActionResult Complete()
         {
-            var poster = TempData["validuser"] as PosterVM;
-            //open with with default data and partial of other values to add
-            return View(poster);
+            ViewBag.user = new PosterVM
+            {
+                Email = "email@e.com",
+                FirstName = "first",
+                LastName = "last",
+                Phone = "555-555-5555",
+            };
+            return View();
         }
 
         public ActionResult Create()
@@ -57,11 +64,11 @@ namespace CarClassified.Web.Controllers
                 return View(post);
             }
             //TODO: check for user email in db
-            var user = _db.Query(new GetPosterVerification(post.Email));
-            if (user != null)
+            Poster poster = _db.Query(new GetPoster(post.Email));
+            if (poster != null)
             {
                 //user cannot have a user in the system
-                if (user.IsVerified)
+                if (poster.IsVerified)
                 {
                     TempData["error"] = ErrorConstants.ERROR_lIMIT_ONE;
                     return RedirectToAction("LimitPost", "Error");
@@ -75,22 +82,41 @@ namespace CarClassified.Web.Controllers
             //register user and send email
             RegisterAndSendEmail(post);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Success");
+        }
+
+        public ActionResult Success()
+        {
+            return View();
         }
 
         public ActionResult Email(string token)
         {
             //read token and get emailaddress
             //user has not already be verified and exists
+            if (string.IsNullOrEmpty(token))
+            {
+                return RedirectToAction("InvalidToken", "Error");
+            }
 
-            // if ()
-            //{
-            TempData["validuser"] = new PosterVM { };
+            string email = _tokenUtil.GetEmail(token);
+            if (string.IsNullOrEmpty(email))
+            {
+                return RedirectToAction("InvalidToken", "Error");
+            }
+
+            var user = _db.Query(new GetPoster(email));
+            if (user.IsVerified)
+            {
+                return RedirectToAction("InvalidToken", "Error");
+            }
+
+            //set user to identity
+            var identity = new GenericIdentity(user.Email, "Basic");
+            var principal = new GenericPrincipal(identity, new string[] { "validuser" });
+            Thread.CurrentPrincipal = principal;
+            var name = Thread.CurrentPrincipal.Identity.Name;
             return RedirectToAction("Complete");
-            //}else(){
-            //send user to error page with decription
-            //return RedirectToAction("InvalidToken", "Error");
-            //}
         }
 
         // GET: Post

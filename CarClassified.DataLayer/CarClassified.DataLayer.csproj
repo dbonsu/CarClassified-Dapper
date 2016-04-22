@@ -63,9 +63,10 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="IOC\DataLayerIoc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\AssetsQueries\GetAllAssests.cs" />
     <Compile Include="Queries\AssetsQueries\GetAllStates.cs" />
     <Compile Include="Queries\DebugQuery.cs" />
-    <Compile Include="Queries\PostingQueries\GetPosterVerification.cs" />
+    <Compile Include="Queries\PostingQueries\GetPoster.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>

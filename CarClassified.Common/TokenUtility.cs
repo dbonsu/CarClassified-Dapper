@@ -18,6 +18,7 @@ namespace CarClassified.Common
         private byte[] keyByteArray;
         private HmacSigningCredentials signingKey;
         private string symmetricKeyAsBase64 = BaseSettings.SymmetricKey; //ConfigurationManager.AppSettings["SymmetricKey"];
+        private string scheme = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
 
         public TokenUtility()
         {
@@ -51,7 +52,7 @@ namespace CarClassified.Common
             if (result != null)
             {
                 string email;
-                result.TryGetValue("email", out email);
+                result.TryGetValue(scheme, out email);
                 return email;
             }
             return "";

@@ -1,8 +1,11 @@
-﻿using CarClassified.DataLayer.Interfaces;
+﻿using CarClassified.Common.Interfaces;
+using CarClassified.DataLayer.Interfaces;
 using CarClassified.DataLayer.Queries;
+using CarClassified.DataLayer.Queries.AssetsQueries;
 using CarClassified.DataLayer.Queries.PostingQueries;
 using CarClassified.Models.SimpleDTOs;
 using CarClassified.Models.Tables;
+using CarClassified.Models.Views;
 using CarClassified.Web.Utilities.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -20,12 +23,29 @@ namespace CarClassified.Web.ApiControllers
         private IDatabase _db;
         private IUnitOfWork _unit;
         private IVeryBasicEmail _email;
+        private ITokenUtility _token;
 
-        public DebugController(IDatabase db, IUnitOfWork unit, IVeryBasicEmail email)
+        public DebugController(IDatabase db, IUnitOfWork unit, IVeryBasicEmail email, ITokenUtility token)
         {
             _db = db;
             _unit = unit;
             _email = email;
+            _token = token;
+        }
+
+        [HttpGet]
+        [Route("")]
+        public AllAssests GetStuff()
+        {
+            var result = _db.Query(new GetAllAssests());
+            return result;
+        }
+
+        [HttpGet]
+        [Route("temp")]
+        public object GetToken()
+        {
+            return _token.GenerateToken("der@d.com");
         }
 
         [HttpGet]
@@ -37,7 +57,7 @@ namespace CarClassified.Web.ApiControllers
             //{
             //    return Ok(result);
             //}
-            var v = _db.Query<VerificationDTO>(new GetPosterVerification("derick@d.com"));
+            var v = _db.Query<Poster>(new GetPoster("derick@d.com"));
             return BadRequest();
         }
 
