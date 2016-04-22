@@ -151,17 +151,22 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="scripts\ai.0.15.0-build58334.js" />
-    <Content Include="scripts\ai.0.15.0-build58334.min.js" />
-    <Content Include="scripts\bootstrap.js" />
-    <Content Include="scripts\bootstrap.min.js" />
-    <None Include="scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="scripts\jquery-1.10.2.js" />
-    <Content Include="scripts\jquery-1.10.2.min.js" />
-    <Content Include="scripts\modernizr-2.6.2.js" />
+    <Content Include="scripts\CarClassified\CarClassified.js" />
+    <Content Include="scripts\CarClassified\Controllers\PostController.js" />
+    <Content Include="scripts\CarClassified\Services\PostService.js" />
+    <None Include="scripts\Library\jquery-2.2.3.intellisense.js" />
+    <Content Include="scripts\Library\jquery-2.2.3.js" />
+    <Content Include="scripts\Library\jquery-2.2.3.min.js" />
+    <Content Include="scripts\Library\ai.0.15.0-build58334.js" />
+    <Content Include="scripts\Library\ai.0.15.0-build58334.min.js" />
+    <Content Include="scripts\Library\bootstrap.js" />
+    <Content Include="scripts\Library\bootstrap.min.js" />
+    <Content Include="scripts\Library\jquery-2.2.3.min.map" />
+    <Content Include="scripts\Library\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiControllers\AssestsController.cs" />
     <Compile Include="ApiControllers\DebugController.cs" />
     <Compile Include="ApiControllers\PostController.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -192,7 +197,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Post\Create.cshtml" />
     <Content Include="Views\Error\InvalidToken.cshtml" />
     <Content Include="Views\Error\LimitPost.cshtml" />
