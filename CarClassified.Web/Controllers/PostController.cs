@@ -38,11 +38,13 @@ namespace CarClassified.Web.Controllers
         {
             ViewBag.user = new PosterVM
             {
-                Email = "email@e.com",
+                Email = "der2@d.com",
                 FirstName = "first",
                 LastName = "last",
                 Phone = "555-555-5555",
-            };
+                Id = new Guid("ec0d371f-721d-498a-9920-13eaa4528629"),
+                StateId = 13
+            }; // TempData["validuser"] as PosterVM;
             return View();
         }
 
@@ -85,11 +87,6 @@ namespace CarClassified.Web.Controllers
             return RedirectToAction("Success");
         }
 
-        public ActionResult Success()
-        {
-            return View();
-        }
-
         public ActionResult Email(string token)
         {
             //read token and get emailaddress
@@ -111,16 +108,22 @@ namespace CarClassified.Web.Controllers
                 return RedirectToAction("InvalidToken", "Error");
             }
 
-            //set user to identity
-            var identity = new GenericIdentity(user.Email, "Basic");
-            var principal = new GenericPrincipal(identity, new string[] { "validuser" });
-            Thread.CurrentPrincipal = principal;
-            var name = Thread.CurrentPrincipal.Identity.Name;
+            //set user to identity or keep temp
+            //var identity = new GenericIdentity(user.Email, "Basic");
+            //var principal = new GenericPrincipal(identity, new string[] { "validuser" });
+            //Thread.CurrentPrincipal = principal;
+            //var name = Thread.CurrentPrincipal.Identity.Name;
+            TempData["validuser"] = user;
             return RedirectToAction("Complete");
         }
 
         // GET: Post
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Success()
         {
             return View();
         }

@@ -17,6 +17,17 @@ namespace CarClassified.Web.WebAutomapping
             CreateMap<Poster, PosterVM>()
                 .ForMember(dest => dest.UserStates, opt => opt.Ignore());
             CreateMap<State, StateVM>();
+
+            CreateMap<PostDetailsVM, Poster>();
+
+            CreateMap<PostDetailsVM, Post>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.PosterId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Body, opt => opt.MapFrom(src => src.Details));
+
+            CreateMap<PostDetailsVM, Vehicle>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+               .ForMember(dest => dest.BodyId, opt => opt.MapFrom(src => src.BodyStyleId));
         }
     }
 }

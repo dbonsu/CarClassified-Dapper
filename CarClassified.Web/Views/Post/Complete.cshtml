@@ -1,44 +1,47 @@
 ﻿@model CarClassified.Web.ViewModels.PosterVM
 
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
         <h3 class="text-center">Complete Posting</h3>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-xs-12">
-        <p class="text-center"> Posting for :<em> @ViewBag.user.Email</em></p>
+    <div class="col-sm-12">
+        <p class="text-center"> Posting for :<span id="username">@ViewBag.user.Email</span></p>
     </div>
 </div>
 
-<form role="form">
+<form role="form" id="posting_form">
+    <input type="hidden" id="userId" name="userId" value="@ViewBag.user.Id" />
     <div class="row">
-        <div class="col-xs-4">
+        <div class="col-sm-3">
             <div class="form-group">
 
                 <label for="firstName">First Name:</label>
-                <input type="text" name="firstName" id="firstName" class="form-control" value="@ViewBag.user.FirstName" />
+                <input type="text" name="firstName" id="firstName" class="form-control" value="@ViewBag.user.FirstName" required />
             </div>
         </div>
-        <div class="col-xs-4">
+        <div class="col-sm-3 ">
             <div class="form-group">
                 <label for="lastName">Last Name:</label>
-                <input type="text" name="lastName" id="lastName" class="form-control" value="@ViewBag.user.LastName" />
+                <input type="text" name="lastName" id="lastName" class="form-control" value="@ViewBag.user.LastName" required />
             </div>
         </div>
-        <div class="col-xs-4">
+        <div class="col-sm-3">
             <div class="form-group">
                 <label for="lastName">Phone:</label>
-                <input type="text" name="lastName" id="lastName" class="form-control" value="@ViewBag.user.LastName" />
+                <input type="text" name="phone" id="phone" class="form-control" value="@ViewBag.user.Phone" required />
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label for="location">Your City/Town: </label>
+                <input type="text" class="form-control" name="location" id="location" />
             </div>
         </div>
     </div>
 
-    <div class="form-group">
-        <label for="location">Your City/Town: </label>
-        <input type="text" class="form-control" name="location" id="location" />
-    </div>
     <div class="row">
         <div class="col-xs-12">
             <h3 class="text-center">Vehicle Details</h3>
@@ -46,120 +49,100 @@
     </div>
     @*body, color, engine, fuel*@
     <div class="row">
-        <div class="col-xs-3">
+        <div class="col-xs-12 col-sm-6 col-lg-3">
             <div class="form-group">
                 <label for="bodystyle">Body Style:</label>
-                <select name="bodystyle" id="bodystyle" class="form-control">
-                    <option value="1">
-                        Coupe
-                    </option>
-                    <option value="2">
-                        Sedan
-                    </option>
-                </select>
+                <select name="bodystyle" id="bodystyle" class="form-control"></select>
             </div>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-12 col-sm-6 col-lg-3">
             <div class="form-group">
                 <label for="color">Color:</label>
-                <select name="color" id="color" class="form-control">
-                    <option value="1">
-                        Red
-                    </option>
-                    <option value="2">
-                        Black
-                    </option>
-                </select>
+                <select name="color" id="color" class="form-control"></select>
             </div>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-12 col-sm-6 col-lg-3">
             <div class="form-group">
                 <label for="cylinder">Engine Cylinders:</label>
-                <select name="cylinder" id="cylinder" class="form-control">
-                    <option value="1">
-                        4
-                    </option>
-                    <option value="2">
-                        6
-                    </option>
-                </select>
+                <select name="cylinder" id="cylinder" class="form-control"></select>
             </div>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-12 col-sm-6 col-lg-3">
             <div class="form-group">
                 <label for="fuelType">Fuel:</label>
-                <select name="fuelType" id="fuelType" class="form-control">
-                    <option value="1">
-                        Gas
-                    </option>
-                    <option value="2">
-                        Diesel
-                    </option>
-                </select>
+                <select name="fuelType" id="fuelType" class="form-control"></select>
             </div>
         </div>
     </div>
 
     @*make, model, transmission, condition*@
     <div class="row">
-        <div class="col-xs-3">
+        <div class="col-xs-12 col-sm-6 col-lg-3">
             <div class="form-group">
                 <label for="make">Make:</label>
-                <select name="make" id="make" class="form-control">
-                    <option value="1">
-                        Audi
-                    </option>
-                    <option value="2">
-                        BMW
-                    </option>
-                </select>
+                <select name="make" id="make" class="form-control"></select>
             </div>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-12 col-sm-6 col-lg-3">
             <div class="form-group">
                 <label for="model">Model:</label>
-                <select name="model" id="model" class="form-control">
-                    <option value="1">
-                        A4
-                    </option>
-                    <option value="2">
-                        A6
-                    </option>
-                </select>
+                <select name="model" id="model" class="form-control"></select>
             </div>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-12 col-sm-6 col-lg-3">
             <div class="form-group">
                 <label for="transmission">Transmission:</label>
-                <select name="tranmission" id="transmission" class="form-control">
-                    <option value="1">
-                        Manual
-                    </option>
-                    <option value="2">
-                        Auto-Manual
-                    </option>
-                </select>
+                <select name="tranmission" id="transmission" class="form-control"></select>
             </div>
         </div>
-        <div class="col-xs-3">
+        <div class="col-xs-12 col-sm-6 col-lg-3">
             <div class="form-group">
                 <label for="condition">Condition:</label>
-                <select name="condition" id="condition" class="form-control">
-                    <option value="1">
-                        New
-                    </option>
-                    <option value="2">
-                        Used
-                    </option>
-                </select>
+                <select name="condition" id="condition" class="form-control"></select>
             </div>
         </div>
-        <div class="row">
-            add images next
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6 col-sm-3">
+            <div class="form-group">
+                <label for="year">
+                    Year:( e.g 1999)
+                </label>
+                <div id="yearError" class="alert alert-danger hidden" role="alert">
+                   
+                </div>
+                
+                <input type="text" name="year" id="year" class="form-control" required />
+            </div>
         </div>
-        <div class="form-group">
-            <input type="submit" value="Post" class="btn btn-primary form-control" />
+        <div class="col-xs-6 col-sm-3">
+            <div class="form-group">
+                <label for="title">
+                    Title:
+                </label>
+                <input type="text" name="title" id="title" class="form-control" required />
+            </div>
         </div>
+        <div class="col-xs-12 col-sm-6 pull-right">
+            <div class="form-group">
+                <label for="details">
+                    Details:
+                </label>
+                <textarea class="form-control" id="details" name="details" role="textbox" rows="5"  required></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group ">
+                <input type="submit" id="postingBtn" value="Post" class="btn btn-primary form-control" />
+            </div>
+        </div>
+    </div>
+
+    <div>
+        TODO: image uplod
     </div>
 </form>
 

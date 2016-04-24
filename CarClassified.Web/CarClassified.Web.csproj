@@ -182,6 +182,7 @@
     <Compile Include="Utilities\Interfaces\StaticQueries.cs" />
     <Compile Include="Utilities\VeryBasicEmail.cs" />
     <Compile Include="ViewModels\PosterVM.cs" />
+    <Compile Include="ViewModels\PostDetailsVM.cs" />
     <Compile Include="ViewModels\StateVM.cs" />
     <Compile Include="WebAutomapping\WebAutomappingProfile.cs" />
   </ItemGroup>
@@ -211,6 +212,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="scripts\Utility\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CarClassified.Common\CarClassified.Common.csproj">

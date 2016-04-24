@@ -8,15 +8,14 @@ namespace CarClassified.Models.Tables
 {
     public class Post
     {
-        //change spelling of title in db
-        public int Id { get; set; }
-
-        public int Title { get; set; }
         public string Body { get; set; }
+        public long Id { get; set; }
+
         public bool IsActive { get; set; }
         public string Location { get; set; }
+        public DateTime PostDate { get; set; }
         public Guid PosterId { get; set; }
         public int StateId { get; set; }
-        public DateTime PostDate { get; set; }
+        public string Title { get; set; }
     }
 }

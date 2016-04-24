@@ -26,24 +26,6 @@ namespace CarClassified.DataLayer
             _context.Transaction(t => _context.Connection.Execute(query, parameter, t));
         }
 
-        public IEnumerable<T> Query<T>(string query, object parameter = null)
-        {
-            return _context.Transaction(t =>
-            {
-                var result = _context.Connection.Query<T>(query, parameter, t);
-                return result;
-            });
-        }
-
-        public IEnumerable<TReturn> MultiMapQuery<TFirst, TSecond, TReturn>(string query, Func<TFirst, TSecond, TReturn> map, object parameter = null)
-        {
-            return _context.Transaction(t =>
-          {
-              var result = _context.Connection.Query<TFirst, TSecond, TReturn>(query, map, parameter, t);
-              return result;
-          });
-        }
-
         public GridReader GetAssests(string query, AllAssests all)
         {
             var reader =
@@ -56,12 +38,29 @@ namespace CarClassified.DataLayer
                    all.Colors = result.Read<Color>().ToList();
                    all.Conditions = result.Read<Condition>().ToList();
                    all.Cylinders = result.Read<Cylinder>().ToList();
-                   all.States = result.Read<State>().ToList();
                    all.Transmissions = result.Read<Transmission>().ToList();
                    return result;
                });
 
             return reader;
+        }
+
+        public IEnumerable<TReturn> MultiMapQuery<TFirst, TSecond, TReturn>(string query, Func<TFirst, TSecond, TReturn> map, object parameter = null)
+        {
+            return _context.Transaction(t =>
+          {
+              var result = _context.Connection.Query<TFirst, TSecond, TReturn>(query, map, parameter, t);
+              return result;
+          });
+        }
+
+        public IEnumerable<T> Query<T>(string query, object parameter = null)
+        {
+            return _context.Transaction(t =>
+            {
+                var result = _context.Connection.Query<T>(query, parameter, t);
+                return result;
+            });
         }
     }
 }

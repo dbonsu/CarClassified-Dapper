@@ -1,31 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace CarClassified.Models.Tables
+namespace CarClassified.Web.ViewModels
 {
-    public class Vehicle
+    public class PostDetailsVM : PosterVM
     {
-        public int BodyId { get; set; }
-
+        public int BodyStyleId { get; set; }
         public int ColorId { get; set; }
-
         public int ConditionId { get; set; }
-
         public int CylinderId { get; set; }
-
+        public string Details { get; set; }
         public int FuelId { get; set; }
-
-        public int Id { get; set; }
-
-        public int ImageOne { get; set; }
-        public int ImageTwo { get; set; }
+        public string Location { get; set; }
         public int MakeId { get; set; }
         public int ModelId { get; set; }
-        public long PostId { get; set; }
+        public string Title { get; set; }
         public int TransmissionId { get; set; }
-        public int Year { get; set; }
     }
 }

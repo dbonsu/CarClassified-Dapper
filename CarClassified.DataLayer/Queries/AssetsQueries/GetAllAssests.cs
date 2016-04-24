@@ -20,7 +20,7 @@ namespace CarClassified.DataLayer.Queries.AssetsQueries
             var color = "SELECT * FROM Color";
             var condition = "SELECT * FROM Condition";
             var cylinder = "SELECT * FROM Cylinder";
-            var state = "SELECT * FROM State";
+
             var trans = "SELECT * FROM Transmission";
             var fuelTypes = "SELECT * FROM Fuel ";
             string makeAndModel = "SELECT * from Make m left join VehicleModel vm on vm.MakeId =m.Id Order By m.Name ";
@@ -37,7 +37,7 @@ namespace CarClassified.DataLayer.Queries.AssetsQueries
             all.Colors = unit.Query<Color>(color).ToList();
             all.Conditions = unit.Query<Condition>(condition).ToList();
             all.Cylinders = unit.Query<Cylinder>(cylinder).ToList();
-            all.States = unit.Query<State>(state).ToList();
+
             all.Transmissions = unit.Query<Transmission>(trans).ToList();
             all.FuelTypes = unit.Query<Fuel>(fuelTypes).ToList();
             unit.MultiMapQuery<Make, VehicleModel, Make>(makeAndModel, (make, model) =>
