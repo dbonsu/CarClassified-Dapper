@@ -13,6 +13,7 @@ namespace CarClassified.Web.ViewModels
         public int CylinderId { get; set; }
         public string Details { get; set; }
         public int FuelId { get; set; }
+        public byte[] ImageOne { get; set; }
         public string Location { get; set; }
         public int MakeId { get; set; }
         public int ModelId { get; set; }

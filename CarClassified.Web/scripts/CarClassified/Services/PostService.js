@@ -5,6 +5,7 @@ CarClassified.Services = CarClassified.Services || {};
 CarClassified.Services.PostService = function () {
     var ASSESTS = "/api/assests"
     var POST_LISTING = "/api/post"
+
     var self = this;
 
     self.test = function (name) {
@@ -23,6 +24,24 @@ CarClassified.Services.PostService = function () {
             url: POST_LISTING,
             data: model,
             type: 'POST',
+            cache:false,
+            contentType: false,
+            processData: false
+        }).success(function (d, x, t) {
+            successCallback();
+        }).fail(function (x, t, e) {
+            failureCallback();
+        });
+    }
+
+    self.completePostWithImage = function (formData, successCallBack, failureCallBack) {
+        $.ajax({
+            url: '/api/debug/image',
+            data: formData,
+            type: 'POST',
+            cache: false,
+            contentType: false,
+            processData: false
         }).success(function (d, x, t) {
             successCallback();
         }).fail(function (x, t, e) {

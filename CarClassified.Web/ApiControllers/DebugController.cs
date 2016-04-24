@@ -7,11 +7,14 @@ using CarClassified.Models.SimpleDTOs;
 using CarClassified.Models.Tables;
 using CarClassified.Models.Views;
 using CarClassified.Web.Utilities.Interfaces;
+using CarClassified.Web.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Web;
 using System.Web.Http;
 
@@ -21,9 +24,9 @@ namespace CarClassified.Web.ApiControllers
     public class DebugController : ApiController
     {
         private IDatabase _db;
-        private IUnitOfWork _unit;
         private IVeryBasicEmail _email;
         private ITokenUtility _token;
+        private IUnitOfWork _unit;
 
         public DebugController(IDatabase db, IUnitOfWork unit, IVeryBasicEmail email, ITokenUtility token)
         {
@@ -31,6 +34,19 @@ namespace CarClassified.Web.ApiControllers
             _unit = unit;
             _email = email;
             _token = token;
+        }
+
+        [HttpGet]
+        [Route("colors")]
+        public IHttpActionResult GetColors()
+        {
+            //var result = _db.Query<ICollection<Color>>(new DebugQuery());
+            //if (result.Count > 0)
+            //{
+            //    return Ok(result);
+            //}
+            var v = _db.Query<Poster>(new GetPoster("derick@d.com"));
+            return BadRequest();
         }
 
         [HttpGet]
@@ -48,17 +64,33 @@ namespace CarClassified.Web.ApiControllers
             return _token.GenerateToken("der@d.com");
         }
 
-        [HttpGet]
-        [Route("colors")]
-        public IHttpActionResult GetColors()
+        [HttpPost]
+        [Route("image")]
+        public IHttpActionResult ImageTest()
         {
-            //var result = _db.Query<ICollection<Color>>(new DebugQuery());
-            //if (result.Count > 0)
-            //{
-            //    return Ok(result);
-            //}
-            var v = _db.Query<Poster>(new GetPoster("derick@d.com"));
-            return BadRequest();
+            var files = HttpContext.Current.Request.Files;
+            try
+            {
+                // get variables first
+                NameValueCollection nvc = HttpContext.Current.Request.Form;
+                var model = new PostDetailsVM();
+
+                // iterate through and map to strongly typed model
+                foreach (string kvp in nvc.AllKeys)
+                {
+                    PropertyInfo pi = model.GetType().GetProperty(kvp, BindingFlags.Public | BindingFlags.Instance);
+                    if (pi != null)
+                    {
+                        pi.SetValue(model, nvc[kvp], null);
+                    }
+                }
+
+                var image = HttpContext.Current.Request.Files["Image"];
+            }
+            catch (Exception ex)
+            {
+            }
+            return Ok();
         }
 
         [HttpPost]

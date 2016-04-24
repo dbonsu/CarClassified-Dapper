@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<form role="form" id="posting_form">
+<form role="form" id="posting_form" enctype="multipart/form-data">
     <input type="hidden" id="userId" name="userId" value="@ViewBag.user.Id" />
     <div class="row">
         <div class="col-sm-3">
@@ -102,21 +102,20 @@
             </div>
         </div>
     </div>
-
+    @*year,title,description,image*@
     <div class="row">
-        <div class="col-xs-6 col-sm-3">
+        <div class="col-xs-12 col-sm-6 col-lg-3">
             <div class="form-group">
                 <label for="year">
                     Year:( e.g 1999)
                 </label>
                 <div id="yearError" class="alert alert-danger hidden" role="alert">
-                   
                 </div>
-                
+
                 <input type="text" name="year" id="year" class="form-control" required />
             </div>
         </div>
-        <div class="col-xs-6 col-sm-3">
+        <div class="col-xs-12 col-sm-6 col-lg-3">
             <div class="form-group">
                 <label for="title">
                     Title:
@@ -124,12 +123,21 @@
                 <input type="text" name="title" id="title" class="form-control" required />
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 pull-right">
+        <div class="col-xs-12 col-sm-6 col-lg-3">
             <div class="form-group">
                 <label for="details">
                     Details:
                 </label>
-                <textarea class="form-control" id="details" name="details" role="textbox" rows="5"  required></textarea>
+                <textarea class="form-control" id="details" name="details" role="textbox" rows="5" required></textarea>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-3">
+            <div class="row">
+                <div class="col-xs-12 alert alert-danger hidden" id="image_error">
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="file" id="image_one" name="image_one" />
             </div>
         </div>
     </div>
@@ -139,10 +147,6 @@
                 <input type="submit" id="postingBtn" value="Post" class="btn btn-primary form-control" />
             </div>
         </div>
-    </div>
-
-    <div>
-        TODO: image uplod
     </div>
 </form>
 
