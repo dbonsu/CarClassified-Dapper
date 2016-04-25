@@ -90,7 +90,7 @@ namespace CarClassified.Web.Controllers
         public ActionResult Email(string token)
         {
             //read token and get emailaddress
-            //user has not already be verified and exists
+            //user has not already been verified and exists
             if (string.IsNullOrEmpty(token))
             {
                 return RedirectToAction("InvalidToken", "Error");
