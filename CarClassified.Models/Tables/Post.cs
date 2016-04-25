@@ -17,5 +17,8 @@ namespace CarClassified.Models.Tables
         public Guid PosterId { get; set; }
         public int StateId { get; set; }
         public string Title { get; set; }
+        public int ImageOne { get; set; }
+        public int ImageTwo { get; set; }
+        public int ImageThree { get; set; }
     }
 }

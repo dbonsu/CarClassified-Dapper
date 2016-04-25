@@ -14,14 +14,16 @@ CarClassified.Controllers.PostController = function (postService) {
     var transmissionSelect = $('#transmission');
     var conditionSelect = $('#condition');
     var posting_form = $('#posting_form');
-    var postModel = {};
+    var wantImage = false;
+    var postingBtn = $('#postingBtn');
     var payload = {};
+    var postModel = {};
     self.start = function () {
         postService.getAssests(sucessCallback, failureCallBack);
         rebuildMake();
-        //this.sendPost();
-        this.sendPostWithImage();
-        onFileUpload();
+        this.sendPost();
+        // this.sendPostWithImage();
+        //onFileUpload();
     }
 
     self.sendPostWithImage = function () {
@@ -30,24 +32,24 @@ CarClassified.Controllers.PostController = function (postService) {
 
             if (isYearValid($('#year').val())) {
                 var formData = new FormData();
-                formData.append('id' ,$('#userId').val());
-                formData.append('firstName',$('#firstName').val());
-                formData.append('lastName',  $('#lastName').val());
-               formData.append('phone',$('#phone').val());
-                formData.append('location',$('#location').val());
-                formData.append('bodyStyleId',bodySelect.val());
-                formData.append('colorId',colorSelect.val());
-                formData.append('cylinderId',cylinderSelect.val());
+                formData.append('id', $('#userId').val());
+                formData.append('firstName', $('#firstName').val());
+                formData.append('lastName', $('#lastName').val());
+                formData.append('phone', $('#phone').val());
+                formData.append('location', $('#location').val());
+                formData.append('bodyStyleId', bodySelect.val());
+                formData.append('colorId', colorSelect.val());
+                formData.append('cylinderId', cylinderSelect.val());
                 formData.append('makeId', makeSelect.val());
-                formData.append('fuelId',fuelSelect.val());
-                formData.append('modelId',modelSelect.val());
-                formData.append('transmissionId',transmissionSelect.val());
+                formData.append('fuelId', fuelSelect.val());
+                formData.append('modelId', modelSelect.val());
+                formData.append('transmissionId', transmissionSelect.val());
                 formData.append('conditionId', conditionSelect.val());
-                formData.append('details',$("#details").val());
+                formData.append('details', $("#details").val());
                 formData.append('title', $("#title").val());
-                formData.append('year',$('#year').val());
+                formData.append('year', $('#year').val());
                 formData.append('email', $('#username').text().trim());
-                formData.append('image',$('#image_one')[0].files[0])
+                formData.append('image', $('#image_one')[0].files[0])
 
                 postService.completePostWithImage(formData, postSuccess, postFail);
             } else {
@@ -57,38 +59,60 @@ CarClassified.Controllers.PostController = function (postService) {
         });
     };
 
-    self.sendPost = function () {
+    var generateModel = function () {
+        postModel.id = $('#userId').val();
+        postModel.firstName = $('#firstName').val();
+        postModel.lastName = $('#lastName').val();
+        postModel.phone = $('#phone').val();
+        postModel.location = $('#location').val();
+        postModel.bodyStyleId = bodySelect.val();
+        postModel.colorId = colorSelect.val();
+        postModel.cylinderId = cylinderSelect.val();
+        postModel.makeId = makeSelect.val();
+        postModel.fuelId = fuelSelect.val();
+        postModel.modelId = modelSelect.val();
+        postModel.transmissionId = transmissionSelect.val();
+        postModel.conditionId = conditionSelect.val();
+        postModel.details = $("#details").val();
+        postModel.title = $("#title").val();
+        postModel.year = $('#year').val();
+        postModel.email = $('#username').text().trim();
+        return postModel;
+    };
+
+    this.sendPost = function () {
         posting_form.submit(function (event) {
             event.preventDefault();
 
-            postModel.id = $('#userId').val();
-            postModel.firstName = $('#firstName').val();
-            postModel.lastName = $('#lastName').val();
-            postModel.phone = $('#phone').val();
-            postModel.location = $('#location').val();
-            postModel.bodyStyleId = bodySelect.val();
-            postModel.colorId = colorSelect.val();
-            postModel.cylinderId = cylinderSelect.val();
-            postModel.makeId = makeSelect.val();
-            postModel.fuelId = fuelSelect.val();
-            postModel.modelId = modelSelect.val();
-            postModel.transmissionId = transmissionSelect.val();
-            postModel.conditionId = conditionSelect.val();
-            postModel.details = $("#details").val();
-            postModel.title = $("#title").val();
-            postModel.year = $('#year').val();
-            postModel.email = $('#username').text().trim();
-            if (isYearValid(postModel.year)) {
-                postService.completePost(postModel, postSuccess, postFail);
+            var generatedModel = generateModel();
+            if (isYearValid(generatedModel.year)) {
+                generateModal();
             } else {
                 $('#yearError').removeClass("hidden");
                 $('#yearError').html("Please enter a valid year (1900-2999)")
             }
-        })
+        });
     };
 
-    var postSuccess = function () {
-        window.location = "/Post";
+    var generateModal = function () {
+        $('#checkImageModal').modal();
+        $('#confirm_image').click(function () {
+            postService.completePost(postModel, postSuccess, postFail, true);
+            $('#checkImageModal').modal('hide');
+        })
+        $('#deny_image').click(function () {
+            $('#checkImageModal').modal('hide');
+            postService.completePost(postModel, postSuccess, postFail, false);
+        });
+    }
+    var postSuccess = function (d, x, t) {
+        //201 redirect to created success page
+        //200 post is store redirect to image
+        if (x == 201) {
+            window.location = "/Post/Ok";
+        } else {
+            window.location = "Post/Image";
+        }
     };
 
     var isYearValid = function (yearValue) {
@@ -101,7 +125,7 @@ CarClassified.Controllers.PostController = function (postService) {
     };
 
     var onFileUpload = function () {
-        var reg = /(.*?)\.(tif|tiff|gif|jpeg|jpg|jif|png)$/;
+        var reg = /(.*?)\.(tif|tiff|gif|jpeg|jpg|jif|png)$/i;
         $('#image_one').change(function () {
             if (reg.test($(this).val())) {
                 return;

@@ -4,7 +4,7 @@ CarClassified.Services = CarClassified.Services || {};
 
 CarClassified.Services.PostService = function () {
     var ASSESTS = "/api/assests"
-    var POST_LISTING = "/api/post"
+    var POST_LISTING = "/api/post?hasImage="
 
     var self = this;
 
@@ -19,14 +19,11 @@ CarClassified.Services.PostService = function () {
          .fail(failureCallback);
     };
 
-    self.completePost = function (model, successCallback, failureCallback) {
+    self.completePost = function (model, successCallback, failureCallback, hasImage) {
         $.ajax({
-            url: POST_LISTING,
+            url: POST_LISTING + hasImage,
             data: model,
             type: 'POST',
-            cache:false,
-            contentType: false,
-            processData: false
         }).success(function (d, x, t) {
             successCallback();
         }).fail(function (x, t, e) {

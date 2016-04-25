@@ -20,8 +20,6 @@ namespace CarClassified.Models.Tables
 
         public int Id { get; set; }
 
-        public int ImageOne { get; set; }
-        public int ImageTwo { get; set; }
         public int MakeId { get; set; }
         public int ModelId { get; set; }
         public long PostId { get; set; }

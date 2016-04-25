@@ -128,6 +128,16 @@ namespace CarClassified.Web.Controllers
             return View();
         }
 
+        public ActionResult Ok()
+        {
+            return View();
+        }
+
+        public ActionResult Image()
+        {
+            return View();
+        }
+
         private IEnumerable<SelectListItem> GetStates()
         {
             ICollection<State> statesdb = _db.Query(new GetAllStates());

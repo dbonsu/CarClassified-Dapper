@@ -28,11 +28,11 @@ namespace CarClassified.Web.ApiControllers
 
         [Route("")]
         [HttpPost]
-        public IHttpActionResult Post([FromBody] PostDetailsVM model)
+        public HttpResponseMessage Post([FromBody] PostDetailsVM model, bool hasImage)
         {
-            //TODO: add date to post create post
             //validate model
             //
+            bool xxx = hasImage;
             if (ModelState.IsValid)
             {
                 //maps parts
@@ -43,12 +43,15 @@ namespace CarClassified.Web.ApiControllers
                 post.StateId = 13;//remove after testing
                 Poster poster = _mapper.Map<Poster>(model);
                 Vehicle vehicle = _mapper.Map<Vehicle>(model);
-                _db.Execute(new CreateNewPost(post, vehicle, poster));
 
-                return Ok();
+                if (!hasImage)
+                {
+                    //_db.Execute(new CreateNewPost(post, vehicle, poster));
+                    return new HttpResponseMessage(HttpStatusCode.Created); //201
+                }
+                return new HttpResponseMessage();
             }
-
-            return BadRequest();
+            return new HttpResponseMessage(HttpStatusCode.BadRequest);
         }
     }
 }

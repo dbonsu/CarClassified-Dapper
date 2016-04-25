@@ -203,6 +203,8 @@
     <Content Include="Views\Error\LimitPost.cshtml" />
     <Content Include="Views\Post\Success.cshtml" />
     <Content Include="Views\Post\Complete.cshtml" />
+    <Content Include="Views\Post\Ok.cshtml" />
+    <Content Include="Views\Post\Image.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
