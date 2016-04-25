@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarClassified.Models.Tables
 {
-    public class Color
+    public class Color : BaseModels.BaseModel
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
     }
 }

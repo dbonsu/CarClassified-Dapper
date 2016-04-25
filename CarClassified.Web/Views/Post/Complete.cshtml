@@ -1,0 +1,172 @@
+﻿@model CarClassified.Web.ViewModels.PosterVM
+
+<div class="row">
+    <div class="col-sm-12">
+        <h3 class="text-center">Complete Posting</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <p class="text-center"> Posting for :<span id="username">@ViewBag.user.Email</span></p>
+    </div>
+</div>
+
+<form role="form" id="posting_form" enctype="multipart/form-data">
+    <input type="hidden" id="userId" name="userId" value="@ViewBag.user.Id" />
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="form-group">
+
+                <label for="firstName">First Name:</label>
+                <input type="text" name="firstName" id="firstName" class="form-control" value="@ViewBag.user.FirstName" required />
+            </div>
+        </div>
+        <div class="col-sm-3 ">
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" name="lastName" id="lastName" class="form-control" value="@ViewBag.user.LastName" required />
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label for="lastName">Phone:</label>
+                <input type="text" name="phone" id="phone" class="form-control" value="@ViewBag.user.Phone" required />
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label for="location">Your City/Town: </label>
+                <input type="text" class="form-control" name="location" id="location" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <h3 class="text-center">Vehicle Details</h3>
+        </div>
+    </div>
+    @*body, color, engine, fuel*@
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-lg-3">
+            <div class="form-group">
+                <label for="bodystyle">Body Style:</label>
+                <select name="bodystyle" id="bodystyle" class="form-control"></select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-3">
+            <div class="form-group">
+                <label for="color">Color:</label>
+                <select name="color" id="color" class="form-control"></select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-3">
+            <div class="form-group">
+                <label for="cylinder">Engine Cylinders:</label>
+                <select name="cylinder" id="cylinder" class="form-control"></select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-3">
+            <div class="form-group">
+                <label for="fuelType">Fuel:</label>
+                <select name="fuelType" id="fuelType" class="form-control"></select>
+            </div>
+        </div>
+    </div>
+
+    @*make, model, transmission, condition*@
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-lg-3">
+            <div class="form-group">
+                <label for="make">Make:</label>
+                <select name="make" id="make" class="form-control"></select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-3">
+            <div class="form-group">
+                <label for="model">Model:</label>
+                <select name="model" id="model" class="form-control"></select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-3">
+            <div class="form-group">
+                <label for="transmission">Transmission:</label>
+                <select name="tranmission" id="transmission" class="form-control"></select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-lg-3">
+            <div class="form-group">
+                <label for="condition">Condition:</label>
+                <select name="condition" id="condition" class="form-control"></select>
+            </div>
+        </div>
+    </div>
+    @*year,title,description*@
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="form-group">
+                <label for="year">
+                    Year:( e.g 1999)
+                </label>
+                <div id="yearError" class="alert alert-danger hidden" role="alert">
+                </div>
+
+                <input type="text" name="year" id="year" class="form-control" required />
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="form-group">
+                <label for="title">
+                    Title:
+                </label>
+                <input type="text" name="title" id="title" class="form-control" required />
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 pull-right col-md-4">
+            <div class="form-group">
+                <label for="details">
+                    Details:
+                </label>
+                <textarea class="form-control" id="details" name="details" role="textbox" rows="5" required></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group ">
+                <input type="submit" id="postingBtn" value="Post" class="btn btn-primary form-control" />
+            </div>
+        </div>
+    </div>
+</form>
+<!--Modal-->
+<div id="checkImageModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header red-back">
+
+                <h4 class="modal-title">Images to upload</h4>
+            </div>
+            <div class="modal-body">
+                <p> Do you have any images to upload?</p>
+            </div>
+            <div class="modal-footer">
+                <span>
+                    <button type="button" class="btn btn-primary pull-left" data-dissmiss="modal" id="confirm_image">Yes</button>
+                </span>
+                <span>
+                    <button type="button" class="btn btn-danger pull-right" data-dissmiss="modal" id="deny_image">No</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <script src="~/scripts/CarClassified/CarClassified.js"></script>
+    <script src="~/scripts/CarClassified/Services/PostService.js"></script>
+    <script src="~/scripts/CarClassified/Controllers/PostController.js"></script>
+    <script type="text/javascript">
+        new CarClassified.Controllers.PostController(new CarClassified.Services.PostService);
+    </script>
+</div>

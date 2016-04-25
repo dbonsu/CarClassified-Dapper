@@ -13,11 +13,12 @@ namespace CarClassified.Common
 {
     public class TokenUtility : ITokenUtility
     {
-        private string audienceId = ConfigurationManager.AppSettings["audienceID"];
+        private string audienceId = BaseSettings.AudienceId; //ConfigurationManager.AppSettings["audienceID"];
         private string issuer = "self";
         private byte[] keyByteArray;
         private HmacSigningCredentials signingKey;
-        private string symmetricKeyAsBase64 = ConfigurationManager.AppSettings["SymmetricKey"];
+        private string symmetricKeyAsBase64 = BaseSettings.SymmetricKey; //ConfigurationManager.AppSettings["SymmetricKey"];
+        private string scheme = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
 
         public TokenUtility()
         {
@@ -30,13 +31,13 @@ namespace CarClassified.Common
         {
             var issued = DateTime.UtcNow;
 
-            var expires = DateTime.UtcNow.AddHours(5);
+            var expires = DateTime.UtcNow.AddHours(24);
             var claims = new[]
             {
                 new Claim("email",email),
             };
 
-            var token = new System.IdentityModel.Tokens.JwtSecurityToken(issuer, audienceId, claims, issued, expires, signingKey);
+            var token = new JwtSecurityToken(issuer, audienceId, claims, issued, expires, signingKey);
 
             var handler = new JwtSecurityTokenHandler();
 
@@ -48,9 +49,13 @@ namespace CarClassified.Common
         public string GetEmail(string token)
         {
             IDictionary<string, string> result = ReadToken(token);
-            string email;
-            result.TryGetValue("email", out email);
-            return email;
+            if (result != null)
+            {
+                string email;
+                result.TryGetValue(scheme, out email);
+                return email;
+            }
+            return "";
         }
 
         public IDictionary<string, string> ReadToken(string token)
@@ -64,14 +69,22 @@ namespace CarClassified.Common
             };
             var handler = new JwtSecurityTokenHandler();
             SecurityToken securityToken = null;
-            ClaimsPrincipal claimP = handler.ValidateToken(token, validationParameters, out securityToken);
-            var claims = claimP.Claims;
-            foreach (Claim c in claims)
-            {
-                dic.Add(c.Type, c.Value);
-            }
 
-            return dic;
+            try
+            {
+                ClaimsPrincipal claimP = handler.ValidateToken(token, validationParameters, out securityToken);
+                var claims = claimP.Claims;
+                foreach (Claim c in claims)
+                {
+                    dic.Add(c.Type, c.Value);
+                }
+
+                return dic;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

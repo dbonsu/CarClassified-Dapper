@@ -34,6 +34,10 @@
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Dapper, Version=1.40.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
       <Private>True</Private>
@@ -50,6 +54,8 @@
   <ItemGroup>
     <Compile Include="Base\CarClassifiedContext.cs" />
     <Compile Include="Base\ICarClassifiedContext.cs" />
+    <Compile Include="Commands\PostingCommands\CreateNewPoster.cs" />
+    <Compile Include="DataAutomapping\DataAutomappingProfile.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="Interfaces\ICommand.cs" />
     <Compile Include="Interfaces\IDatabase.cs" />
@@ -57,17 +63,18 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="IOC\DataLayerIoc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\AssetsQueries\GetAllAssests.cs" />
+    <Compile Include="Queries\AssetsQueries\GetAllStates.cs" />
     <Compile Include="Queries\DebugQuery.cs" />
-    <Compile Include="Queries\PostingQueries\GetPosterVerification.cs" />
+    <Compile Include="Commands\PostingCommands\CreateNewPost.cs" />
+    <Compile Include="Queries\PostingQueries\GetPoster.cs" />
     <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\CarClassified.Common\CarClassified.Common.csproj">
       <Project>{e221d24f-c07c-4171-9130-06749b0c5d02}</Project>

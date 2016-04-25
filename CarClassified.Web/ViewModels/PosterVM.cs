@@ -20,6 +20,8 @@ namespace CarClassified.Web.ViewModels
         [Required]
         public string FirstName { get; set; }
 
+        public Guid Id { get; set; }
+
         [DisplayName("Last Name")]
         [Required]
         public string LastName { get; set; }
@@ -30,6 +32,7 @@ namespace CarClassified.Web.ViewModels
         [DisplayName("State")]
         public int StateId { get; set; }
 
+        public string StateName { get; set; }
         public IEnumerable<SelectListItem> UserStates { get; set; }
     }
 }

@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace CarClassified.DataLayer.Queries.PostingQueries
 {
-    public class GetPosterVerification : IQuery<VerificationDTO>
+    public class GetPoster : IQuery<Poster>
     {
         private string _email;
 
-        public GetPosterVerification(string email)
+        public GetPoster(string email)
         {
             _email = email;
         }
 
-        public VerificationDTO Execute(IUnitOfWork unit)
+        public Poster Execute(IUnitOfWork unit)
         {
-            return unit.Query<VerificationDTO>("SELECT Email,IsVerified FROM Poster WHERE Email=@email", new { email = _email }).FirstOrDefault();
+            return unit.Query<Poster>("SELECT * FROM Poster WHERE Email=@email", new { email = _email }).FirstOrDefault();
         }
     }
 }
