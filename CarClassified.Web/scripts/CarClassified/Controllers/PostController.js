@@ -111,7 +111,7 @@ CarClassified.Controllers.PostController = function (postService) {
         if (x == 201) {
             window.location = "/Post/Ok";
         } else {
-            window.location = "Post/Image";
+            window.location = "/Post/Image";
         }
     };
 

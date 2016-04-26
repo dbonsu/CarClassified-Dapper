@@ -7,6 +7,7 @@ using CarClassified.DataLayer.Interfaces;
 using CarClassified.DataLayer.Queries.AssetsQueries;
 using CarClassified.DataLayer.Queries.PostingQueries;
 using CarClassified.Models.Tables;
+using CarClassified.Models.Views;
 using CarClassified.Web.Utilities.Interfaces;
 using CarClassified.Web.ViewModels;
 using System;
@@ -27,7 +28,6 @@ namespace CarClassified.Web.Controllers
         private IVeryBasicEmail _email;
         private IMapper _mapper;
         private ITokenUtility _tokenUtil;
-        private ISessionUtility _sessionUtil;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PostController"/> class.
@@ -37,13 +37,12 @@ namespace CarClassified.Web.Controllers
         /// <param name="tokenUtil">The token utility.</param>
         /// <param name="mapper">The mapper.</param>
         public PostController(IDatabase db, IVeryBasicEmail email, ITokenUtility tokenUtil,
-            IMapper mapper, ISessionUtility sessionUtil)
+            IMapper mapper)
         {
             _db = db;
             _email = email;
             _tokenUtil = tokenUtil;
             _mapper = mapper;
-            _sessionUtil = sessionUtil;
         }
 
         /// <summary>
@@ -146,10 +145,11 @@ namespace CarClassified.Web.Controllers
             //var principal = new GenericPrincipal(identity, new string[] { "validuser" });
             //Thread.CurrentPrincipal = principal;
             //var name = Thread.CurrentPrincipal.Identity.Name;
+
             //TempData["validuser"] = user;
 
             //TODO: uncomment
-            // _sessionUtil.SetPoster(user);
+
             return RedirectToAction("Complete");
         }
 
@@ -187,6 +187,8 @@ namespace CarClassified.Web.Controllers
         /// <returns></returns>
         public ActionResult Image()
         {
+            //_sessionUtil.GetPostWithImages();
+
             return View();
         }
 

@@ -13,6 +13,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Web.Services;
 
 namespace CarClassified.Web.ApiControllers
 {
@@ -25,18 +26,16 @@ namespace CarClassified.Web.ApiControllers
     {
         private IDatabase _db;
         private IMapper _mapper;
-        private ISessionUtility _sessionUtil;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PostController"/> class.
         /// </summary>
         /// <param name="db">The database.</param>
         /// <param name="mapper">The mapper.</param>
-        public PostController(IDatabase db, IMapper mapper, ISessionUtility sessionUtil)
+        public PostController(IDatabase db, IMapper mapper)
         {
             _db = db;
             _mapper = mapper;
-            _sessionUtil = sessionUtil;
         }
 
         /// <summary>
@@ -47,6 +46,7 @@ namespace CarClassified.Web.ApiControllers
         /// <returns></returns>
         [Route("")]
         [HttpPost]
+        [WebMethod(EnableSession = true)]
         public HttpResponseMessage Post([FromBody] PostDetailsVM model, bool hasImage)
         {
             if (ModelState.IsValid)
@@ -63,11 +63,10 @@ namespace CarClassified.Web.ApiControllers
                 if (!hasImage)
                 {
                     //_db.Execute(new CreateNewPost(post, vehicle, poster));
+                    //Thread.CurrentPrincipal = null
                     return new HttpResponseMessage(HttpStatusCode.Created); //201
                 }
-                //store value in session for next image upload
-                var waitingPost = new PostWithImages { Post = post, Poster = poster, Vehicle = vehicle };
-                _sessionUtil.SetPostWithImages(waitingPost);
+
                 return new HttpResponseMessage(HttpStatusCode.OK); //200
             }
             return new HttpResponseMessage(HttpStatusCode.BadRequest);
