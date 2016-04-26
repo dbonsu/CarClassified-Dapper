@@ -84,6 +84,7 @@ namespace CarClassified.Web.ApiControllers
                 ICollection<Image> images = null;
                 ConvertToByArray(files, out images);
                 _db.Execute(new AddImagesToPost(images, "der@d.com"));
+                //Thread.CurrentPrincipal.Identity = null;
             }
             catch (Exception e)
             {
