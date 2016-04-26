@@ -4,12 +4,14 @@ using CarClassified.DataLayer.Interfaces;
 using CarClassified.DataLayer.Queries.AssetsQueries;
 using CarClassified.Models.Tables;
 using CarClassified.Models.Views;
+using CarClassified.Web.Utilities.Interfaces;
 using CarClassified.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 
 namespace CarClassified.Web.ApiControllers
@@ -23,16 +25,18 @@ namespace CarClassified.Web.ApiControllers
     {
         private IDatabase _db;
         private IMapper _mapper;
+        private ISessionUtility _sessionUtil;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PostController"/> class.
         /// </summary>
         /// <param name="db">The database.</param>
         /// <param name="mapper">The mapper.</param>
-        public PostController(IDatabase db, IMapper mapper)
+        public PostController(IDatabase db, IMapper mapper, ISessionUtility sessionUtil)
         {
             _db = db;
             _mapper = mapper;
+            _sessionUtil = sessionUtil;
         }
 
         /// <summary>
@@ -45,9 +49,6 @@ namespace CarClassified.Web.ApiControllers
         [HttpPost]
         public HttpResponseMessage Post([FromBody] PostDetailsVM model, bool hasImage)
         {
-            //validate model
-            //
-            bool xxx = hasImage;
             if (ModelState.IsValid)
             {
                 //maps parts
@@ -64,7 +65,10 @@ namespace CarClassified.Web.ApiControllers
                     //_db.Execute(new CreateNewPost(post, vehicle, poster));
                     return new HttpResponseMessage(HttpStatusCode.Created); //201
                 }
-                return new HttpResponseMessage();
+                //store value in session for next image upload
+                var waitingPost = new PostWithImages { Post = post, Poster = poster, Vehicle = vehicle };
+                _sessionUtil.SetPostWithImages(waitingPost);
+                return new HttpResponseMessage(HttpStatusCode.OK); //200
             }
             return new HttpResponseMessage(HttpStatusCode.BadRequest);
         }

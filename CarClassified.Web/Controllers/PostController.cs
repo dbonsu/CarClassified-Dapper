@@ -12,8 +12,6 @@ using CarClassified.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Principal;
-using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -29,6 +27,7 @@ namespace CarClassified.Web.Controllers
         private IVeryBasicEmail _email;
         private IMapper _mapper;
         private ITokenUtility _tokenUtil;
+        private ISessionUtility _sessionUtil;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PostController"/> class.
@@ -37,12 +36,14 @@ namespace CarClassified.Web.Controllers
         /// <param name="email">The email.</param>
         /// <param name="tokenUtil">The token utility.</param>
         /// <param name="mapper">The mapper.</param>
-        public PostController(IDatabase db, IVeryBasicEmail email, ITokenUtility tokenUtil, IMapper mapper)
+        public PostController(IDatabase db, IVeryBasicEmail email, ITokenUtility tokenUtil,
+            IMapper mapper, ISessionUtility sessionUtil)
         {
             _db = db;
             _email = email;
             _tokenUtil = tokenUtil;
             _mapper = mapper;
+            _sessionUtil = sessionUtil;
         }
 
         /// <summary>
@@ -51,6 +52,7 @@ namespace CarClassified.Web.Controllers
         /// <returns></returns>
         public ActionResult Complete()
         {
+            //TODO: remove
             ViewBag.user = new PosterVM
             {
                 Email = "der2@d.com",
@@ -59,7 +61,9 @@ namespace CarClassified.Web.Controllers
                 Phone = "555-555-5555",
                 Id = new Guid("ec0d371f-721d-498a-9920-13eaa4528629"),
                 StateId = 13
-            }; // TempData["validuser"] as PosterVM;
+            };
+
+            //_sessionUtil.GetPoster(); // TempData["validuser"] as PosterVM;
             return View();
         }
 
@@ -142,7 +146,10 @@ namespace CarClassified.Web.Controllers
             //var principal = new GenericPrincipal(identity, new string[] { "validuser" });
             //Thread.CurrentPrincipal = principal;
             //var name = Thread.CurrentPrincipal.Identity.Name;
-            TempData["validuser"] = user;
+            //TempData["validuser"] = user;
+
+            //TODO: uncomment
+            // _sessionUtil.SetPoster(user);
             return RedirectToAction("Complete");
         }
 

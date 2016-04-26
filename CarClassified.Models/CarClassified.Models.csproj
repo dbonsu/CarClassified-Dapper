@@ -57,6 +57,7 @@
     <Compile Include="Tables\Vehicle.cs" />
     <Compile Include="Tables\Model.cs" />
     <Compile Include="Views\AllAssests.cs" />
+    <Compile Include="Views\PostWithImages.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SimpleDTOs\" />
