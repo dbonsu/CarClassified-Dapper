@@ -5,6 +5,10 @@ using System.Web;
 
 namespace CarClassified.Web.ViewModels
 {
+    /// <summary>
+    /// Maps to posting and editing views
+    /// </summary>
+    /// <seealso cref="CarClassified.Web.ViewModels.PosterVM" />
     public class PostDetailsVM : PosterVM
     {
         public int BodyStyleId { get; set; }

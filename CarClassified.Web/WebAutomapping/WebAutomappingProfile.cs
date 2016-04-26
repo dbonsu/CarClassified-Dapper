@@ -8,6 +8,10 @@ using System.Web;
 
 namespace CarClassified.Web.WebAutomapping
 {
+    /// <summary>
+    /// Automapping for web layer
+    /// </summary>
+    /// <seealso cref="AutoMapper.Profile" />
     public class WebAutomappingProfile : Profile
     {
         protected override void Configure()

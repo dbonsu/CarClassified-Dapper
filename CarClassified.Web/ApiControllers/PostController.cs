@@ -14,18 +14,33 @@ using System.Web.Http;
 
 namespace CarClassified.Web.ApiControllers
 {
+    /// <summary>
+    ///
+    /// </summary>
+    /// <seealso cref="System.Web.Http.ApiController" />
     [RoutePrefix("api/post")]
     public class PostController : ApiController
     {
         private IDatabase _db;
         private IMapper _mapper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PostController"/> class.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="mapper">The mapper.</param>
         public PostController(IDatabase db, IMapper mapper)
         {
             _db = db;
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Posts the specified model.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <param name="hasImage">if set to <c>true</c> [has image].</param>
+        /// <returns></returns>
         [Route("")]
         [HttpPost]
         public HttpResponseMessage Post([FromBody] PostDetailsVM model, bool hasImage)

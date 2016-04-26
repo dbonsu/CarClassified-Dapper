@@ -43,7 +43,6 @@
     <Compile Include="BaseModels\BaseModel.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SimpleDTOs\VerificationDTO.cs" />
     <Compile Include="Tables\BodyStyle.cs" />
     <Compile Include="Tables\Color.cs" />
     <Compile Include="Tables\Condition.cs" />
@@ -56,10 +55,12 @@
     <Compile Include="Tables\State.cs" />
     <Compile Include="Tables\Transmission.cs" />
     <Compile Include="Tables\Vehicle.cs" />
-    <Compile Include="Tables\VehicleModel.cs" />
+    <Compile Include="Tables\Model.cs" />
     <Compile Include="Views\AllAssests.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="SimpleDTOs\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

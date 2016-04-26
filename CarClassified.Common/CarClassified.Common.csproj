@@ -67,7 +67,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="BaseSettings.cs" />
     <Compile Include="Constants\ErrorConstants.cs" />
     <Compile Include="Interfaces\ITokenUtility.cs" />

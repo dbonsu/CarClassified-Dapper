@@ -9,11 +9,20 @@ using System.Web;
 
 namespace CarClassified.Web.Utilities
 {
+    /// <summary>
+    /// Concrete class for handling simple email
+    /// </summary>
+    /// <seealso cref="CarClassified.Web.Utilities.Interfaces.IVeryBasicEmail" />
     public class VeryBasicEmail : IVeryBasicEmail
 
     {
         private const string SUBJECT = "CarClassified Email Verification";
 
+        /// <summary>
+        /// Sends the email.
+        /// </summary>
+        /// <param name="emailAddress">The email address.</param>
+        /// <param name="url">The URL.</param>
         public void SendEmail(string emailAddress, string url)
         {
             var body = "<div>" +

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace CarClassified.Models.Views
 {
+    /// <summary>
+    /// Maps to all listing items for drop down
+    /// </summary>
     public class AllAssests
     {
         public ICollection<BodyStyle> BodyStyles { get; set; }

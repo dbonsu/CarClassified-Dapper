@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace CarClassified.Models.Tables
 {
-    public class VehicleModel : BaseModels.BaseModel
+    /// <summary>
+    /// Maps to vehicle Model
+    /// </summary>
+    /// <seealso cref="CarClassified.Models.BaseModels.BaseModel" />
+    public class Model : BaseModels.BaseModel
     {
         public int MakeId { get; set; }
         public string Code { get; set; }
