@@ -152,6 +152,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="scripts\CarClassified\CarClassified.js" />
+    <Content Include="scripts\CarClassified\Controllers\ImageController.js" />
     <Content Include="scripts\CarClassified\Controllers\PostController.js" />
     <Content Include="scripts\CarClassified\Services\PostService.js" />
     <None Include="scripts\Library\jquery-2.2.3.intellisense.js" />

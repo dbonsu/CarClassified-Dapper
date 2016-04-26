@@ -5,7 +5,7 @@ CarClassified.Services = CarClassified.Services || {};
 CarClassified.Services.PostService = function () {
     var ASSESTS = "/api/assests"
     var POST_LISTING = "/api/post?hasImage="
-
+    var POST_IMAGE = "/api/post/image"
     var self = this;
 
     self.test = function (name) {
@@ -31,9 +31,9 @@ CarClassified.Services.PostService = function () {
         });
     }
 
-    self.completePostWithImage = function (formData, successCallBack, failureCallBack) {
+    self.PostImage = function (formData, successCallBack, failureCallBack) {
         $.ajax({
-            url: '/api/debug/image',
+            url: POST_IMAGE,
             data: formData,
             type: 'POST',
             cache: false,
@@ -41,8 +41,6 @@ CarClassified.Services.PostService = function () {
             processData: false
         }).success(function (d, x, t) {
             successCallback();
-        }).fail(function (x, t, e) {
-            failureCallback();
         });
     }
 

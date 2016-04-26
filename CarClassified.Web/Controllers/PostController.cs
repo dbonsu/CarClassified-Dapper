@@ -187,8 +187,6 @@ namespace CarClassified.Web.Controllers
         /// <returns></returns>
         public ActionResult Image()
         {
-            //_sessionUtil.GetPostWithImages();
-
             return View();
         }
 

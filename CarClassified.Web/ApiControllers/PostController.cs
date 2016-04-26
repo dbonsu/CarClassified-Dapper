@@ -7,6 +7,7 @@ using CarClassified.Models.Views;
 using CarClassified.Web.Utilities.Interfaces;
 using CarClassified.Web.ViewModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -46,7 +47,6 @@ namespace CarClassified.Web.ApiControllers
         /// <returns></returns>
         [Route("")]
         [HttpPost]
-        [WebMethod(EnableSession = true)]
         public HttpResponseMessage Post([FromBody] PostDetailsVM model, bool hasImage)
         {
             if (ModelState.IsValid)
@@ -70,6 +70,49 @@ namespace CarClassified.Web.ApiControllers
                 return new HttpResponseMessage(HttpStatusCode.OK); //200
             }
             return new HttpResponseMessage(HttpStatusCode.BadRequest);
+        }
+
+        [Route("image")]
+        [HttpPost]
+        public IHttpActionResult PostImage()
+        {
+            //var userName = Thread.CurrentPrincipal.Identity.Name;
+
+            var files = HttpContext.Current.Request.Files;
+            try
+            {
+                ICollection<Image> images = null;
+                ConvertToByArray(files, out images);
+                _db.Execute(new AddImagesToPost(images, "der@d.com"));
+            }
+            catch (Exception e)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
+
+        private void ConvertToByArray(HttpFileCollection files, out ICollection<Image> images)
+        {
+            images = new List<Image>();
+            try
+            {
+                foreach (string k in files.Keys)
+                {
+                    HttpPostedFile httpPostFile = files.Get(k);
+                    int length = httpPostFile.ContentLength;
+                    byte[] postedFile = new byte[length];
+                    var image = new Image();
+                    httpPostFile.InputStream.Read(postedFile, 0, length);
+                    image.Body = postedFile;
+                    images.Add(image);
+                }
+            }
+            catch (Exception ex)
+            {
+                //add logging
+            }
         }
     }
 }

@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Base\CarClassifiedContext.cs" />
     <Compile Include="Base\ICarClassifiedContext.cs" />
+    <Compile Include="Commands\PostingCommands\AddImagesToPost.cs" />
     <Compile Include="Commands\PostingCommands\CreateNewPoster.cs" />
     <Compile Include="DataAutomapping\DataAutomappingProfile.cs" />
     <Compile Include="Database.cs" />
