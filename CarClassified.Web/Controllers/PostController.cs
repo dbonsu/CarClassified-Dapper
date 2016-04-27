@@ -13,6 +13,8 @@ using CarClassified.Web.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -52,17 +54,8 @@ namespace CarClassified.Web.Controllers
         public ActionResult Complete()
         {
             //TODO: remove
-            ViewBag.user = new PosterVM
-            {
-                Email = "der2@d.com",
-                FirstName = "first",
-                LastName = "last",
-                Phone = "555-555-5555",
-                Id = new Guid("ec0d371f-721d-498a-9920-13eaa4528629"),
-                StateId = 13
-            };
+            ViewBag.user = TempData["validuser"] as PosterVM;
 
-            //_sessionUtil.GetPoster(); // TempData["validuser"] as PosterVM;
             return View();
         }
 
@@ -141,26 +134,13 @@ namespace CarClassified.Web.Controllers
             }
 
             //set user to identity or keep temp
-            //var identity = new GenericIdentity(user.Email, "Basic");
-            //var principal = new GenericPrincipal(identity, new string[] { "validuser" });
-            //Thread.CurrentPrincipal = principal;
-            //var name = Thread.CurrentPrincipal.Identity.Name;
+            var identity = new GenericIdentity(user.Email, "Basic");
+            var principal = new GenericPrincipal(identity, new string[] { "validuser" });
+            Thread.CurrentPrincipal = principal;
 
-            //TempData["validuser"] = user;
-
-            //TODO: uncomment
+            TempData["validuser"] = _mapper.Map<PosterVM>(user);
 
             return RedirectToAction("Complete");
-        }
-
-        // GET: Post
-        /// <summary>
-        /// Indexes this instance.
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Index()
-        {
-            return View();
         }
 
         /// <summary>

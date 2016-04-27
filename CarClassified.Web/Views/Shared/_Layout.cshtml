@@ -6,6 +6,9 @@
     <title>@ViewBag.Title  Car Classified</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Latest compiled and minified CSS -->
+
+    <link href="~/Content/bootstrap-table.css" rel="stylesheet" />
     <script src="~/Scripts/Library/modernizr-2.6.2.js"></script>
     <script src="~/scripts/Library/jquery-2.2.3.min.js"></script>
 </head>
@@ -18,8 +21,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                @Html.ActionLink("Post", "Create", "Post", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Car Classified", "Index", "Listing", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Create A Post", "Create", "Post", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav"></ul>
@@ -34,6 +37,8 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
+
+    <!-- Latest compiled and minified JavaScript -->
 
     <script src="~/Scripts/Library/bootstrap.min.js"></script>
 </body>

@@ -36,9 +36,15 @@ namespace CarClassified.Web.Utilities
             message.Body = string.Format(body, url);
             message.IsBodyHtml = true;
 
-            using (var smtp = new SmtpClient())
+            try
             {
-                smtp.Send(message);
+                using (var smtp = new SmtpClient())
+                {
+                    smtp.Send(message);
+                }
+            }
+            catch (Exception ex)
+            {
             }
         }
     }

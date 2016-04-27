@@ -22,11 +22,11 @@ CarClassified.Controllers.ImageController = function (postService) {
                     formData.append(val.id, file);
                 }
             });
-
+            var email = window.sessionStorage.getItem('tempEmail');
             //formData.append('image_one', $('#image_one')[0].files[0]);
             //formData.append('image_two', $('#image_two')[0].files[0]);
             //formData.append('image_three', $('#image_three')[0].files[0]);
-             postService.PostImage(formData, postSuccess);
+            postService.PostImage(formData, postSuccess, email);
         });
     };
 

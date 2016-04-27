@@ -28,7 +28,7 @@ CarClassified.Controllers.PostController = function (postService) {
         postModel.id = $('#userId').val();
         postModel.firstName = $('#firstName').val();
         postModel.lastName = $('#lastName').val();
-        postModel.phone = $('#phone').val();
+        postModel.phone = $('#phone').val().trim();
         postModel.location = $('#location').val();
         postModel.bodyStyleId = bodySelect.val();
         postModel.colorId = colorSelect.val();
@@ -78,6 +78,7 @@ CarClassified.Controllers.PostController = function (postService) {
         if (t.status == 201) {
             window.location = "/Post/Ok";
         } else {
+            window.sessionStorage.setItem("tempEmail", d);
             window.location = "/Post/Image";
         }
     };

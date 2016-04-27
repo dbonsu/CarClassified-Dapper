@@ -45,9 +45,9 @@ namespace CarClassified.DataLayer.Commands.PostingCommands
 
             _post.IsActive = true;
             _post.PostDate = DateTime.Now;
-            //_post.StateId = _poster.StateId;
-            string createPost = @"INSERT INTO Post(Title,Body,IsActive, Location,PosterId,StateId,PostDate,Price)
-                                Values(@Title,@Body,@IsActive,@Location,@PosterId,@StateId,@PostDate,@Price);
+
+            string createPost = @"INSERT INTO Post(Title,Body,IsActive, Location,PosterId,PostDate,Price)
+                                Values(@Title,@Body,@IsActive,@Location,@PosterId,@PostDate,@Price);
                                 SELECT CAST(SCOPE_IDENTITY() as int)";
             int postId = unit.Query<int>(createPost, _post).Single();
 
