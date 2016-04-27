@@ -23,7 +23,7 @@ namespace CarClassified.DataLayer.Commands.PostingCommands
         {
             string getPostId = @"SELECT p.Id FROM Post p JOIN Poster po ON po.Id = p.PosterId
                                 WHERE po.Email=@email AND p.IsActive =1";
-            string saveImage = @"INSERT INTO Image(Body)Values(@Body);SELECT CAST(SCOPE_IDENTITY() as int)";
+            string saveImage = @"INSERT INTO Image(Body,Extension)Values(@Body,@Extension);SELECT CAST(SCOPE_IDENTITY() as int)";
             string savePostImageJoin = @"INSERT INTO PostImage(PostId,ImageId)VALUES(@PostId,@ImageId)";
             int postId = unit.Query<int>(getPostId, new { email = _userName }).FirstOrDefault();
             if (postId > 0)

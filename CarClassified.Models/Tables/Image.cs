@@ -13,5 +13,6 @@ namespace CarClassified.Models.Tables
     {
         public int Id { get; set; }
         public byte[] Body { get; set; }
+        public string Extenstion { get; set; }
     }
 }

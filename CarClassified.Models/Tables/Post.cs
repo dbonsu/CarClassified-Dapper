@@ -20,5 +20,6 @@ namespace CarClassified.Models.Tables
         public Guid PosterId { get; set; }
         public int StateId { get; set; }
         public string Title { get; set; }
+        public decimal Price { get; set; }
     }
 }

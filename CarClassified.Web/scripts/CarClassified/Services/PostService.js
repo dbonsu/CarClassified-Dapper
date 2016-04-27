@@ -25,7 +25,7 @@ CarClassified.Services.PostService = function () {
             data: model,
             type: 'POST',
         }).success(function (d, x, t) {
-            successCallback();
+            successCallback(d, x, t);
         }).fail(function (x, t, e) {
             failureCallback();
         });
@@ -40,7 +40,7 @@ CarClassified.Services.PostService = function () {
             contentType: false,
             processData: false
         }).success(function (d, x, t) {
-            successCallback();
+            successCallback(d, x, t);
         });
     }
 

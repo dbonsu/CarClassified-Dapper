@@ -23,5 +23,6 @@ namespace CarClassified.Web.ViewModels
         public int ModelId { get; set; }
         public string Title { get; set; }
         public int TransmissionId { get; set; }
+        public decimal Price { get; set; }
     }
 }

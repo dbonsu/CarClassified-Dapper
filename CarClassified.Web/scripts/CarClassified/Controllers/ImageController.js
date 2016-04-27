@@ -16,10 +16,17 @@ CarClassified.Controllers.ImageController = function (postService) {
             event.preventDefault();
 
             var formData = new FormData();
-            formData.append('image_one', $('#image_one')[0].files[0]);
-            formData.append('image_two', $('#image_two')[0].files[0]);
-            formData.append('image_three', $('#image_three')[0].files[0]);
-            postService.PostImage(formData, postSuccess);
+            $.each($(':file'), function (key, val) {
+                var file = $(this)[0].files[0];
+                if (file !== null && file !== undefined) {
+                    formData.append(val.id, file);
+                }
+            });
+
+            //formData.append('image_one', $('#image_one')[0].files[0]);
+            //formData.append('image_two', $('#image_two')[0].files[0]);
+            //formData.append('image_three', $('#image_three')[0].files[0]);
+             postService.PostImage(formData, postSuccess);
         });
     };
 
@@ -38,7 +45,6 @@ CarClassified.Controllers.ImageController = function (postService) {
             if (reg.test($(this).val())) {
                 $('.alert').remove();
                 return;
-               
             }
             (parent).append(errorMessage);
         });

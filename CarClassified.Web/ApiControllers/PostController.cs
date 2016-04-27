@@ -83,7 +83,7 @@ namespace CarClassified.Web.ApiControllers
             {
                 ICollection<Image> images = null;
                 ConvertToByArray(files, out images);
-                _db.Execute(new AddImagesToPost(images, "der@d.com"));
+                // _db.Execute(new AddImagesToPost(images, "der@d.com"));
                 //Thread.CurrentPrincipal.Identity = null;
             }
             catch (Exception e)
@@ -107,6 +107,7 @@ namespace CarClassified.Web.ApiControllers
                     var image = new Image();
                     httpPostFile.InputStream.Read(postedFile, 0, length);
                     image.Body = postedFile;
+                    image.Extenstion = System.IO.Path.GetExtension(httpPostFile.FileName);
                     images.Add(image);
                 }
             }

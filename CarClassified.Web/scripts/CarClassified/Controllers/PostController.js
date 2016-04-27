@@ -22,11 +22,7 @@ CarClassified.Controllers.PostController = function (postService) {
         postService.getAssests(sucessCallback, failureCallBack);
         rebuildMake();
         this.sendPost();
-     
-       onFileUpload();
     }
-
-   
 
     var generateModel = function () {
         postModel.id = $('#userId').val();
@@ -45,6 +41,7 @@ CarClassified.Controllers.PostController = function (postService) {
         postModel.details = $("#details").val();
         postModel.title = $("#title").val();
         postModel.year = $('#year').val();
+        postModel.price = $('#price').val();
         postModel.email = $('#username').text().trim();
         return postModel;
     };
@@ -77,7 +74,8 @@ CarClassified.Controllers.PostController = function (postService) {
     var postSuccess = function (d, x, t) {
         //201 redirect to created success page
         //200 post is store redirect to image
-        if (x == 201) {
+
+        if (t.status == 201) {
             window.location = "/Post/Ok";
         } else {
             window.location = "/Post/Image";
@@ -93,7 +91,6 @@ CarClassified.Controllers.PostController = function (postService) {
         return false;
     };
 
-  
     var postFail = function () {
         console.log("failed to post")
     }
