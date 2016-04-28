@@ -55,7 +55,13 @@ namespace CarClassified.Web.Controllers
         /// <returns></returns>
         public ActionResult Complete()
         {
-            ViewBag.user = TempData["validuser"] as PosterVM;
+            ViewBag.user = new PosterVM
+            {
+                Id = Guid.NewGuid(),
+                Email = "me@me.com"
+            };
+
+            //TempData["validuser"] as PosterVM;
 
             return View();
         }

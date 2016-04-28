@@ -192,6 +192,7 @@
     <Compile Include="ViewModels\ListingVM.cs" />
     <Compile Include="ViewModels\PosterVM.cs" />
     <Compile Include="ViewModels\PostDetailsVM.cs" />
+    <Compile Include="ViewModels\PostingDetailsVM.cs" />
     <Compile Include="ViewModels\StateVM.cs" />
     <Compile Include="WebAutomapping\WebAutomappingProfile.cs" />
   </ItemGroup>

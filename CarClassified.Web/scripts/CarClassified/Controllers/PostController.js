@@ -46,12 +46,34 @@ CarClassified.Controllers.PostController = function (postService) {
         postModel.email = $('#username').text().trim();
         return postModel;
     };
+    var generateModelWithText = function () {
+        postModel.id = $('#userId').val();
+        postModel.firstName = $('#firstName').val();
+        postModel.lastName = $('#lastName').val();
+        postModel.phone = $('#phone').val();
+        postModel.location = $('#location').text().trim();
+        postModel.bodyStyle = bodySelect.text().trim();
+        postModel.color = colorSelect.text().trim();
+        postModel.cylinder = cylinderSelect.text().trim();
+        postModel.make = makeSelect.text().trim();
+        postModel.fuel = fuelSelect.text().trim();
+        postModel.model = modelSelect.text().trim();
+        postModel.transmission = transmissionSelect.text().trim();
+        postModel.condition = conditionSelect.text().trim();
+        postModel.details = $("#details").val();
+        postModel.title = $("#title").val().trim();
+        postModel.year = $('#year').val();
+        postModel.miles = $('#miles').val();
+        postModel.price = $('#price').val();
+        postModel.email = $('#username').text().trim();
+        return postModel;
+    };
 
     this.sendPost = function () {
         posting_form.submit(function (event) {
             event.preventDefault();
 
-            var generatedModel = generateModel();
+            var generatedModel = generateModelWithText(); //generateModel();
             if (isYearValid(generatedModel.year)) {
                 generateModal();
             } else {
@@ -64,12 +86,12 @@ CarClassified.Controllers.PostController = function (postService) {
     var generateModal = function () {
         $('#checkImageModal').modal();
         $('#confirm_image').click(function () {
-            postService.completePost(postModel, postSuccess, postFail, true);
+            // postService.completePost(postModel, postSuccess, postFail, true);
             $('#checkImageModal').modal('hide');
         })
         $('#deny_image').click(function () {
             $('#checkImageModal').modal('hide');
-            postService.completePost(postModel, postSuccess, postFail, false);
+            // postService.completePost(postModel, postSuccess, postFail, false);
         });
     }
     var postSuccess = function (d, x, t) {

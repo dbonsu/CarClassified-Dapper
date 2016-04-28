@@ -1,41 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace CarClassified.Models.Tables
+namespace CarClassified.Web.ViewModels
 {
-    /// <summary>
-    /// Maps to a vehicle listing
-    /// </summary>
-    public class Vehicle
+    public class PostingDetailsVM
     {
         public string BodyStyle { get; set; }
-
         public string Color { get; set; }
-
         public string Condition { get; set; }
-
         public int Cylinder { get; set; }
-
+        public string Details { get; set; }
         public string Fuel { get; set; }
 
-        public int Id { get; set; }
-
+        public string Location { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
-        public long PostId { get; set; }
+        public string Title { get; set; }
         public string Transmission { get; set; }
-
-        /// <summary>
-        /// Gets or sets the year. No need for date time object
-        /// </summary>
-        /// <value>
-        /// The year.
-        /// </value>
+        public decimal Price { get; set; }
         public int Year { get; set; }
-
         public long Miles { get; set; }
     }
 }
