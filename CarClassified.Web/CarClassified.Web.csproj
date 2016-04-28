@@ -185,8 +185,11 @@
     </Compile>
     <Compile Include="IOC\WebIoc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\Assest.cs" />
+    <Compile Include="Utilities\Interfaces\IAssest.cs" />
     <Compile Include="Utilities\Interfaces\IVeryBasicEmail.cs" />
     <Compile Include="Utilities\VeryBasicEmail.cs" />
+    <Compile Include="ViewModels\ListingVM.cs" />
     <Compile Include="ViewModels\PosterVM.cs" />
     <Compile Include="ViewModels\PostDetailsVM.cs" />
     <Compile Include="ViewModels\StateVM.cs" />

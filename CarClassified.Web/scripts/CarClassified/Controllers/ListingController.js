@@ -5,15 +5,40 @@ CarClassified.Controllers = CarClassified.Controllers || {};
 CarClassified.Controllers.ListingController = function (listingService) {
     var self = this;
     var listingService = listingService;
+    var table = $('#listing_table');
     self.start = function () {
-        getListing();
+        getDefaultListing();
+        onStateSelect();
     };
 
-    var getListing = function () {
-        var result = listingService.sample();
-        $('#listing_table').bootstrapTable({
-            data: result
+    
+
+    var getDefaultListing = function () {
+        var result = listingService.getDefault(defaultSuccess, failCallback);
+       
+    };
+
+    var getStateListing = function (payload) {
+        table.bootstrapTable('load', payload);
+    }
+
+    var defaultSuccess = function (payload) {
+        table.bootstrapTable({
+            data: payload,
         });
     };
+    var failCallback = function () {
+        console.log('failed to retrieve data');
+    };
+
+    var onStateSelect = function () {
+
+        $('#states').change(function () {
+            var id = $(this).val();
+            listingService.getStateListing(id,getStateListing, failCallback)
+         
+        });
+        
+    }
     self.start();
 }

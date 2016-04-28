@@ -26,6 +26,7 @@ namespace CarClassified.Web.Controllers
     /// <seealso cref="System.Web.Mvc.Controller" />
     public class PostController : Controller
     {
+        private readonly IAssest _assest;
         private IDatabase _db;
         private IVeryBasicEmail _email;
         private IMapper _mapper;
@@ -39,12 +40,13 @@ namespace CarClassified.Web.Controllers
         /// <param name="tokenUtil">The token utility.</param>
         /// <param name="mapper">The mapper.</param>
         public PostController(IDatabase db, IVeryBasicEmail email, ITokenUtility tokenUtil,
-            IMapper mapper)
+            IMapper mapper, IAssest assest)
         {
             _db = db;
             _email = email;
             _tokenUtil = tokenUtil;
             _mapper = mapper;
+            _assest = assest;
         }
 
         /// <summary>
@@ -67,7 +69,7 @@ namespace CarClassified.Web.Controllers
         {
             var posterVM = new PosterVM
             {
-                UserStates = GetStates()
+                UserStates = _assest.GetStates()
             };
             return View(posterVM);
         }
@@ -82,7 +84,7 @@ namespace CarClassified.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                post.UserStates = GetStates();
+                post.UserStates = _assest.GetStates();
                 return View(post);
             }
             //TODO: check for user email in db
@@ -168,25 +170,6 @@ namespace CarClassified.Web.Controllers
         public ActionResult Image()
         {
             return View();
-        }
-
-        /// <summary>
-        /// Gets the states.
-        /// </summary>
-        /// <returns></returns>
-        private IEnumerable<SelectListItem> GetStates()
-        {
-            ICollection<State> statesdb = _db.Query(new GetAllStates());
-            ICollection<StateVM> states = _mapper.Map<ICollection<StateVM>>(statesdb);
-
-            var result = states.Select(x =>
-            new SelectListItem
-            {
-                Value = x.Id.ToString(),
-                Text = x.Name
-            });
-
-            return new SelectList(result, "Value", "Text");
         }
 
         private void RegisterAndSendEmail(PosterVM post)

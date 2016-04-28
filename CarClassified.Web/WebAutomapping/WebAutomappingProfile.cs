@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CarClassified.Models.Tables;
+using CarClassified.Models.Views;
 using CarClassified.Web.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -32,6 +33,9 @@ namespace CarClassified.Web.WebAutomapping
             CreateMap<PostDetailsVM, Vehicle>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                .ForMember(dest => dest.BodyId, opt => opt.MapFrom(src => src.BodyStyleId));
+
+            CreateMap<Listings, ListingVM>()
+                .ForMember(dest => dest.PostDate, opt => opt.MapFrom(src => src.PostDate.ToString("d")));
         }
     }
 }

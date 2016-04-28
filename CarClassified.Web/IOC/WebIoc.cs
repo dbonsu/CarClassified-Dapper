@@ -31,6 +31,7 @@ namespace CarClassified.Web.IOC
             var mapper = mapperConfig.CreateMapper();
             builder.RegisterInstance(mapper).As<IMapper>();
             builder.RegisterType<VeryBasicEmail>().As<IVeryBasicEmail>();
+            builder.RegisterType<Assest>().As<IAssest>();
         }
     }
 }
