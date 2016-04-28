@@ -35,5 +35,7 @@ namespace CarClassified.Models.Tables
         /// The year.
         /// </value>
         public int Year { get; set; }
+
+        public long Miles { get; set; }
     }
 }

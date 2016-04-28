@@ -53,8 +53,8 @@ namespace CarClassified.DataLayer.Commands.PostingCommands
 
             _vehicle.PostId = postId;
 
-            string createVehicle = @"INSERT INTO Vehicle(ColorId,TransmissionId,BodyId,ConditionId,FuelId,MakeId,ModelId,CylinderId,PostId,Year)
-                            Values(@ColorId,@TransmissionId,@BodyId,@ConditionId,@FuelId,@MakeId,@ModelId,@CylinderId,@PostId,@Year)";
+            string createVehicle = @"INSERT INTO Vehicle(ColorId,TransmissionId,BodyId,ConditionId,FuelId,MakeId,ModelId,CylinderId,PostId,Year,Miles)
+                            Values(@ColorId,@TransmissionId,@BodyId,@ConditionId,@FuelId,@MakeId,@ModelId,@CylinderId,@PostId,@Year,@Miles)";
 
             unit.Execute(createVehicle, _vehicle);
             //TODO:Images

@@ -39,5 +39,14 @@ namespace CarClassified.Web.ApiControllers
             var listings = _db.Query(new GetListings(stateId));
             return _mapper.Map<IEnumerable<ListingVM>>(listings);
         }
+
+        [Route("details")]
+        [HttpGet]
+        public IEnumerable<ListingVM> GetListingDetails(int Id)
+        {
+            return null;
+            //var listings = _db.Query(new GetListings(stateId));
+            //return _mapper.Map<IEnumerable<ListingVM>>(listings);
+        }
     }
 }

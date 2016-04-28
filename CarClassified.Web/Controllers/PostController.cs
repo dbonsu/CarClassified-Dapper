@@ -55,7 +55,6 @@ namespace CarClassified.Web.Controllers
         /// <returns></returns>
         public ActionResult Complete()
         {
-            //TODO: remove
             ViewBag.user = TempData["validuser"] as PosterVM;
 
             return View();

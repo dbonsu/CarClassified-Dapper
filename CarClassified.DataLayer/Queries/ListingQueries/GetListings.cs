@@ -23,27 +23,22 @@ namespace CarClassified.DataLayer.Queries.ListingQueries
 
         public ICollection<Listings> Execute(IUnitOfWork unit)
         {
-            string sql = @"SELECT TOP 10 v.Year,p.Id,p.Title, p.Location, p.PostDate, m.Name AS Make, mo.Name AS Model FROM Post p
+            string sql = @"SELECT TOP 10 v.Year,v.Miles,p.Id,p.Price,p.Title, p.Location, p.PostDate, m.Name AS Make, mo.Name AS Model FROM Post p
                             JOIN Vehicle v ON p.Id = v.PostId
                             JOIN Make m ON m.Id = v.MakeId
                             JOIN Model mo ON mo.Id  = v.ModelId
                             JOIN Poster po ON po.Id = p.PosterId
                             WHERE p.IsActive =1";
 
-            string queryWithState = @"select v.Year, p.Id,p.Title, p.Location, p.PostDate, m.Name as Make, mo.Name as Model, s.Name from Post p
-                                    Join Vehicle v on p.Id = v.PostId
-                                    join Make m on m.Id = v.MakeId
-                                    join Model mo on mo.Id  = v.ModelId
-                                    join Poster po on po.Id = p.PosterId
-                                    join dbo.State s on s.Id =po.StateId
-                                    where p.IsActive =1 and s.Id =@sId";
+            string queryWithState = @"SELECT v.Year,v.Miles, p.Id,p.Price,p.Title, p.Location, p.PostDate, m.Name AS Make, mo.Name AS Model FROM Post p
+                                    JOIN Vehicle v ON p.Id = v.PostId
+                                    JOIN Make m ON m.Id = v.MakeId
+                                    JOIN Model mo ON mo.Id  = v.ModelId
+                                    JOIN Poster po ON po.Id = p.PosterId
+                                    JOIN dbo.State s ON s.Id =po.StateId
+                                    WHERE p.IsActive =1 AND s.Id =@sId";
 
             return _stateId > 0 ? unit.Query<Listings>(queryWithState, new { sId = _stateId }).ToList() : unit.Query<Listings>(sql).ToList();
-            //if (_stateId > 0)
-            //{
-            //    return unit.Query<Listings>(queryWithState, new { sId = _stateId }).ToList();
-            //}
-            //return unit.Query<Listings>(sql).ToList();
         }
     }
 }

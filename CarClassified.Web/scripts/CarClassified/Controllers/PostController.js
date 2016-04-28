@@ -41,6 +41,7 @@ CarClassified.Controllers.PostController = function (postService) {
         postModel.details = $("#details").val();
         postModel.title = $("#title").val();
         postModel.year = $('#year').val();
+        postModel.miles = $('#miles').val();
         postModel.price = $('#price').val();
         postModel.email = $('#username').text().trim();
         return postModel;
