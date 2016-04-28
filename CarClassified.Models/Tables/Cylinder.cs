@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CarClassified.Models.Tables
 {
+    /// <summary>
+    /// Maps to Cylinder
+    /// </summary>
     public class Cylinder
     {
         public int Id { get; set; }

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CarClassified.Models.Tables
 {
+    /// <summary>
+    /// Maps to a Poster
+    /// </summary>
     public class Poster
     {
         public string Email { get; set; }

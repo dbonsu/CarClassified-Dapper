@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CarClassified.Models.Tables
 {
+    /// <summary>
+    /// Maps to a vehicle listing
+    /// </summary>
     public class Vehicle
     {
         public int BodyId { get; set; }
@@ -24,6 +27,13 @@ namespace CarClassified.Models.Tables
         public int ModelId { get; set; }
         public long PostId { get; set; }
         public int TransmissionId { get; set; }
+
+        /// <summary>
+        /// Gets or sets the year. No need for date time object
+        /// </summary>
+        /// <value>
+        /// The year.
+        /// </value>
         public int Year { get; set; }
     }
 }

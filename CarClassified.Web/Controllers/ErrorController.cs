@@ -7,14 +7,25 @@ using System.Web.Mvc;
 
 namespace CarClassified.Web.Controllers
 {
+    /// <summary>
+    /// Error views controller
+    /// </summary>
+    /// <seealso cref="System.Web.Mvc.Controller" />
     public class ErrorController : Controller
     {
-        // GET: Error
+        /// <summary>
+        /// Invalids the token.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult InvalidToken()
         {
             return View();
         }
 
+        /// <summary>
+        /// Limits the post.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult LimitPost()
         {
             var error = TempData["error"].ToString();

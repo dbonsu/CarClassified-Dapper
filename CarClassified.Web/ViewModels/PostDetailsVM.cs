@@ -5,6 +5,10 @@ using System.Web;
 
 namespace CarClassified.Web.ViewModels
 {
+    /// <summary>
+    /// Maps to posting and editing views
+    /// </summary>
+    /// <seealso cref="CarClassified.Web.ViewModels.PosterVM" />
     public class PostDetailsVM : PosterVM
     {
         public int BodyStyleId { get; set; }
@@ -19,5 +23,7 @@ namespace CarClassified.Web.ViewModels
         public int ModelId { get; set; }
         public string Title { get; set; }
         public int TransmissionId { get; set; }
+        public decimal Price { get; set; }
+        public int Year { get; set; }
     }
 }

@@ -5,14 +5,14 @@
 }
 @using System.Collections.Generic;
 
-<h2>Create</h2>
+<h3>Complete to Following:</h3>
 
 @using (Html.BeginForm("Create", "Post", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>PosterVM</h4>
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -51,7 +51,7 @@
                 @Html.LabelFor(model => model.StateId, htmlAttributes: new { @class = "control-label col-md-2" })
             </div>
             <div class="col-md-10">
-               @Html.DropDownList("StateId", Model.UserStates,  htmlAttributes: new { @class = "btn btn-default dropdown-toggle form-control select" } )
+                @Html.DropDownList("StateId", Model.UserStates, htmlAttributes: new { @class = "btn btn-default dropdown-toggle form-control select" })
             </div>
         </div>
         <div class="form-group">

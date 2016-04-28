@@ -8,12 +8,22 @@ using System.Threading.Tasks;
 
 namespace CarClassified.DataLayer.Commands.PostingCommands
 {
+    /// <summary>
+    /// Creates a new post -listing
+    /// </summary>
+    /// <seealso cref="CarClassified.DataLayer.Interfaces.ICommand" />
     public class CreateNewPost : ICommand
     {
         private Post _post;
         private Poster _poster;
         private Vehicle _vehicle;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateNewPost"/> class.
+        /// </summary>
+        /// <param name="post">The post.</param>
+        /// <param name="vehicle">The vehicle.</param>
+        /// <param name="poster">The poster.</param>
         public CreateNewPost(Post post, Vehicle vehicle, Poster poster)
         {
             _post = post;
@@ -21,6 +31,10 @@ namespace CarClassified.DataLayer.Commands.PostingCommands
             _poster = poster;
         }
 
+        /// <summary>
+        /// Executes the specified unit.
+        /// </summary>
+        /// <param name="unit">The unit.</param>
         public void Execute(IUnitOfWork unit)
         {
             _poster.IsVerified = true;
@@ -31,13 +45,12 @@ namespace CarClassified.DataLayer.Commands.PostingCommands
 
             _post.IsActive = true;
             _post.PostDate = DateTime.Now;
-            //_post.StateId = _poster.StateId;
-            string createPost = @"INSERT INTO Post(Title,Body,IsActive, Location,PosterId,StateId,PostDate)
-                                Values(@Title,@Body,@IsActive,@Location,@PosterId,@StateId,@PostDate);
+
+            string createPost = @"INSERT INTO Post(Title,Body,IsActive, Location,PosterId,PostDate,Price)
+                                Values(@Title,@Body,@IsActive,@Location,@PosterId,@PostDate,@Price);
                                 SELECT CAST(SCOPE_IDENTITY() as int)";
             int postId = unit.Query<int>(createPost, _post).Single();
 
-            //if select select fails
             _vehicle.PostId = postId;
 
             string createVehicle = @"INSERT INTO Vehicle(ColorId,TransmissionId,BodyId,ConditionId,FuelId,MakeId,ModelId,CylinderId,PostId,Year)

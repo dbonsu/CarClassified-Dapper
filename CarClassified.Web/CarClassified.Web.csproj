@@ -146,15 +146,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-table.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="scripts\CarClassified\CarClassified.js" />
+    <Content Include="scripts\CarClassified\Controllers\ImageController.js" />
+    <Content Include="scripts\CarClassified\Controllers\ListingController.js" />
     <Content Include="scripts\CarClassified\Controllers\PostController.js" />
+    <Content Include="scripts\CarClassified\Services\ListingService.js" />
     <Content Include="scripts\CarClassified\Services\PostService.js" />
     <None Include="scripts\Library\jquery-2.2.3.intellisense.js" />
+    <Content Include="scripts\Library\bootstrap-table.js" />
     <Content Include="scripts\Library\jquery-2.2.3.js" />
     <Content Include="scripts\Library\jquery-2.2.3.min.js" />
     <Content Include="scripts\Library\ai.0.15.0-build58334.js" />
@@ -168,19 +173,23 @@
   <ItemGroup>
     <Compile Include="ApiControllers\AssestsController.cs" />
     <Compile Include="ApiControllers\DebugController.cs" />
+    <Compile Include="ApiControllers\ListingController.cs" />
     <Compile Include="ApiControllers\PostController.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\ListingController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="IOC\WebIoc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\Assest.cs" />
+    <Compile Include="Utilities\Interfaces\IAssest.cs" />
     <Compile Include="Utilities\Interfaces\IVeryBasicEmail.cs" />
-    <Compile Include="Utilities\Interfaces\StaticQueries.cs" />
     <Compile Include="Utilities\VeryBasicEmail.cs" />
+    <Compile Include="ViewModels\ListingVM.cs" />
     <Compile Include="ViewModels\PosterVM.cs" />
     <Compile Include="ViewModels\PostDetailsVM.cs" />
     <Compile Include="ViewModels\StateVM.cs" />
@@ -194,7 +203,6 @@
     </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Post\Index.cshtml" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
@@ -205,6 +213,7 @@
     <Content Include="Views\Post\Complete.cshtml" />
     <Content Include="Views\Post\Ok.cshtml" />
     <Content Include="Views\Post\Image.cshtml" />
+    <Content Include="Views\Listing\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -214,6 +223,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="scripts\Library\extensions\" />
+    <Folder Include="scripts\Library\locale\" />
     <Folder Include="scripts\Utility\" />
   </ItemGroup>
   <ItemGroup>

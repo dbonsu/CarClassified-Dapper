@@ -11,22 +11,34 @@ using Thinktecture.IdentityModel.Tokens;
 
 namespace CarClassified.Common
 {
+    /// <summary>
+    /// Concrete class for token generation and reading
+    /// </summary>
+    /// <seealso cref="CarClassified.Common.Interfaces.ITokenUtility" />
     public class TokenUtility : ITokenUtility
     {
-        private string audienceId = BaseSettings.AudienceId; //ConfigurationManager.AppSettings["audienceID"];
-        private string issuer = "self";
-        private byte[] keyByteArray;
-        private HmacSigningCredentials signingKey;
-        private string symmetricKeyAsBase64 = BaseSettings.SymmetricKey; //ConfigurationManager.AppSettings["SymmetricKey"];
-        private string scheme = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
+        private const string _scheme = "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress";
+        private string _audienceId = BaseSettings.AudienceId;
+        private string _issuer = "self";
+        private byte[] _keyByteArray;
+        private HmacSigningCredentials _signingKey;
+        private string _symmetricKeyAsBase64 = BaseSettings.SymmetricKey;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TokenUtility"/> class.
+        /// </summary>
         public TokenUtility()
         {
-            keyByteArray = Encoding.Default.GetBytes(symmetricKeyAsBase64);
+            _keyByteArray = Encoding.Default.GetBytes(_symmetricKeyAsBase64);
 
-            signingKey = new HmacSigningCredentials(keyByteArray);
+            _signingKey = new HmacSigningCredentials(_keyByteArray);
         }
 
+        /// <summary>
+        /// Generates the token.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
         public string GenerateToken(string email)
         {
             var issued = DateTime.UtcNow;
@@ -37,7 +49,7 @@ namespace CarClassified.Common
                 new Claim("email",email),
             };
 
-            var token = new JwtSecurityToken(issuer, audienceId, claims, issued, expires, signingKey);
+            var token = new JwtSecurityToken(_issuer, _audienceId, claims, issued, expires, _signingKey);
 
             var handler = new JwtSecurityTokenHandler();
 
@@ -46,26 +58,36 @@ namespace CarClassified.Common
             return jwt;
         }
 
+        /// <summary>
+        /// Gets the email.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <returns></returns>
         public string GetEmail(string token)
         {
             IDictionary<string, string> result = ReadToken(token);
             if (result != null)
             {
                 string email;
-                result.TryGetValue(scheme, out email);
+                result.TryGetValue(_scheme, out email);
                 return email;
             }
             return "";
         }
 
+        /// <summary>
+        /// Reads the token.
+        /// </summary>
+        /// <param name="token">The token.</param>
+        /// <returns></returns>
         public IDictionary<string, string> ReadToken(string token)
         {
             IDictionary<string, string> dic = new Dictionary<string, string>();
             var validationParameters = new TokenValidationParameters()
             {
-                ValidAudience = audienceId,
-                IssuerSigningToken = new BinarySecretSecurityToken(keyByteArray),
-                ValidIssuer = issuer,
+                ValidAudience = _audienceId,
+                IssuerSigningToken = new BinarySecretSecurityToken(_keyByteArray),
+                ValidIssuer = _issuer,
             };
             var handler = new JwtSecurityTokenHandler();
             SecurityToken securityToken = null;
@@ -83,6 +105,7 @@ namespace CarClassified.Common
             }
             catch (Exception e)
             {
+                //add logging
                 return null;
             }
         }

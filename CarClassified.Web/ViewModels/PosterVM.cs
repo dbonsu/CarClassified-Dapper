@@ -9,6 +9,9 @@ using System.Web.Mvc;
 
 namespace CarClassified.Web.ViewModels
 {
+    /// <summary>
+    /// Maps to registring user
+    /// </summary>
     public class PosterVM
     {
         [DisplayName("Email Address")]

@@ -3,7 +3,7 @@ using CarClassified.DataLayer.Interfaces;
 using CarClassified.DataLayer.Queries;
 using CarClassified.DataLayer.Queries.AssetsQueries;
 using CarClassified.DataLayer.Queries.PostingQueries;
-using CarClassified.Models.SimpleDTOs;
+
 using CarClassified.Models.Tables;
 using CarClassified.Models.Views;
 using CarClassified.Web.Utilities.Interfaces;

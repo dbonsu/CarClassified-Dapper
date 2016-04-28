@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CarClassified.Models.Tables
 {
+    /// <summary>
+    /// Maps to a Post in db
+    /// </summary>
     public class Post
     {
         public string Body { get; set; }
@@ -15,10 +18,8 @@ namespace CarClassified.Models.Tables
         public string Location { get; set; }
         public DateTime PostDate { get; set; }
         public Guid PosterId { get; set; }
-        public int StateId { get; set; }
+
         public string Title { get; set; }
-        public int ImageOne { get; set; }
-        public int ImageTwo { get; set; }
-        public int ImageThree { get; set; }
+        public decimal Price { get; set; }
     }
 }

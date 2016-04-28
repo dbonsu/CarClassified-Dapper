@@ -10,8 +10,17 @@ using static Dapper.SqlMapper;
 
 namespace CarClassified.DataLayer.Queries.AssetsQueries
 {
+    /// <summary>
+    /// Retrieves all assests for listing selection
+    /// </summary>
+    /// <seealso cref="CarClassified.DataLayer.Interfaces.IQuery{CarClassified.Models.Views.AllAssests}" />
     public class GetAllAssests : IQuery<AllAssests>
     {
+        /// <summary>
+        /// Executes the specified unit.
+        /// </summary>
+        /// <param name="unit">The unit.</param>
+        /// <returns></returns>
         public AllAssests Execute(IUnitOfWork unit)
         {
             AllAssests all = new AllAssests();
@@ -23,7 +32,7 @@ namespace CarClassified.DataLayer.Queries.AssetsQueries
 
             var trans = "SELECT * FROM Transmission";
             var fuelTypes = "SELECT * FROM Fuel ";
-            string makeAndModel = "SELECT * from Make m left join VehicleModel vm on vm.MakeId =m.Id Order By m.Name ";
+            string makeAndModel = "SELECT * from Make m left join Model vm on vm.MakeId =m.Id Order By m.Name ";
             //string sql = @"SELECT * from BodyStyle;
             //               SELECT * from Color;
             //               SELECT* from Condition;
@@ -40,7 +49,7 @@ namespace CarClassified.DataLayer.Queries.AssetsQueries
 
             all.Transmissions = unit.Query<Transmission>(trans).ToList();
             all.FuelTypes = unit.Query<Fuel>(fuelTypes).ToList();
-            unit.MultiMapQuery<Make, VehicleModel, Make>(makeAndModel, (make, model) =>
+            unit.MultiMapQuery<Make, Model, Make>(makeAndModel, (make, model) =>
             {
                 Make found;
                 if (!lookup.TryGetValue(make.Id, out found))
@@ -49,7 +58,7 @@ namespace CarClassified.DataLayer.Queries.AssetsQueries
                 }
                 if (found.Models == null)
                 {
-                    found.Models = new List<VehicleModel>();
+                    found.Models = new List<Model>();
                 }
                 found.Models.Add(model);
                 return found;

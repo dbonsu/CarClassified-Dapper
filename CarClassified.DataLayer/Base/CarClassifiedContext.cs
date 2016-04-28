@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace CarClassified.DataLayer.Base
 {
+    /// <summary>
+    /// Concrete class for db context
+    /// </summary>
+    /// <seealso cref="CarClassified.DataLayer.Base.ICarClassifiedContext" />
     public class CarClassifiedContext : ICarClassifiedContext
     {
         private static readonly PropertyInfo ConnectionInfo = typeof(SqlConnection).GetProperty("InnerConnection", BindingFlags.NonPublic | BindingFlags.Instance);
@@ -18,11 +22,21 @@ namespace CarClassified.DataLayer.Base
 
         private bool disposedValue = false;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CarClassifiedContext"/> class.
+        /// </summary>
+        /// <param name="connectionString">The connection string.</param>
         public CarClassifiedContext(string connectionString)
         {
             _connectionString = connectionString;
         }
 
+        /// <summary>
+        /// Gets the connection.
+        /// </summary>
+        /// <value>
+        /// The connection.
+        /// </value>
         public IDbConnection Connection
         {
             get
@@ -40,6 +54,12 @@ namespace CarClassified.DataLayer.Base
             }
         }
 
+        /// <summary>
+        /// Gets or sets the _transaction.
+        /// </summary>
+        /// <value>
+        /// The _transaction.
+        /// </value>
         private IDbTransaction _transaction { get; set; }
 
         public IDbTransaction BeginTransaction()
@@ -51,6 +71,10 @@ namespace CarClassified.DataLayer.Base
             return _transaction;
         }
 
+        /// <summary>
+        /// Commits this instance.
+        /// </summary>
+        /// <exception cref="System.NullReferenceException">Attempted to commit on closed transaction</exception>
         public void Commit()
         {
             try
@@ -64,11 +88,16 @@ namespace CarClassified.DataLayer.Base
                 if (_transaction != null && _transaction.Connection != null)
                 {
                     RollBack();
+                    //add logging
                     throw new NullReferenceException("Attempted to commit on closed transaction");
                 }
             }
         }
 
+        /// <summary>
+        /// Rolls the back.
+        /// </summary>
+        /// <exception cref="System.NullReferenceException">Tried Rollback on closed Transaction</exception>
         public void RollBack()
         {
             try
@@ -79,10 +108,17 @@ namespace CarClassified.DataLayer.Base
             }
             catch (Exception ex)
             {
+                //add logging
                 throw new NullReferenceException("Tried Rollback on closed Transaction", ex);
             }
         }
 
+        /// <summary>
+        /// Transactions the specified query.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query">The query.</param>
+        /// <returns></returns>
         public T Transaction<T>(Func<IDbTransaction, T> query)
         {
             using (var connection = Connection)
@@ -130,28 +166,5 @@ namespace CarClassified.DataLayer.Base
                 disposedValue = true;
             }
         }
-
-        private static bool GetTransaction(IDbConnection conn)
-        {
-            var internalConn = ConnectionInfo.GetValue(conn, null);
-            var currentTransactionProperty = internalConn.GetType().GetProperty("CurrentTransaction", BindingFlags.NonPublic | BindingFlags.Instance);
-            var currentTransaction = currentTransactionProperty.GetValue(internalConn, null);
-            var realTransactionProperty = currentTransaction.GetType().GetProperty("Parent", BindingFlags.NonPublic | BindingFlags.Instance);
-            var realTransaction = realTransactionProperty.GetValue(currentTransaction, null);
-            if (currentTransaction == null) { return false; }
-            return true;
-            // return (SqlTransaction)realTransaction;
-        }
-
-        #region IDisposable Support
-
-        // To detect redundant calls
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~CarClassifiedContext() {
-        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-        //   Dispose(false);
-        // }
-
-        #endregion IDisposable Support
     }
 }
