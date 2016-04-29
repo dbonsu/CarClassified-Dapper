@@ -5,7 +5,7 @@ using System.Web;
 
 namespace CarClassified.Web.ViewModels
 {
-    public class PostingDetailsVM
+    public class PostingDetailsVM : PosterVM
     {
         public string BodyStyle { get; set; }
         public string Color { get; set; }

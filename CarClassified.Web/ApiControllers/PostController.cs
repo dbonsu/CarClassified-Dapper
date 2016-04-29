@@ -48,7 +48,7 @@ namespace CarClassified.Web.ApiControllers
         /// <returns></returns>
         [Route("")]
         [HttpPost]
-        public HttpResponseMessage Post([FromBody] PostDetailsVM model, bool hasImage)
+        public HttpResponseMessage Post([FromBody] PostingDetailsVM model, bool hasImage)
         {
             if (ModelState.IsValid)
             {

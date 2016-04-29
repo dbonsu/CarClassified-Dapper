@@ -57,7 +57,6 @@ namespace CarClassified.DataLayer.Commands.PostingCommands
                             Values(@Color,@Transmission,@BodyStyle,@Condition,@Fuel,@Make,@Model,@Cylinder,@PostId,@Year,@Miles)";
 
             unit.Execute(createVehicle, _vehicle);
-            //TODO:Images
         }
     }
 }

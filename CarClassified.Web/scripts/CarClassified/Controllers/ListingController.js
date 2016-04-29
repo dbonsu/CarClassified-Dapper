@@ -9,6 +9,7 @@ CarClassified.Controllers.ListingController = function (listingService) {
     self.start = function () {
         getDefaultListing();
         onStateSelect();
+        onCancelButton();
     };
 
     var getDefaultListing = function () {
@@ -29,20 +30,54 @@ CarClassified.Controllers.ListingController = function (listingService) {
         table.bootstrapTable({
             data: payload,
         });
-        self.onListingSelection();
     };
     var failCallback = function () {
         console.log('failed to retrieve data');
     };
 
     var buildModal = function (payload) {
+        //$('#detail_modal').modal();
         //create modal with images
+        var result = payload.images;
+
+        buildImages(result);
+        //var xx = result[0];
+        //$('#image_1').attr('src' , "data:image/" + xx.extension + ";base64," + xx.body);
+    }
+
+    var beforeSend = function (payload) {
+        $('#detail_modal').modal();
+        //create modal with images
+        var result = payload.images;
+
+        buildImages(result);
+        //var xx = result[0];
+        //$('#image_1').attr('src' , "data:image/" + xx.extension + ";base64," + xx.body);
+    }
+    var onCancelButton = function () {
+        $("#deny_list").click(function () {
+            $('#detail_modal').modal('hide');
+        });
+    };
+    var buildDetails = function (detailObject) {
+    };
+
+    var buildImages = function (images) {
+        $.each(images, function (key, value) {
+            var k = key;
+            var v = value;
+
+            $('#detail_images').html(
+                'one'
+                //'<img src=""' + "data:image/" + value.extension + ";base64" + value.body + ' height="200" width="250 />'
+                );
+        });
     }
 
     window.detailEvents = {
         'click .details_button': function () {
             var id = $(this).closest('tr').data('uniqueid');
-            listtingService.getListingDetail(id, buildModal, failCallback);
+            listingService.getListingDetail(id, buildModal, failCallback, beforeSend);
         }
     };
 

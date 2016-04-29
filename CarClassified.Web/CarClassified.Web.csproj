@@ -189,6 +189,7 @@
     <Compile Include="Utilities\Interfaces\IAssest.cs" />
     <Compile Include="Utilities\Interfaces\IVeryBasicEmail.cs" />
     <Compile Include="Utilities\VeryBasicEmail.cs" />
+    <Compile Include="ViewModels\ListingDetailsVM.cs" />
     <Compile Include="ViewModels\ListingVM.cs" />
     <Compile Include="ViewModels\PosterVM.cs" />
     <Compile Include="ViewModels\PostDetailsVM.cs" />

@@ -1,7 +1,9 @@
-﻿using CarClassified.Common.Interfaces;
+﻿using AutoMapper;
+using CarClassified.Common.Interfaces;
 using CarClassified.DataLayer.Interfaces;
 using CarClassified.DataLayer.Queries;
 using CarClassified.DataLayer.Queries.AssetsQueries;
+using CarClassified.DataLayer.Queries.ListingQueries;
 using CarClassified.DataLayer.Queries.PostingQueries;
 
 using CarClassified.Models.Tables;
@@ -27,13 +29,15 @@ namespace CarClassified.Web.ApiControllers
         private IVeryBasicEmail _email;
         private ITokenUtility _token;
         private IUnitOfWork _unit;
+        private IMapper _mapper;
 
-        public DebugController(IDatabase db, IUnitOfWork unit, IVeryBasicEmail email, ITokenUtility token)
+        public DebugController(IDatabase db, IUnitOfWork unit, IVeryBasicEmail email, ITokenUtility token, IMapper mapper)
         {
             _db = db;
             _unit = unit;
             _email = email;
             _token = token;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -100,6 +104,14 @@ namespace CarClassified.Web.ApiControllers
             var url = HttpUtility.UrlEncode("http://localhost:58604/api/email?verify=" + "2jcn9w82fn9wef9ncdscs98cdcs9c");
 
             _email.SendEmail(email, url);
+        }
+
+        [HttpGet]
+        [Route("images")]
+        public ListingDetailsVM Getimages()
+        {
+            var result = _db.Query(new GetListingDetails(7));
+            return _mapper.Map<ListingDetailsVM>(result);
         }
     }
 }

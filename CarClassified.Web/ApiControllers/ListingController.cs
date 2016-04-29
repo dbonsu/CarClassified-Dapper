@@ -42,11 +42,10 @@ namespace CarClassified.Web.ApiControllers
 
         [Route("details")]
         [HttpGet]
-        public IEnumerable<ListingVM> GetListingDetails(int Id)
+        public ListingDetailsVM GetListingDetails(long Id)
         {
-            return null;
-            //var listings = _db.Query(new GetListings(stateId));
-            //return _mapper.Map<IEnumerable<ListingVM>>(listings);
+            var result = _db.Query(new GetListingDetails(Id));
+            return _mapper.Map<ListingDetailsVM>(result);
         }
     }
 }

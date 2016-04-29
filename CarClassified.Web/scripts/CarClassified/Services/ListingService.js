@@ -27,13 +27,13 @@ CarClassified.Services.ListingService = function () {
         });
     };
 
-    this.getListingDetail = function (listingId, successCallback, failureCallback) {
-        return $.get(GET_LISTING_DETAILS + listingId, {})
-            .done(function (data) {
-                successCallback(data);
-            })
-        .fail(function () {
-            failureCallback();
+    this.getListingDetail = function (listingId, successCallback, failureCallback, before) {
+        return $.ajax({
+            type: 'GET',
+            url: GET_LISTING_DETAILS + listingId,
+            beforeSend: before,
+            error: failureCallback,
+            success: successCallback
         });
     };
 

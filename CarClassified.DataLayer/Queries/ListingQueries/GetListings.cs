@@ -23,22 +23,19 @@ namespace CarClassified.DataLayer.Queries.ListingQueries
 
         public ICollection<Listings> Execute(IUnitOfWork unit)
         {
-            string sql = @"SELECT TOP 10 v.Year,v.Miles,p.Id,p.Price,p.Title, p.Location, p.PostDate, m.Name AS Make, mo.Name AS Model FROM Post p
-                            JOIN Vehicle v ON p.Id = v.PostId
-                            JOIN Make m ON m.Id = v.MakeId
-                            JOIN Model mo ON mo.Id  = v.ModelId
-                            JOIN Poster po ON po.Id = p.PosterId
-                            WHERE p.IsActive =1";
+            string sqlTop20 = @"SELECT TOP 20 p.Id, p.PostDate, p.Title, p.Price,
+                                v.Year, v.Make, V.Model, v.Miles from Post p
+                                JOIN Vehicle v ON v.PostId = p.Id
+                                WHERE p.IsActive =1";
 
-            string queryWithState = @"SELECT v.Year,v.Miles, p.Id,p.Price,p.Title, p.Location, p.PostDate, m.Name AS Make, mo.Name AS Model FROM Post p
-                                    JOIN Vehicle v ON p.Id = v.PostId
-                                    JOIN Make m ON m.Id = v.MakeId
-                                    JOIN Model mo ON mo.Id  = v.ModelId
+            string queryWithState = @"SELECT p.Id, p.PostDate, p.Title, p.Price,
+                                    v.Year, v.Make, V.Model, v.Miles from Post p
+                                    JOIN Vehicle v ON v.PostId = p.Id
                                     JOIN Poster po ON po.Id = p.PosterId
-                                    JOIN dbo.State s ON s.Id =po.StateId
-                                    WHERE p.IsActive =1 AND s.Id =@sId";
+                                    JOIN State s ON s.Id = po.StateId
+                                    WHERE p.IsActive =1 AND s.Id =@sId ";
 
-            return _stateId > 0 ? unit.Query<Listings>(queryWithState, new { sId = _stateId }).ToList() : unit.Query<Listings>(sql).ToList();
+            return _stateId > 0 ? unit.Query<Listings>(queryWithState, new { sId = _stateId }).ToList() : unit.Query<Listings>(sqlTop20).ToList();
         }
     }
 }
