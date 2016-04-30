@@ -36,11 +36,11 @@ CarClassified.Controllers.ListingController = function (listingService) {
     };
 
     var buildModal = function (payload) {
-        //$('#detail_modal').modal();
         //create modal with images
         var result = payload.images;
 
         buildImages(result);
+        $('#detail_modal').modal();
         //var xx = result[0];
         //$('#image_1').attr('src' , "data:image/" + xx.extension + ";base64," + xx.body);
     }
