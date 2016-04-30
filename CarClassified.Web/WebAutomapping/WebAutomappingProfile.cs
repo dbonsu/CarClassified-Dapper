@@ -38,6 +38,7 @@ namespace CarClassified.Web.WebAutomapping
 
             CreateMap<ListingDetail, ListingDetailsVM>()
                 .ForMember(dest => dest.Images, opt => opt.MapFrom(src => RemoveDot(src.Images)))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.FirstName + " " + src.LastName))
                 .ForMember(dest => dest.PostDate, opt => opt.MapFrom(src => src.PostDate.ToString("d")));
         }
 

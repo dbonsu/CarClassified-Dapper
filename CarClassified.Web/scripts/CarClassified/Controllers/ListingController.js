@@ -10,6 +10,7 @@ CarClassified.Controllers.ListingController = function (listingService) {
         getDefaultListing();
         onStateSelect();
         onCancelButton();
+        onContactSeller();
     };
 
     var getDefaultListing = function () {
@@ -20,10 +21,31 @@ CarClassified.Controllers.ListingController = function (listingService) {
         table.bootstrapTable('load', payload);
     }
 
-    var onDetailHover = function () {
-        $('tr').hover(function () {
-            $(this).css('cursor', 'pointer');
+    var onContactSeller = function () {
+        $('#contact_seller_form').submit(function (event) {
+            event.preventDefault();
+
+            var buyer = {};
+            buyer.postId = parseInt($('#postId').text());
+            buyer.name = $('#buyer_name').val();
+            buyer.email = $('#buyer_email').val().trim();
+            if (isEmailValid(buyer.email)) {
+                //send request
+                listingService.contactSeller(buyer, successContact)
+            } else {
+                $('#buyer_email_error').removeClass('hidden');
+                $('#buyer_email_error').html('<p>Please enter a valid email  </p>');
+            }
         });
+    }
+
+    var successContact = function () {
+        $('#detail_modal').modal('hide');
+        window.location = '/Listing/Success';
+    }
+    var isEmailValid = function (email) {
+        var reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return reg.test(email);
     };
 
     var defaultSuccess = function (payload) {
@@ -36,48 +58,57 @@ CarClassified.Controllers.ListingController = function (listingService) {
     };
 
     var buildModal = function (payload) {
-        //create modal with images
         var result = payload.images;
-
-        buildImages(result);
-        $('#detail_modal').modal();
-        //var xx = result[0];
-        //$('#image_1').attr('src' , "data:image/" + xx.extension + ";base64," + xx.body);
+        buildDetails(payload);
+        buildImages(result, raiseModal);
     }
 
-    var beforeSend = function (payload) {
+    var raiseModal = function () {
         $('#detail_modal').modal();
-        //create modal with images
-        var result = payload.images;
-
-        buildImages(result);
-        //var xx = result[0];
-        //$('#image_1').attr('src' , "data:image/" + xx.extension + ";base64," + xx.body);
     }
+
     var onCancelButton = function () {
         $("#deny_list").click(function () {
             $('#detail_modal').modal('hide');
         });
     };
     var buildDetails = function (detailObject) {
+        $('#postId').html(detailObject.id);
+        $('#detail_title').html(detailObject.title);
+        $('#detail_year').html(detailObject.year);
+        $('#detail_location').html(detailObject.location);
+        $('#detail_make').html(detailObject.make);
+        $('#detail_model').html(detailObject.model);
+        $('#detail_postDate').html(detailObject.postDate);
+        $('#detail_phone').html(detailObject.phone);
+        $('#detail_title').html(detailObject.title);
+        $('#detail_name').html(detailObject.name);
+        $('#detail_miles').html(detailObject.miles);
+        $('#detail_price').html(detailObject.price);
+        $('#detail_bodyStyle').html(detailObject.bodyStyle);
+        $('#detail_color').html(detailObject.color);
+        $('#detail_transmission').html(detailObject.transmission);
+        $('#detail_cylinder').html(detailObject.cylinder);
+        $('#detail_condition').html(detailObject.condition);
+        $('#detail_fuel').html(detailObject.fuel);
+        $('#detail_detail').html(detailObject.body);
     };
 
-    var buildImages = function (images) {
+    var buildImages = function (images, callback) {
         var html = [];
-        var im ="";
+        var im = "";
         $.each(images, function (key, value) {
-                
-               im  ='<img src=""' + "data:image/" + value.extension + ";base64" + value.body + ' height="200" width="250" alt="vehicle_image" />'
-               html.push(im);
-           
+            im = '<img src="' + "data:image/" + value.extension + ";base64," + value.body + '" height="150" width="200" alt="vehicle_image" />'
+            html.push(im);
         });
         $('#detail_images').html(html);
+        callback();
     }
 
     window.detailEvents = {
         'click .details_button': function () {
             var id = $(this).closest('tr').data('uniqueid');
-            listingService.getListingDetail(id, buildModal, failCallback, beforeSend);
+            listingService.getListingDetail(id, buildModal, failCallback);
         }
     };
 

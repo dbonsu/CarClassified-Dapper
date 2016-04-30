@@ -48,28 +48,31 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header red-back">
-
-                <h4 class="modal-title">title here </h4>
+                <div class="row">
+                    <div class="col-xs-11"><h4 class="modal-title" id="detail_title"> </h4></div>
+                    <span class="glyphicon glyphicon-remove pull-right col-xs-1" id="deny_list"></span>
+                </div>
             </div>
             <div class="modal-body">
+                <p id="postId" hidden></p>
                 <div class="row">
                     <div class="col-xs-4">
                         <label for="y_label">
                             Year:
                         </label>
-                        <div id="detail_year">csdcdcscsdcdscsdcs</div>
+                        <div id="detail_year"></div>
                     </div>
                     <div class="col-xs-4">
                         <label for="l_label">
                             Location:
                         </label>
-                        <div id="detail_location">csdsdcscsdcsdc</div>
+                        <div id="detail_location"></div>
                     </div>
                     <div class="col-xs-4">
                         <label for="m_label">
                             Make:
                         </label>
-                        <div id="detail_make">csdcsdcscsdcsd</div>
+                        <div id="detail_make"></div>
                     </div>
                 </div>
 
@@ -78,7 +81,7 @@
                         <label for="mo_label">
                             Model:
                         </label>
-                        <div id="detail_model">dcsdcscsdsd</div>
+                        <div id="detail_model"></div>
                     </div>
                     <div class="col-xs-4">
                         <label for="p_label">
@@ -98,7 +101,7 @@
                         <label for="n_label">
                             Name:
                         </label>
-                        <div id="detail_make"></div>
+                        <div id="detail_name"></div>
                     </div>
                     <div class="col-xs-4">
                         <label for="mi_label">
@@ -108,7 +111,7 @@
                     </div>
                     <div class="col-xs-4">
                         <label for="pr_label">
-                            Price: $
+                            $ Price:
                         </label>
                         <div id="detail_price"></div>
                     </div>
@@ -155,20 +158,33 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
-                        <div class="body_detail">
-                            bodyssds
+                        <label for="fuel_label">
+                            Description:
+                        </label>
+                        <div id="detail_detail">
                         </div>
                     </div>
                 </div>
                 <div id="detail_images">
                 </div>
+                <div class="row">
+                    <div class="col-xs-12 alert alert-danger hidden text-center" id="buyer_email_error" role="alert">
+                    </div>
+                </div>
                 <div class="modal-footer">
-                    <span>
-                        <button type="button" class="btn btn-primary pull-left" data-dissmiss="modal" id="contact_seller">seller name</button>
-                    </span>
-                    <span>
-                        <button type="button" class="btn btn-danger pull-right" data-dissmiss="modal" id="deny_list">Cancel</button>
-                    </span>
+
+                    <form class="form-inline" id="contact_seller_form">
+                        <div class="form-group">
+                            <label for="buyer_name" class="pull-left">Name:</label>
+                            <input type="text" class="form-control" id="buyer_name" placeholder="Mike Jones" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="buyer_email" class="pull-left">Email:</label>
+
+                            <input type="email" class="form-control" id="buyer_email" placeholder="mJones@j.com" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary text-center">Contact Seller</button>
+                    </form>
                 </div>
             </div>
         </div>

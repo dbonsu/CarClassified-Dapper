@@ -189,6 +189,7 @@
     <Compile Include="Utilities\Interfaces\IAssest.cs" />
     <Compile Include="Utilities\Interfaces\IVeryBasicEmail.cs" />
     <Compile Include="Utilities\VeryBasicEmail.cs" />
+    <Compile Include="ViewModels\ContactVM.cs" />
     <Compile Include="ViewModels\ListingDetailsVM.cs" />
     <Compile Include="ViewModels\ListingVM.cs" />
     <Compile Include="ViewModels\PosterVM.cs" />
@@ -216,6 +217,7 @@
     <Content Include="Views\Post\Ok.cshtml" />
     <Content Include="Views\Post\Image.cshtml" />
     <Content Include="Views\Listing\Index.cshtml" />
+    <Content Include="Views\Listing\Success.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

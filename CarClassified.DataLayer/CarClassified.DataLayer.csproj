@@ -68,6 +68,7 @@
     <Compile Include="Queries\AssetsQueries\GetAllStates.cs" />
     <Compile Include="Queries\DebugQuery.cs" />
     <Compile Include="Commands\PostingCommands\CreateNewPost.cs" />
+    <Compile Include="Queries\ListingQueries\GetContactInfo.cs" />
     <Compile Include="Queries\ListingQueries\GetListingDetails.cs" />
     <Compile Include="Queries\ListingQueries\GetListings.cs" />
     <Compile Include="Queries\PostingQueries\GetPoster.cs" />

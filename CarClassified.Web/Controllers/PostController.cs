@@ -184,7 +184,7 @@ namespace CarClassified.Web.Controllers
             _db.Execute(new CreateNewPoster(poster));
             string url = HttpUtility.UrlEncode(BaseSettings.BaseUrl + BaseSettings.EmailVerificationUrl);
             string token = _tokenUtil.GenerateToken(post.Email);
-            _email.SendEmail(post.Email, url + token);
+            _email.SendRegistrationEmail(post.Email, url + token);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace CarClassified.DataLayer.Queries.ListingQueries
 
         public ListingDetail Execute(IUnitOfWork unit)
         {
-            string sqlQuery = @"SELECT p.Id, p.PostDate, p.Title, p.Price,p.Body,p.Location,
+            string sqlQuery = @"SELECT p.Id, po.FirstName,po.LastName,   p.PostDate, p.Title, p.Price,p.Body,p.Location,
                                v.Year, v.Make, V.Model, v.Miles,v.BodyStyle, v.Color,v.Transmission,v.Cylinder,
                                v.Condition, v.Fuel,s.Name AS State,
                                po.Phone from Post p

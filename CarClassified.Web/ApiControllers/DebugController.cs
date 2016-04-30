@@ -103,7 +103,7 @@ namespace CarClassified.Web.ApiControllers
         {
             var url = HttpUtility.UrlEncode("http://localhost:58604/api/email?verify=" + "2jcn9w82fn9wef9ncdscs98cdcs9c");
 
-            _email.SendEmail(email, url);
+            _email.SendRegistrationEmail(email, url);
         }
 
         [HttpGet]

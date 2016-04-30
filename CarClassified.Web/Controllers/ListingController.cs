@@ -21,5 +21,10 @@ namespace CarClassified.Web.Controllers
             ViewBag.states = _assest.GetStates();
             return View();
         }
+
+        public ActionResult Success()
+        {
+            return View();
+        }
     }
 }
