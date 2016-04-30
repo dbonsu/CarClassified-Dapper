@@ -27,3 +27,9 @@ textarea {
 #success_contact p {
     padding-top: 5%;
 }
+
+#contactBtn{
+    position:relative;
+    left:-40%;
+    margin-top:5%;
+}
