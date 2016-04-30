@@ -63,15 +63,15 @@ CarClassified.Controllers.ListingController = function (listingService) {
     };
 
     var buildImages = function (images) {
+        var html = [];
+        var im ="";
         $.each(images, function (key, value) {
-            var k = key;
-            var v = value;
-
-            $('#detail_images').html(
-                'one'
-                //'<img src=""' + "data:image/" + value.extension + ";base64" + value.body + ' height="200" width="250 />'
-                );
+                
+               im  ='<img src=""' + "data:image/" + value.extension + ";base64" + value.body + ' height="200" width="250" alt="vehicle_image" />'
+               html.push(im);
+           
         });
+        $('#detail_images').html(html);
     }
 
     window.detailEvents = {
