@@ -20,7 +20,7 @@ using System.Web.Services;
 namespace CarClassified.Web.ApiControllers
 {
     /// <summary>
-    ///
+    ///Handles all posting
     /// </summary>
     /// <seealso cref="System.Web.Http.ApiController" />
     [RoutePrefix("api/post")]
@@ -67,6 +67,11 @@ namespace CarClassified.Web.ApiControllers
             return new HttpResponseMessage(HttpStatusCode.BadRequest);
         }
 
+        /// <summary>
+        /// Posts the image.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
         [Route("image")]
         [HttpPost]
         public IHttpActionResult PostImage(string email)
@@ -89,6 +94,11 @@ namespace CarClassified.Web.ApiControllers
             return BadRequest();
         }
 
+        /// <summary>
+        /// Converts to by array.
+        /// </summary>
+        /// <param name="files">The files.</param>
+        /// <param name="images">The images.</param>
         private void ConvertToByArray(HttpFileCollection files, out ICollection<Image> images)
         {
             images = new List<Image>();

@@ -8,17 +8,30 @@ using System.Threading.Tasks;
 
 namespace CarClassified.DataLayer.Commands.PostingCommands
 {
+    /// <summary>
+    /// Adds image to a listing
+    /// </summary>
+    /// <seealso cref="CarClassified.DataLayer.Interfaces.ICommand" />
     public class AddImagesToPost : ICommand
     {
         private ICollection<Image> _images;
         private string _userName;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AddImagesToPost"/> class.
+        /// </summary>
+        /// <param name="images">The images.</param>
+        /// <param name="userName">Name of the user.</param>
         public AddImagesToPost(ICollection<Image> images, string userName)
         {
             _images = images;
             _userName = userName;
         }
 
+        /// <summary>
+        /// Executes the specified unit.
+        /// </summary>
+        /// <param name="unit">The unit.</param>
         public void Execute(IUnitOfWork unit)
         {
             string getPostId = @"SELECT p.Id FROM Post p JOIN Poster po ON po.Id = p.PosterId

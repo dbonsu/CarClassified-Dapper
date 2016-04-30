@@ -5,6 +5,9 @@ using System.Web;
 
 namespace CarClassified.Web.ViewModels
 {
+    /// <summary>
+    /// Holds contact info
+    /// </summary>
     public class ContactVM
     {
         public string Email { get; set; }

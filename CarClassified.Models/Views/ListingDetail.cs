@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace CarClassified.Models.Views
 {
+    /// <summary>
+    /// Holds listing details
+    /// </summary>
+    /// <seealso cref="CarClassified.Models.Views.Listings" />
     public class ListingDetail : Listings
     {
         public string Body { get; set; }

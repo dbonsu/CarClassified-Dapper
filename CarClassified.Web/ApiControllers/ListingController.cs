@@ -13,6 +13,10 @@ using System.Web.Http;
 
 namespace CarClassified.Web.ApiControllers
 {
+    /// <summary>
+    /// Handles all listings
+    /// </summary>
+    /// <seealso cref="System.Web.Http.ApiController" />
     [RoutePrefix("api/listings")]
     public class ListingController : ApiController
     {
@@ -20,6 +24,12 @@ namespace CarClassified.Web.ApiControllers
         private IVeryBasicEmail _email;
         private IMapper _mapper;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ListingController"/> class.
+        /// </summary>
+        /// <param name="db">The database.</param>
+        /// <param name="mapper">The mapper.</param>
+        /// <param name="email">The email.</param>
         public ListingController(IDatabase db, IMapper mapper, IVeryBasicEmail email)
         {
             _db = db;
@@ -27,21 +37,29 @@ namespace CarClassified.Web.ApiControllers
             _email = email;
         }
 
+        /// <summary>
+        /// Contacts the seller.
+        /// </summary>
+        /// <param name="model">The model.</param>
+        /// <returns></returns>
         [Route("contact")]
         [HttpPost]
         public IHttpActionResult ContactSeller(ContactVM model)
         {
             if (ModelState.IsValid)
             {
-                //get poster by postId
                 Contact contact = _db.Query(new GetContactInfo(model.PostId));
-                //send post email
                 _email.SendContact(model, contact);
                 return Ok();
             }
             return BadRequest();
         }
 
+        /// <summary>
+        /// Gets the listing details.
+        /// </summary>
+        /// <param name="Id">The identifier.</param>
+        /// <returns></returns>
         [Route("details")]
         [HttpGet]
         public ListingDetailsVM GetListingDetails(long Id)
@@ -50,6 +68,10 @@ namespace CarClassified.Web.ApiControllers
             return _mapper.Map<ListingDetailsVM>(result);
         }
 
+        /// <summary>
+        /// Gets the listings.
+        /// </summary>
+        /// <returns></returns>
         [Route("")]
         [HttpGet]
         public IEnumerable<ListingVM> GetListings()
@@ -58,6 +80,11 @@ namespace CarClassified.Web.ApiControllers
             return _mapper.Map<IEnumerable<ListingVM>>(listings);
         }
 
+        /// <summary>
+        /// Gets the listings.
+        /// </summary>
+        /// <param name="stateId">The state identifier.</param>
+        /// <returns></returns>
         [Route("")]
         [HttpGet]
         public IEnumerable<ListingVM> GetListings(int stateId)

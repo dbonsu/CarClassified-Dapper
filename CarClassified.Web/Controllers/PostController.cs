@@ -55,13 +55,7 @@ namespace CarClassified.Web.Controllers
         /// <returns></returns>
         public ActionResult Complete()
         {
-            ViewBag.user = new PosterVM
-            {
-                Id = Guid.NewGuid(),
-                Email = "me@me.com"
-            };
-
-            //TempData["validuser"] as PosterVM;
+            ViewBag.user = TempData["validuser"] as PosterVM;
 
             return View();
         }
@@ -92,7 +86,7 @@ namespace CarClassified.Web.Controllers
                 post.UserStates = _assest.GetStates();
                 return View(post);
             }
-            //TODO: check for user email in db
+
             Poster poster = _db.Query(new GetPoster(post.Email));
             if (poster != null)
             {
@@ -151,10 +145,10 @@ namespace CarClassified.Web.Controllers
         }
 
         /// <summary>
-        /// Successes this instance.
+        /// Images this instance.
         /// </summary>
         /// <returns></returns>
-        public ActionResult Success()
+        public ActionResult Image()
         {
             return View();
         }
@@ -169,10 +163,10 @@ namespace CarClassified.Web.Controllers
         }
 
         /// <summary>
-        /// Images this instance.
+        /// Successes this instance.
         /// </summary>
         /// <returns></returns>
-        public ActionResult Image()
+        public ActionResult Success()
         {
             return View();
         }

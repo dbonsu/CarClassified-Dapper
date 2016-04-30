@@ -8,15 +8,28 @@ using System.Threading.Tasks;
 
 namespace CarClassified.DataLayer.Queries.ListingQueries
 {
+    /// <summary>
+    /// Gets a contact information for a seller
+    /// </summary>
+    /// <seealso cref="CarClassified.DataLayer.Interfaces.IQuery{CarClassified.Models.Views.Contact}" />
     public class GetContactInfo : IQuery<Contact>
     {
         private long _postId;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetContactInfo"/> class.
+        /// </summary>
+        /// <param name="postId">The post identifier.</param>
         public GetContactInfo(long postId)
         {
             _postId = postId;
         }
 
+        /// <summary>
+        /// Executes the specified unit.
+        /// </summary>
+        /// <param name="unit">The unit.</param>
+        /// <returns></returns>
         public Contact Execute(IUnitOfWork unit)
         {
             string query = @"SELECT po.Email, po.FirstName, po.LastName FROM Poster po

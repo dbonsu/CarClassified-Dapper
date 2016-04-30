@@ -69,7 +69,6 @@
   <ItemGroup>
     <Compile Include="BaseSettings.cs" />
     <Compile Include="Constants\ErrorConstants.cs" />
-    <Compile Include="Constants\SessionSettings.cs" />
     <Compile Include="Interfaces\ITokenUtility.cs" />
     <Compile Include="IOCModule\CustomModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

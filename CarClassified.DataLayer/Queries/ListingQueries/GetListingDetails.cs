@@ -9,15 +9,28 @@ using System.Threading.Tasks;
 
 namespace CarClassified.DataLayer.Queries.ListingQueries
 {
+    /// <summary>
+    /// Gets a detail for a listing
+    /// </summary>
+    /// <seealso cref="CarClassified.DataLayer.Interfaces.IQuery{CarClassified.Models.Views.ListingDetail}" />
     public class GetListingDetails : IQuery<ListingDetail>
     {
         private long _postId;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetListingDetails"/> class.
+        /// </summary>
+        /// <param name="postId">The post identifier.</param>
         public GetListingDetails(long postId)
         {
             _postId = postId;
         }
 
+        /// <summary>
+        /// Executes the specified unit.
+        /// </summary>
+        /// <param name="unit">The unit.</param>
+        /// <returns></returns>
         public ListingDetail Execute(IUnitOfWork unit)
         {
             string sqlQuery = @"SELECT p.Id, po.FirstName,po.LastName,   p.PostDate, p.Title, p.Price,p.Body,p.Location,

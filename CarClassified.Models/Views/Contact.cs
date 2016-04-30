@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace CarClassified.Models.Views
 {
+    /// <summary>
+    /// Holds contact information
+    /// </summary>
     public class Contact
     {
         public string Email { get; set; }

@@ -6,6 +6,7 @@ CarClassified.Controllers.ListingController = function (listingService) {
     var self = this;
     var listingService = listingService;
     var table = $('#listing_table');
+
     self.start = function () {
         getDefaultListing();
         onStateSelect();
@@ -30,7 +31,6 @@ CarClassified.Controllers.ListingController = function (listingService) {
             buyer.name = $('#buyer_name').val();
             buyer.email = $('#buyer_email').val().trim();
             if (isEmailValid(buyer.email)) {
-                //send request
                 listingService.contactSeller(buyer, successContact)
             } else {
                 $('#buyer_email_error').removeClass('hidden');

@@ -8,14 +8,25 @@ using System.Threading.Tasks;
 
 namespace CarClassified.DataLayer.Queries.ListingQueries
 {
+    /// <summary>
+    /// Gets active listings
+    /// </summary>
+    /// <seealso cref="CarClassified.DataLayer.Interfaces.IQuery{System.Collections.Generic.ICollection{CarClassified.Models.Views.Listings}}" />
     public class GetListings : IQuery<ICollection<Listings>>
     {
         private int _stateId;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetListings"/> class.
+        /// </summary>
         public GetListings()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetListings"/> class.
+        /// </summary>
+        /// <param name="stateId">The state identifier.</param>
         public GetListings(int stateId)
         {
             _stateId = stateId;

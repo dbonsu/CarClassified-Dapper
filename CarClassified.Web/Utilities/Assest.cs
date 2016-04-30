@@ -12,6 +12,10 @@ using System.Web.Mvc;
 
 namespace CarClassified.Web.Utilities
 {
+    /// <summary>
+    /// Concrete class for handling all assests(states, colors etc)
+    /// </summary>
+    /// <seealso cref="CarClassified.Web.Utilities.Interfaces.IAssest" />
     public class Assest : IAssest
     {
         private readonly IDatabase _db;
@@ -23,6 +27,10 @@ namespace CarClassified.Web.Utilities
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Gets the states.
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<SelectListItem> GetStates()
         {
             {
