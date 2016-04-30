@@ -17,30 +17,32 @@ CarClassified.Controllers.PostController = function (postService) {
     var wantImage = false;
     var postingBtn = $('#postingBtn');
     var payload = {};
-    var postModel = {};
+
     self.start = function () {
         postService.getAssests(sucessCallback, failureCallBack);
         rebuildMake();
         this.sendPost();
     }
 
-    var generateModel = function () {
+    var generateModelWithText = function () {
+        var postModel = {};
         postModel.id = $('#userId').val();
         postModel.firstName = $('#firstName').val();
         postModel.lastName = $('#lastName').val();
-        postModel.phone = $('#phone').val().trim();
+        postModel.phone = $('#phone').val();
         postModel.location = $('#location').val();
-        postModel.bodyStyleId = bodySelect.val();
-        postModel.colorId = colorSelect.val();
-        postModel.cylinderId = cylinderSelect.val();
-        postModel.makeId = makeSelect.val();
-        postModel.fuelId = fuelSelect.val();
-        postModel.modelId = modelSelect.val();
-        postModel.transmissionId = transmissionSelect.val();
-        postModel.conditionId = conditionSelect.val();
+        postModel.bodyStyle = $('#bodystyle option:selected').text().trim();
+        postModel.color = $('#color option:selected').text().trim();
+        postModel.cylinder = $('#cylinder option:selected').text().trim();
+        postModel.make = $('#make option:selected').text().trim();
+        postModel.fuel = $('#fuelType option:selected').text().trim();
+        postModel.model = $('#model option:selected').text().trim();
+        postModel.transmission = $('#transmission option:selected').text().trim();
+        postModel.condition = $('#condition option:selected').text().trim();
         postModel.details = $("#details").val();
-        postModel.title = $("#title").val();
+        postModel.title = $("#title").val().trim();
         postModel.year = $('#year').val();
+        postModel.miles = $('#miles').val();
         postModel.price = $('#price').val();
         postModel.email = $('#username').text().trim();
         return postModel;
@@ -49,10 +51,9 @@ CarClassified.Controllers.PostController = function (postService) {
     this.sendPost = function () {
         posting_form.submit(function (event) {
             event.preventDefault();
-
-            var generatedModel = generateModel();
+            var generatedModel = generateModelWithText();
             if (isYearValid(generatedModel.year)) {
-                generateModal();
+                generateModal(generatedModel);
             } else {
                 $('#yearError').removeClass("hidden");
                 $('#yearError').html("Please enter a valid year (1900-2999)")
@@ -60,20 +61,20 @@ CarClassified.Controllers.PostController = function (postService) {
         });
     };
 
-    var generateModal = function () {
+    var generateModal = function (model) {
         $('#checkImageModal').modal();
         $('#confirm_image').click(function () {
-            postService.completePost(postModel, postSuccess, postFail, true);
+            postService.completePost(model, postSuccess, postFail, true);
             $('#checkImageModal').modal('hide');
-        })
+        });
         $('#deny_image').click(function () {
             $('#checkImageModal').modal('hide');
-            postService.completePost(postModel, postSuccess, postFail, false);
+            postService.completePost(model, postSuccess, postFail, false);
         });
     }
     var postSuccess = function (d, x, t) {
         //201 redirect to created success page
-        //200 post is store redirect to image
+        //200 post is stored, redirect to image
 
         if (t.status == 201) {
             window.location = "/Post/Ok";

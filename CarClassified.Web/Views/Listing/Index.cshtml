@@ -1,0 +1,203 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row">
+
+    <div class="col-xs-12">
+        <div class="form-group">
+            <label class="control-label col-sm-offset-2 col-sm-2" for="states">Please select a state for full list</label>
+            <div class="col-sm-6 col-md-4">
+                @Html.DropDownList("states", (IEnumerable<SelectListItem>)ViewBag.states, htmlAttributes: new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<div class="table-responsive">
+    <table id="listing_table" class="table table-bordered"
+           data-sort-order="desc"
+           data-pagination="true"
+           data-search="true"
+           data-click-to-select="true"
+           data-unique-id="id">
+        <thead>
+            <tr>
+                <th data-field="id" data-visible="false"> </th>
+                <th data-field="year" data-sortable="true">Year </th>
+                <th data-field="title"> Title</th>
+                <th data-field="price" data-sortable="true">$ Price</th>
+                <th data-field="make" data-sortable="true"> Make</th>
+                <th data-field="model">Model</th>
+                <th data-field="miles" data-sortable="true">Miles</th>
+                <th data-field="postDate" data-sortable="true">Post Date</th>
+                <th data-field="get_detail"
+                    data-formatter="<button type='button' class='btn btn-primary details_button'>Details</button>"
+                    data-events="detailEvents">
+                </th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<!--Modal-->
+<div id="detail_modal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header red-back">
+                <div class="row">
+                    <div class="col-xs-11"><h4 class="modal-title" id="detail_title"> </h4></div>
+                    <span class="glyphicon glyphicon-remove pull-right col-xs-1" id="deny_list"></span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <p id="postId" hidden></p>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label for="y_label">
+                            Year:
+                        </label>
+                        <div id="detail_year"></div>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="l_label">
+                            Location:
+                        </label>
+                        <div id="detail_location"></div>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="m_label">
+                            Make:
+                        </label>
+                        <div id="detail_make"></div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label for="mo_label">
+                            Model:
+                        </label>
+                        <div id="detail_model"></div>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="p_label">
+                            Posted Date:
+                        </label>
+                        <div id="detail_postDate"></div>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="p_label">
+                            Phone:
+                        </label>
+                        <div id="detail_phone"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label for="n_label">
+                            Name:
+                        </label>
+                        <div id="detail_name"></div>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="mi_label">
+                            Miles:
+                        </label>
+                        <div id="detail_miles"></div>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="pr_label">
+                            $ Price:
+                        </label>
+                        <div id="detail_price"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label for="bodyStyle_label">
+                            Body Style:
+                        </label>
+                        <div id="detail_bodyStyle"></div>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="co_label">
+                            Color:
+                        </label>
+                        <div id="detail_color"></div>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="tr_label">
+                            Transmission
+                        </label>
+                        <div id="detail_transmission"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <label for="cy_label">
+                            Cylinder:
+                        </label>
+                        <div id="detail_cylinder"></div>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="con_label">
+                            Condition:
+                        </label>
+                        <div id="detail_condition"></div>
+                    </div>
+                    <div class="col-xs-4">
+                        <label for="fuel_label">
+                            Fuel:
+                        </label>
+                        <div id="detail_fuel"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label for="fuel_label">
+                            Description:
+                        </label>
+                        <div id="detail_detail">
+                        </div>
+                    </div>
+                </div>
+                <div id="detail_images">
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 alert alert-danger hidden text-center" id="buyer_email_error" role="alert">
+                    </div>
+                </div>
+                <div class="modal-footer">
+
+                    <form class="form-inline" id="contact_seller_form">
+                        <div class="form-group">
+                            <label for="buyer_name" class="pull-left">Name:</label>
+                            <input type="text" class="form-control" id="buyer_name" placeholder="Mike Jones" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="buyer_email" class="pull-left">Email:</label>
+
+                            <input type="email" class="form-control" id="buyer_email" placeholder="mJones@j.com" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary text-center">Contact Seller</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <script src="~/scripts/Library/bootstrap-table.js"></script>
+    <script src="~/scripts/CarClassified/CarClassified.js"></script>
+    <script src="~/scripts/CarClassified/Services/ListingService.js"></script>
+    <script src="~/scripts/CarClassified/Controllers/ListingController.js"></script>
+    <script type="text/javascript">
+
+        new CarClassified.Controllers.ListingController(new CarClassified.Services.ListingService);
+    </script>
+</div>

@@ -19,18 +19,6 @@ namespace CarClassified.DataLayer.Interfaces
         void Execute(string query, object parameter = null);
 
         /// <summary>
-        /// Queries the specified query.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="query">The query.</param>
-        /// <param name="parameter">The parameter.</param>
-        /// <returns></returns>
-        IEnumerable<T> Query<T>(string query, object parameter = null);
-
-        //TODO: experimen
-        GridReader GetAssests(string query, AllAssests all);
-
-        /// <summary>
         /// Multis the map query.
         /// </summary>
         /// <typeparam name="TFirst">The type of the first.</typeparam>
@@ -41,5 +29,14 @@ namespace CarClassified.DataLayer.Interfaces
         /// <param name="parameter">The parameter.</param>
         /// <returns></returns>
         IEnumerable<TReturn> MultiMapQuery<TFirst, TSecond, TReturn>(string query, Func<TFirst, TSecond, TReturn> map, object parameter = null);
+
+        /// <summary>
+        /// Queries the specified query.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="query">The query.</param>
+        /// <param name="parameter">The parameter.</param>
+        /// <returns></returns>
+        IEnumerable<T> Query<T>(string query, object parameter = null);
     }
 }

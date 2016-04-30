@@ -1,22 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace CarClassified.Models.Views
+namespace CarClassified.Web.ViewModels
 {
     /// <summary>
-    /// Maps to a post(id,title,location,postdate,price) and vehicle (make,model,miles)
+    /// Holds listing (post and vehicle)
     /// </summary>
-    public class Listings
+    public class ListingVM
     {
         public long Id { get; set; }
-        public string Location { get; set; }
         public string Make { get; set; }
         public long Miles { get; set; }
         public string Model { get; set; }
-        public DateTime PostDate { get; set; }
+        public string PostDate { get; set; }
         public decimal Price { get; set; }
         public string Title { get; set; }
         public int Year { get; set; }

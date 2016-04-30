@@ -8,14 +8,25 @@ using System.Threading.Tasks;
 
 namespace CarClassified.DataLayer.Queries.ListingQueries
 {
+    /// <summary>
+    /// Gets active listings
+    /// </summary>
+    /// <seealso cref="CarClassified.DataLayer.Interfaces.IQuery{System.Collections.Generic.ICollection{CarClassified.Models.Views.Listings}}" />
     public class GetListings : IQuery<ICollection<Listings>>
     {
         private int _stateId;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetListings"/> class.
+        /// </summary>
         public GetListings()
         {
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetListings"/> class.
+        /// </summary>
+        /// <param name="stateId">The state identifier.</param>
         public GetListings(int stateId)
         {
             _stateId = stateId;
@@ -23,27 +34,19 @@ namespace CarClassified.DataLayer.Queries.ListingQueries
 
         public ICollection<Listings> Execute(IUnitOfWork unit)
         {
-            string sql = @"SELECT TOP 10 v.Year,p.Id,p.Title, p.Location, p.PostDate, m.Name AS Make, mo.Name AS Model FROM Post p
-                            JOIN Vehicle v ON p.Id = v.PostId
-                            JOIN Make m ON m.Id = v.MakeId
-                            JOIN Model mo ON mo.Id  = v.ModelId
-                            JOIN Poster po ON po.Id = p.PosterId
-                            WHERE p.IsActive =1";
+            string sqlTop20 = @"SELECT TOP 20 p.Id, p.PostDate, p.Title, p.Price,
+                                v.Year, v.Make, V.Model, v.Miles from Post p
+                                JOIN Vehicle v ON v.PostId = p.Id
+                                WHERE p.IsActive =1";
 
-            string queryWithState = @"select v.Year, p.Id,p.Title, p.Location, p.PostDate, m.Name as Make, mo.Name as Model, s.Name from Post p
-                                    Join Vehicle v on p.Id = v.PostId
-                                    join Make m on m.Id = v.MakeId
-                                    join Model mo on mo.Id  = v.ModelId
-                                    join Poster po on po.Id = p.PosterId
-                                    join dbo.State s on s.Id =po.StateId
-                                    where p.IsActive =1 and s.Id =@sId";
+            string queryWithState = @"SELECT p.Id, p.PostDate, p.Title, p.Price,
+                                    v.Year, v.Make, V.Model, v.Miles from Post p
+                                    JOIN Vehicle v ON v.PostId = p.Id
+                                    JOIN Poster po ON po.Id = p.PosterId
+                                    JOIN State s ON s.Id = po.StateId
+                                    WHERE p.IsActive =1 AND s.Id =@sId ";
 
-            return _stateId > 0 ? unit.Query<Listings>(queryWithState, new { sId = _stateId }).ToList() : unit.Query<Listings>(sql).ToList();
-            //if (_stateId > 0)
-            //{
-            //    return unit.Query<Listings>(queryWithState, new { sId = _stateId }).ToList();
-            //}
-            //return unit.Query<Listings>(sql).ToList();
+            return _stateId > 0 ? unit.Query<Listings>(queryWithState, new { sId = _stateId }).ToList() : unit.Query<Listings>(sqlTop20).ToList();
         }
     }
 }

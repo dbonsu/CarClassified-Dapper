@@ -20,7 +20,7 @@ using System.Web.Services;
 namespace CarClassified.Web.ApiControllers
 {
     /// <summary>
-    ///
+    ///Handles all posting
     /// </summary>
     /// <seealso cref="System.Web.Http.ApiController" />
     [RoutePrefix("api/post")]
@@ -48,7 +48,7 @@ namespace CarClassified.Web.ApiControllers
         /// <returns></returns>
         [Route("")]
         [HttpPost]
-        public HttpResponseMessage Post([FromBody] PostDetailsVM model, bool hasImage)
+        public HttpResponseMessage Post([FromBody] PostingDetailsVM model, bool hasImage)
         {
             if (ModelState.IsValid)
             {
@@ -59,7 +59,6 @@ namespace CarClassified.Web.ApiControllers
                 _db.Execute(new CreateNewPost(post, vehicle, poster));
                 if (!hasImage)
                 {
-                    Thread.CurrentPrincipal = null;
                     return new HttpResponseMessage(HttpStatusCode.Created); //201
                 }
 
@@ -68,27 +67,38 @@ namespace CarClassified.Web.ApiControllers
             return new HttpResponseMessage(HttpStatusCode.BadRequest);
         }
 
+        /// <summary>
+        /// Posts the image.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        /// <returns></returns>
         [Route("image")]
         [HttpPost]
         public IHttpActionResult PostImage(string email)
         {
             var files = HttpContext.Current.Request.Files;
-
-            try
+            if (string.IsNullOrEmpty(email))
             {
-                ICollection<Image> images = null;
-                ConvertToByArray(files, out images);
-                _db.Execute(new AddImagesToPost(images, email));
-                Thread.CurrentPrincipal = null;
+                try
+                {
+                    ICollection<Image> images = null;
+                    ConvertToByArray(files, out images);
+                    _db.Execute(new AddImagesToPost(images, email));
+                }
+                catch (Exception e)
+                {
+                    return BadRequest();
+                }
+                return Ok();
             }
-            catch (Exception e)
-            {
-                return BadRequest();
-            }
-
-            return Ok();
+            return BadRequest();
         }
 
+        /// <summary>
+        /// Converts to by array.
+        /// </summary>
+        /// <param name="files">The files.</param>
+        /// <param name="images">The images.</param>
         private void ConvertToByArray(HttpFileCollection files, out ICollection<Image> images)
         {
             images = new List<Image>();

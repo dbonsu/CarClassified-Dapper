@@ -16,7 +16,6 @@ namespace CarClassified.DataLayer.Base
     /// <seealso cref="CarClassified.DataLayer.Base.ICarClassifiedContext" />
     public class CarClassifiedContext : ICarClassifiedContext
     {
-        private static readonly PropertyInfo ConnectionInfo = typeof(SqlConnection).GetProperty("InnerConnection", BindingFlags.NonPublic | BindingFlags.Instance);
         private IDbConnection _connection;
         private string _connectionString;
 
@@ -94,6 +93,15 @@ namespace CarClassified.DataLayer.Base
             }
         }
 
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+
+            GC.SuppressFinalize(this);
+        }
+
         /// <summary>
         /// Rolls the back.
         /// </summary>
@@ -141,27 +149,14 @@ namespace CarClassified.DataLayer.Base
             }
         }
 
-        // This code added to correctly implement the disposable pattern.
-        public void Dispose()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(true);
-            // TODO: uncomment the following line if the finalizer is overridden above.
-            GC.SuppressFinalize(this);
-        }
-
         protected virtual void Dispose(bool disposing)
         {
             if (!disposedValue)
             {
                 if (disposing && _connection != null)
                 {
-                    // TODO: dispose managed state (managed objects).
                     _connection.Dispose();
                 }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
 
                 disposedValue = true;
             }

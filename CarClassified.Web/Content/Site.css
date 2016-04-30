@@ -19,3 +19,11 @@ textarea {
 .red-back {
     background-color: #d9534f;
 }
+
+.lowerElement {
+    padding-top: 5%;
+}
+
+#success_contact p {
+    padding-top: 5%;
+}

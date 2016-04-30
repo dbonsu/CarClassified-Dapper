@@ -39,26 +39,6 @@ namespace CarClassified.DataLayer
             _context.Transaction(t => _context.Connection.Execute(query, parameter, t));
         }
 
-        //experiment
-        public GridReader GetAssests(string query, AllAssests all)
-        {
-            var reader =
-
-              _context.Transaction(
-               t =>
-               {
-                   var result = _context.Connection.QueryMultiple(query, null, t);
-                   all.BodyStyles = result.Read<BodyStyle>().ToList();
-                   all.Colors = result.Read<Color>().ToList();
-                   all.Conditions = result.Read<Condition>().ToList();
-                   all.Cylinders = result.Read<Cylinder>().ToList();
-                   all.Transmissions = result.Read<Transmission>().ToList();
-                   return result;
-               });
-
-            return reader;
-        }
-
         /// <summary>
         /// Multis the map query.
         /// </summary>

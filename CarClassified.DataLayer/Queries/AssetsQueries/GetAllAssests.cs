@@ -40,13 +40,10 @@ namespace CarClassified.DataLayer.Queries.AssetsQueries
             //               SELECT* from State;
             //               SELECT* from Transmission";
 
-            //unit.GetAssests(sql, all);
-
             all.BodyStyles = unit.Query<BodyStyle>(body).ToList();
             all.Colors = unit.Query<Color>(color).ToList();
             all.Conditions = unit.Query<Condition>(condition).ToList();
             all.Cylinders = unit.Query<Cylinder>(cylinder).ToList();
-
             all.Transmissions = unit.Query<Transmission>(trans).ToList();
             all.FuelTypes = unit.Query<Fuel>(fuelTypes).ToList();
             unit.MultiMapQuery<Make, Model, Make>(makeAndModel, (make, model) =>
