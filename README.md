@@ -11,19 +11,22 @@ tracking changes
      
      
 TODO: A lot - i just started so am far from finish
--set up project skeleton (folder structure, automapping, autofac etc) --done
--create db -done ( well sorta, will be for ever changing)
--biolerplate classes and some views -done
--token generation -done
--register to post --done
--send email in token --done
--create a post -done
--create post with option to upload images
--create session class
--populate listing 
--populate post details
--filter listing
--contact poster
--remove expired listings( db job)
--remove expired users(db job)
--auth filters (maybe)
+
+
+
+    -set up project skeleton (folder structure, automapping, autofac etc) --done
+    -create db -done ( well sorta, will be for ever changing)
+    -biolerplate classes and some views -done
+    -token generation -done
+    -register to post --done
+    -send email in token --done
+    -create a post -done
+    -create post with option to upload images
+    -create session class
+    -populate listing 
+    -populate post details
+    -filter listing
+    -contact poster
+    -remove expired listings( db job)
+    -remove expired users(db job)
+    -auth filters (maybe)

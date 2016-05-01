@@ -1,12 +1,21 @@
 ﻿var CarClassified = CarClassified || {};
-
+/*
+ * global object
+ */
 CarClassified.Controllers = CarClassified.Controllers || {};
 
+/*
+ * Initializes listing controller
+ * @class
+ */
 CarClassified.Controllers.ListingController = function (listingService) {
     var self = this;
     var listingService = listingService;
     var table = $('#listing_table');
 
+    /*
+     * Initializes functions
+     */
     self.start = function () {
         getDefaultListing();
         onStateSelect();
@@ -14,14 +23,24 @@ CarClassified.Controllers.ListingController = function (listingService) {
         onContactSeller();
     };
 
+    /*
+     * Retrieves default listing -top 20
+     */
     var getDefaultListing = function () {
         listingService.getDefault(defaultSuccess, failCallback);
     };
 
+    /*
+     * Gets list for a state
+     * @param payload
+     */
     var getStateListing = function (payload) {
         table.bootstrapTable('load', payload);
     }
 
+    /*
+     * Sends seller contact
+     */
     var onContactSeller = function () {
         $('#contact_seller_form').submit(function (event) {
             event.preventDefault();
@@ -39,6 +58,9 @@ CarClassified.Controllers.ListingController = function (listingService) {
         });
     }
 
+    /*
+     *
+     */
     var successContact = function () {
         $('#detail_modal').modal('hide');
         window.location = '/Listing/Success';
