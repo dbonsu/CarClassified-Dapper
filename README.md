@@ -21,12 +21,12 @@ TODO: A lot - i just started so am far from finish
     -register to post --done
     -send email in token --done
     -create a post -done
-    -create post with option to upload images
-    -create session class
-    -populate listing 
-    -populate post details
-    -filter listing
-    -contact poster
+    -create post with option to upload images -done
+    -create session class -done
+    -populate listing -done
+    -populate post details -done
+    -filter listing -done
+    -contact poster -done
     -remove expired listings( db job)
     -remove expired users(db job)
     -auth filters (maybe)
