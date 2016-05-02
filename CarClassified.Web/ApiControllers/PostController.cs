@@ -77,7 +77,7 @@ namespace CarClassified.Web.ApiControllers
         public IHttpActionResult PostImage(string email)
         {
             var files = HttpContext.Current.Request.Files;
-            if (string.IsNullOrEmpty(email))
+            if (!string.IsNullOrEmpty(email))
             {
                 try
                 {

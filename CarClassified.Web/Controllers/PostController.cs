@@ -176,7 +176,7 @@ namespace CarClassified.Web.Controllers
             Poster poster = _mapper.Map<Poster>(post);
 
             _db.Execute(new CreateNewPoster(poster));
-            string url = HttpUtility.UrlEncode(BaseSettings.BaseUrl + BaseSettings.EmailVerificationUrl);
+            string url = BaseSettings.BaseUrl + BaseSettings.EmailVerificationUrl; // HttpUtility.UrlEncode(BaseSettings.BaseUrl + BaseSettings.EmailVerificationUrl);
             string token = _tokenUtil.GenerateToken(post.Email);
             _email.SendRegistrationEmail(post.Email, url + token);
         }

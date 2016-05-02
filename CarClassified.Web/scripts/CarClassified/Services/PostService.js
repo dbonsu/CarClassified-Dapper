@@ -1,16 +1,24 @@
 ﻿var CarClassified = CarClassified || {};
 
+/*
+ * Global object
+ */
 CarClassified.Services = CarClassified.Services || {};
 
+/*
+ * @class
+ */
 CarClassified.Services.PostService = function () {
     var ASSESTS = "/api/assests"
     var POST_LISTING = "/api/post?hasImage="
     var POST_IMAGE = "/api/post/image?email="
     var self = this;
 
-    self.test = function (name) {
-        console.log(name);
-    }
+    /*
+     * Gets assests (states, colors, etc)
+     * @callback successCallback <success>
+    * @callback failureCallback <failure>
+     */
     self.getAssests = function (successCallback, failureCallback) {
         return $.get(ASSESTS, {})
              .done(function (data) {
@@ -21,6 +29,13 @@ CarClassified.Services.PostService = function () {
          });
     };
 
+    /*
+     * Gets listing for a state
+     * @param model <form object>
+     * @callback successCallback <success>
+     * @callback failureCallback <failure>
+     * @param hasImage <bool to specify if user want to load image>
+     */
     self.completePost = function (model, successCallback, failureCallback, hasImage) {
         $.ajax({
             url: POST_LISTING + hasImage,
@@ -32,8 +47,13 @@ CarClassified.Services.PostService = function () {
             failureCallback();
         });
     }
-
-    self.PostImage = function (formData, successCallBack, email) {
+    /*
+     * Gets listing for a state
+     * @param formData <form object>
+     * @callback successCallback <success>
+     * @param email <email of poster>
+     */
+    self.PostImage = function (formData, successCallback, email) {
         $.ajax({
             url: POST_IMAGE + email,
             data: formData,
@@ -42,7 +62,7 @@ CarClassified.Services.PostService = function () {
             contentType: false,
             processData: false
         }).success(function (d, x, t) {
-            successCallBack(d, x, t);
+            successCallback(d, x, t);
         });
     }
 

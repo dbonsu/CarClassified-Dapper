@@ -21,6 +21,7 @@ CarClassified.Controllers.ListingController = function (listingService) {
         onStateSelect();
         onCancelButton();
         onContactSeller();
+        onHover();
     };
 
     /*
@@ -59,41 +60,75 @@ CarClassified.Controllers.ListingController = function (listingService) {
     }
 
     /*
-     *
+     *Response for successfull contact
      */
     var successContact = function () {
         $('#detail_modal').modal('hide');
         window.location = '/Listing/Success';
     }
+
+    /*
+     * Validates email field
+     * @param email <string to validate>
+     */
     var isEmailValid = function (email) {
         var reg = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return reg.test(email);
     };
 
+    /*
+     * Loads initial car list
+     * @param payload <car list>
+     */
     var defaultSuccess = function (payload) {
         table.bootstrapTable({
             data: payload,
         });
     };
+
     var failCallback = function () {
         console.log('failed to retrieve data');
     };
 
+    /*
+     *Loads modal on success
+     * @param payload <detail object>
+     */
     var buildModal = function (payload) {
         var result = payload.images;
         buildDetails(payload);
         buildImages(result, raiseModal);
     }
 
+    /*
+     * Raises modal
+     */
     var raiseModal = function () {
         $('#detail_modal').modal();
     }
 
+    /*
+     * Hides modal on cancel
+     */
     var onCancelButton = function () {
         $("#deny_list").click(function () {
             $('#detail_modal').modal('hide');
         });
     };
+
+    /*
+     * Creates pointer on hover
+     */
+    var onHover = function () {
+        $("#deny_list").hover(function () {
+            $(this).css('cursor', 'pointer');
+        });
+    };
+
+    /*
+     * Builds detail from server object
+     * @param detailObject <server object>
+     */
     var buildDetails = function (detailObject) {
         $('#postId').html(detailObject.id);
         $('#detail_title').html(detailObject.title);
@@ -116,6 +151,11 @@ CarClassified.Controllers.ListingController = function (listingService) {
         $('#detail_detail').html(detailObject.body);
     };
 
+    /*
+     * Builds base64 images
+     * @param images <list of images>
+     * @callback <method to call after building images>
+     */
     var buildImages = function (images, callback) {
         var html = [];
         var im = "";
@@ -127,6 +167,9 @@ CarClassified.Controllers.ListingController = function (listingService) {
         callback();
     }
 
+    /*
+     * attached to bootrapTable object
+     */
     window.detailEvents = {
         'click .details_button': function () {
             var id = $(this).closest('tr').data('uniqueid');
@@ -134,6 +177,9 @@ CarClassified.Controllers.ListingController = function (listingService) {
         }
     };
 
+    /*
+     * Gets state id
+     */
     var onStateSelect = function () {
         $('#states').change(function () {
             var id = $(this).val();
