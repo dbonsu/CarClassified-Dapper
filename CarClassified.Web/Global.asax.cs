@@ -3,9 +3,7 @@ using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using AutoMapper;
 using CarClassified.Common.IOCModule;
-using CarClassified.Web.IOC;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Web;
@@ -13,8 +11,6 @@ using System.Web.Compilation;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Web.Security;
-using System.Web.SessionState;
 
 namespace CarClassified.Web
 {

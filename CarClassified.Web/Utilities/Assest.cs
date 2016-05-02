@@ -4,10 +4,8 @@ using CarClassified.DataLayer.Queries.AssetsQueries;
 using CarClassified.Models.Tables;
 using CarClassified.Web.Utilities.Interfaces;
 using CarClassified.Web.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace CarClassified.Web.Utilities

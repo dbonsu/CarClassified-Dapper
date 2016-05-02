@@ -1,10 +1,7 @@
 ﻿using CarClassified.DataLayer.Interfaces;
 using CarClassified.Models.Views;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarClassified.DataLayer.Queries.ListingQueries
 {
@@ -37,7 +34,7 @@ namespace CarClassified.DataLayer.Queries.ListingQueries
             string sqlTop20 = @"SELECT TOP 20 p.Id, p.PostDate, p.Title, p.Price,
                                 v.Year, v.Make, V.Model, v.Miles from Post p
                                 JOIN Vehicle v ON v.PostId = p.Id
-                                WHERE p.IsActive =1";
+                                WHERE p.IsActive =1 ORDER BY p.PostDate DESC";
 
             string queryWithState = @"SELECT p.Id, p.PostDate, p.Title, p.Price,
                                     v.Year, v.Make, V.Model, v.Miles from Post p

@@ -1,7 +1,13 @@
 ﻿var CarClassified = CarClassified || {};
 
+/*
+ * Global object
+ */
 CarClassified.Services = CarClassified.Services || {};
 
+/*
+ * @class
+ */
 CarClassified.Services.ListingService = function () {
     var self = this;
     var GET_DEFAULT_LISTING = "/api/listings";
@@ -9,6 +15,11 @@ CarClassified.Services.ListingService = function () {
     var GET_LISTING_DETAILS = "/api/listings/details?id=";
     var CONTACT_SELLER = "/api/listings/contact";
 
+    /*
+     * Gets the defaul list
+     * @callback successCallback <success>
+     * @callback failureCallback <failure>
+     */
     this.getDefault = function (successCallback, failureCallback) {
         return $.get(GET_DEFAULT_LISTING, {})
             .done(function (data) {
@@ -19,6 +30,12 @@ CarClassified.Services.ListingService = function () {
         });
     };
 
+    /*
+     * Gets listing for a state
+     * @param stateId <state identifier>
+     * @callback successCallback <success>
+     * @callback failureCallback <failure>
+     */
     this.getStateListing = function (stateId, successCallback, failureCallback) {
         return $.get(GET_STATE_LISTING + stateId, {})
             .done(function (data) {
@@ -29,6 +46,12 @@ CarClassified.Services.ListingService = function () {
         });
     };
 
+    /*
+    * Gets a listing detail
+    * @param listingId <listing identifier>
+    * @callback successCallback <success>
+    * @callback failureCallback <failure>
+    */
     this.getListingDetail = function (listingId, successCallback, failureCallback) {
         return $.ajax({
             type: 'GET',
@@ -39,6 +62,12 @@ CarClassified.Services.ListingService = function () {
         });
     };
 
+    /*
+     * Contact a seller
+     * @param postObj <contact object>
+     *
+    *
+     */
     this.contactSeller = function (postObj, successCallback) {
         return $.ajax({
             type: 'POST',

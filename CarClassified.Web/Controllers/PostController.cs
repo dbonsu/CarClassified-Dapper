@@ -4,18 +4,12 @@ using CarClassified.Common.Constants;
 using CarClassified.Common.Interfaces;
 using CarClassified.DataLayer.Commands.PostingCommands;
 using CarClassified.DataLayer.Interfaces;
-using CarClassified.DataLayer.Queries.AssetsQueries;
 using CarClassified.DataLayer.Queries.PostingQueries;
 using CarClassified.Models.Tables;
-using CarClassified.Models.Views;
 using CarClassified.Web.Utilities.Interfaces;
 using CarClassified.Web.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Principal;
 using System.Threading;
-using System.Web;
 using System.Web.Mvc;
 
 namespace CarClassified.Web.Controllers
@@ -176,7 +170,7 @@ namespace CarClassified.Web.Controllers
             Poster poster = _mapper.Map<Poster>(post);
 
             _db.Execute(new CreateNewPoster(poster));
-            string url = HttpUtility.UrlEncode(BaseSettings.BaseUrl + BaseSettings.EmailVerificationUrl);
+            string url = BaseSettings.BaseUrl + BaseSettings.EmailVerificationUrl; // HttpUtility.UrlEncode(BaseSettings.BaseUrl + BaseSettings.EmailVerificationUrl);
             string token = _tokenUtil.GenerateToken(post.Email);
             _email.SendRegistrationEmail(post.Email, url + token);
         }

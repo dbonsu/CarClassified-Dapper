@@ -1,21 +1,14 @@
 ﻿using AutoMapper;
 using CarClassified.DataLayer.Commands.PostingCommands;
 using CarClassified.DataLayer.Interfaces;
-using CarClassified.DataLayer.Queries.AssetsQueries;
 using CarClassified.Models.Tables;
-using CarClassified.Models.Views;
-using CarClassified.Web.Utilities.Interfaces;
 using CarClassified.Web.ViewModels;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Threading;
 using System.Web;
 using System.Web.Http;
-using System.Web.Services;
 
 namespace CarClassified.Web.ApiControllers
 {
@@ -77,7 +70,7 @@ namespace CarClassified.Web.ApiControllers
         public IHttpActionResult PostImage(string email)
         {
             var files = HttpContext.Current.Request.Files;
-            if (string.IsNullOrEmpty(email))
+            if (!string.IsNullOrEmpty(email))
             {
                 try
                 {

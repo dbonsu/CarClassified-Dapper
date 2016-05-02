@@ -1,7 +1,13 @@
 ﻿var CarClassified = CarClassified || {};
 
+/*
+ * Global object
+ */
 CarClassified.Controllers = CarClassified.Controllers || {};
 
+/*
+ * @class
+ */
 CarClassified.Controllers.PostController = function (postService) {
     var postService = postService;
     var self = this;
@@ -18,19 +24,25 @@ CarClassified.Controllers.PostController = function (postService) {
     var postingBtn = $('#postingBtn');
     var payload = {};
 
+    /*
+     * Initializes object
+     */
     self.start = function () {
         postService.getAssests(sucessCallback, failureCallBack);
         rebuildMake();
         this.sendPost();
     }
 
+    /*
+     * Generates model
+     */
     var generateModelWithText = function () {
         var postModel = {};
         postModel.id = $('#userId').val();
-        postModel.firstName = $('#firstName').val();
-        postModel.lastName = $('#lastName').val();
-        postModel.phone = $('#phone').val();
-        postModel.location = $('#location').val();
+        postModel.firstName = $('#firstName').val().trim();
+        postModel.lastName = $('#lastName').val().trim();
+        postModel.phone = $('#phone').val().trim();
+        postModel.location = $('#location').val().trim();
         postModel.bodyStyle = $('#bodystyle option:selected').text().trim();
         postModel.color = $('#color option:selected').text().trim();
         postModel.cylinder = $('#cylinder option:selected').text().trim();
@@ -39,7 +51,7 @@ CarClassified.Controllers.PostController = function (postService) {
         postModel.model = $('#model option:selected').text().trim();
         postModel.transmission = $('#transmission option:selected').text().trim();
         postModel.condition = $('#condition option:selected').text().trim();
-        postModel.details = $("#details").val();
+        postModel.details = $("#details").val().trim();
         postModel.title = $("#title").val().trim();
         postModel.year = $('#year').val();
         postModel.miles = $('#miles').val();
@@ -48,6 +60,9 @@ CarClassified.Controllers.PostController = function (postService) {
         return postModel;
     };
 
+    /*
+     * Sends model
+     */
     this.sendPost = function () {
         posting_form.submit(function (event) {
             event.preventDefault();
@@ -61,6 +76,9 @@ CarClassified.Controllers.PostController = function (postService) {
         });
     };
 
+    /*
+     * Generates modal
+     */
     var generateModal = function (model) {
         $('#checkImageModal').modal();
         $('#confirm_image').click(function () {
@@ -71,7 +89,11 @@ CarClassified.Controllers.PostController = function (postService) {
             $('#checkImageModal').modal('hide');
             postService.completePost(model, postSuccess, postFail, false);
         });
-    }
+    };
+
+    /*
+     * Process successful account creation
+     */
     var postSuccess = function (d, x, t) {
         //201 redirect to created success page
         //200 post is stored, redirect to image
@@ -84,6 +106,10 @@ CarClassified.Controllers.PostController = function (postService) {
         }
     };
 
+    /*
+     * Validates year field
+     * @param yearValue <value to validate>
+     */
     var isYearValid = function (yearValue) {
         var re = /^(?:19|20)\d{2}$/;
 
@@ -96,6 +122,11 @@ CarClassified.Controllers.PostController = function (postService) {
     var postFail = function () {
         console.log("failed to post")
     }
+
+    /*
+     * Builds a dropdowns from object
+     * @param data <object to build>
+     */
     var sucessCallback = function (data) {
         payload = data;
 
@@ -111,11 +142,21 @@ CarClassified.Controllers.PostController = function (postService) {
     var failureCallBack = function () {
         console.log('failed to retrieve all assests');
     }
+
+    /*
+     * Builds a dropdown
+     * @param item <data to build from>
+     * @param element <element to attach>
+     */
     var buildSelectDropdown = function (item, element) {
         $.each(item, function (key, value) {
             element.append($('<option></option>').val(value.id).html(value.name || value.number));
         });
     };
+
+    /*
+     * Rebuilds the make and model fields
+     */
     var rebuildMake = function () {
         makeSelect.change(function () {
             modelSelect.html('');

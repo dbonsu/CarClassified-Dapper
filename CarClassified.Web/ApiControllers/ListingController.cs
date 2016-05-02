@@ -4,11 +4,7 @@ using CarClassified.DataLayer.Queries.ListingQueries;
 using CarClassified.Models.Views;
 using CarClassified.Web.Utilities.Interfaces;
 using CarClassified.Web.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace CarClassified.Web.ApiControllers
