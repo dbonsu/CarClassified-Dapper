@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace CarClassified.Web.ViewModels
+﻿namespace CarClassified.Web.ViewModels
 {
     /// <summary>
     /// Holds listing (post and vehicle)

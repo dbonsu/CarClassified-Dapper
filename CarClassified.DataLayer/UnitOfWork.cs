@@ -1,13 +1,8 @@
 ﻿using CarClassified.DataLayer.Base;
 using CarClassified.DataLayer.Interfaces;
-using CarClassified.Models.Tables;
-using CarClassified.Models.Views;
 using Dapper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static Dapper.SqlMapper;
 
 namespace CarClassified.DataLayer

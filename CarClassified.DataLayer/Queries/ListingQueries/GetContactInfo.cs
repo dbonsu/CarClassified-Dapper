@@ -1,10 +1,6 @@
 ﻿using CarClassified.DataLayer.Interfaces;
 using CarClassified.Models.Views;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarClassified.DataLayer.Queries.ListingQueries
 {

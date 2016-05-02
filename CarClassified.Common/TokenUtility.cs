@@ -1,8 +1,6 @@
 ﻿using CarClassified.Common.Interfaces;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IdentityModel.Tokens;
 using System.Security.Claims;
 using System.ServiceModel.Security.Tokens;

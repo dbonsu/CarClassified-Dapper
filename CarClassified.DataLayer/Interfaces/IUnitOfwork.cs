@@ -1,8 +1,5 @@
-﻿using CarClassified.Models.Views;
-using Dapper;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using static Dapper.SqlMapper;
 
 namespace CarClassified.DataLayer.Interfaces
 {

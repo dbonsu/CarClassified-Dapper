@@ -1959,7 +1959,6 @@
             .html('').attr('class', this.$el.attr('class'))
             .append(this.$header_);
 
-
         focusedTemp = $('.focus-temp:visible:eq(0)');
         if (focusedTemp.length > 0) {
             focusedTemp.focus();

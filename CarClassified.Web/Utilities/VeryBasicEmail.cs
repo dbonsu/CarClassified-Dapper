@@ -2,12 +2,7 @@
 using CarClassified.Web.Utilities.Interfaces;
 using CarClassified.Web.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Mail;
-using System.Text;
-using System.Web;
 
 namespace CarClassified.Web.Utilities
 {
