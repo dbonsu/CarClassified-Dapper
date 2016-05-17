@@ -44,8 +44,8 @@ namespace CarClassified.Web.ApiControllers
         {
             if (ModelState.IsValid)
             {
-                // Contact contact = _db.Query(new GetContactInfo(model.PostId));
-                // _email.SendContact(model, contact);
+                Contact contact = _db.Query(new GetContactInfo(model.PostId));
+                _email.SendContact(model, contact);
                 return Ok();
             }
             return BadRequest();
