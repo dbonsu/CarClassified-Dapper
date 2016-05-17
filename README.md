@@ -10,8 +10,7 @@ tracking changes
      -- changing
      
      
-TODO: A lot - i just started so am far from finish
-
+TODO: 
 
 
     -set up project skeleton (folder structure, automapping, autofac etc) --done
@@ -30,3 +29,8 @@ TODO: A lot - i just started so am far from finish
     -remove expired listings( db job)
     -remove expired users(db job)
     -auth filters (maybe)
+
+Nice to haves (really more like should do, if and when i get around to it):  
+    -better validation 
+    -limit image upload sizes
+    -clean up html a little
