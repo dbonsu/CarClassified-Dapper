@@ -49,7 +49,7 @@ namespace CarClassified.Web.ApiControllers
 
                 Poster poster = _mapper.Map<Poster>(model);
                 Vehicle vehicle = _mapper.Map<Vehicle>(model);
-                _db.Execute(new CreateNewPost(post, vehicle, poster));
+                // _db.Execute(new CreateNewPost(post, vehicle, poster));
                 if (!hasImage)
                 {
                     return new HttpResponseMessage(HttpStatusCode.Created); //201
@@ -76,7 +76,7 @@ namespace CarClassified.Web.ApiControllers
                 {
                     ICollection<Image> images = null;
                     ConvertToByArray(files, out images);
-                    _db.Execute(new AddImagesToPost(images, email));
+                    // _db.Execute(new AddImagesToPost(images, email));
                 }
                 catch (Exception e)
                 {

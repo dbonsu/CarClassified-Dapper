@@ -83,10 +83,10 @@ CarClassified.Controllers.PostController = function (postService) {
         $('#checkImageModal').modal();
         $('#confirm_image').click(function () {
             postService.completePost(model, postSuccess, postFail, true);
-            $('#checkImageModal').modal('hide');
+            
         });
         $('#deny_image').click(function () {
-            $('#checkImageModal').modal('hide');
+            
             postService.completePost(model, postSuccess, postFail, false);
         });
     };

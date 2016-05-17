@@ -33,3 +33,14 @@ textarea {
     left:-40%;
     margin-top:5%;
 }
+#detail_images{
+    width:500px;
+    display:flex;
+    -ms-flex-wrap:nowrap;
+    -webkit-flex-wrap:wrap;
+    flex-wrap:wrap;
+}
+#detail_images img{
+    margin:2px;
+    padding:3px;
+}
