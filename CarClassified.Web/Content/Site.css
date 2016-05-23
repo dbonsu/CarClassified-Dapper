@@ -28,19 +28,39 @@ textarea {
     padding-top: 5%;
 }
 
-#contactBtn{
-    position:relative;
-    left:-40%;
-    margin-top:5%;
+#contactBtn {
+    position: relative;
+    left: -40%;
+    margin-top: 5%;
 }
-#detail_images{
-    width:500px;
-    display:flex;
-    -ms-flex-wrap:nowrap;
-    -webkit-flex-wrap:wrap;
-    flex-wrap:wrap;
+
+#detail_images {
+    width: 500px;
+    display: flex;
+    -ms-flex-wrap: nowrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
 }
-#detail_images img{
-    margin:2px;
-    padding:3px;
+
+    #detail_images img {
+        margin: 2px;
+        padding: 3px;
+    }
+
+.img_div {
+    box-shadow: 2px 2px 5px #888888;
+    margin: 2px;
 }
+
+#spinner_container {
+    position:absolute;
+    left:45%;
+    top:30%;
+    display: none;
+    opacity: .7;
+    z-index: 1;
+}
+
+#spinner_container > img {
+    width: 150px;
+    }

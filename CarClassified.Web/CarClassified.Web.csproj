@@ -152,12 +152,15 @@
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\ajax-loader.gif" />
     <Content Include="scripts\CarClassified\CarClassified.js" />
     <Content Include="scripts\CarClassified\Controllers\ImageController.js" />
     <Content Include="scripts\CarClassified\Controllers\ListingController.js" />
     <Content Include="scripts\CarClassified\Controllers\PostController.js" />
     <Content Include="scripts\CarClassified\Services\ListingService.js" />
     <Content Include="scripts\CarClassified\Services\PostService.js" />
+    <None Include="Properties\PublishProfiles\CarClassified - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\CarClassifiedWeb20160517044835 - Web Deploy.pubxml" />
     <None Include="scripts\Library\jquery-2.2.3.intellisense.js" />
     <Content Include="scripts\Library\bootstrap-table.js" />
     <Content Include="scripts\Library\jquery-2.2.3.js" />
