@@ -62,7 +62,7 @@ CarClassified.Controllers.ListingController = function (listingService) {
      *Response for successfull contact
      */
     var successContact = function () {
-              window.location = '/Listing/Success';
+        window.location = '/Listing/Success';
     }
 
     /*
@@ -102,10 +102,9 @@ CarClassified.Controllers.ListingController = function (listingService) {
      * Raises modal
      */
     var raiseModal = function () {
+        $('#spinner_container').hide();
         $('#detail_modal').modal();
     }
-
-  
 
     /*
      * Creates pointer on hover
@@ -151,7 +150,7 @@ CarClassified.Controllers.ListingController = function (listingService) {
         var html = [];
         var im = "";
         $.each(images, function (key, value) {
-            im = '<img src="' + "data:image/" + value.extension + ";base64," + value.body + '" height="100" width="150" alt="vehicle_image" />'
+            im = '<div class="img_div"><img src="' + "data:image/" + value.extension + ";base64," + value.body + '" height="100" width="150" alt="vehicle_image" /></div>'
             html.push(im);
         });
         $('#detail_images').html(html);
@@ -163,6 +162,7 @@ CarClassified.Controllers.ListingController = function (listingService) {
      */
     window.detailEvents = {
         'click .details_button': function () {
+            $('#spinner_container').show();
             var id = $(this).closest('tr').data('uniqueid');
             listingService.getListingDetail(id, buildModal, failCallback);
         }
