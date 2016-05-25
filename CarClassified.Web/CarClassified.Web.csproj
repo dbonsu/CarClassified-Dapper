@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <ApplicationInsightsResourceId>/subscriptions/10f7e148-6fa9-4f0d-8d24-661b60c17152/resourcegroups/Default-ApplicationInsights-CentralUS/providers/microsoft.insights/components/CarClassified.Web</ApplicationInsightsResourceId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -159,8 +160,8 @@
     <Content Include="scripts\CarClassified\Controllers\PostController.js" />
     <Content Include="scripts\CarClassified\Services\ListingService.js" />
     <Content Include="scripts\CarClassified\Services\PostService.js" />
-    <None Include="Properties\PublishProfiles\CarClassified - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\CarClassifiedWeb20160517044835 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\CarClassifiedWeb - Web Deploy %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\CarClassifiedWeb - Web Deploy.pubxml" />
     <None Include="scripts\Library\jquery-2.2.3.intellisense.js" />
     <Content Include="scripts\Library\bootstrap-table.js" />
     <Content Include="scripts\Library\jquery-2.2.3.js" />
@@ -171,7 +172,9 @@
     <Content Include="scripts\Library\bootstrap.min.js" />
     <Content Include="scripts\Library\jquery-2.2.3.min.map" />
     <Content Include="scripts\Library\modernizr-2.6.2.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllers\AssestsController.cs" />
@@ -221,6 +224,7 @@
     <Content Include="Views\Post\Image.cshtml" />
     <Content Include="Views\Listing\Index.cshtml" />
     <Content Include="Views\Listing\Success.cshtml" />
+    <Content Include="Service References\Application Insights\ConnectedService.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -247,6 +251,9 @@
       <Project>{52249bff-7f13-4c94-9aa6-23c60b540f62}</Project>
       <Name>CarClassified.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
