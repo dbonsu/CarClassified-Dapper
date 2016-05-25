@@ -43,6 +43,8 @@ CarClassified.Controllers.ListingController = function (listingService) {
      */
     var onContactSeller = function () {
         $('#contact_seller_form').submit(function (event) {
+            alert('sdsd');
+
             event.preventDefault();
 
             var buyer = {};
@@ -51,6 +53,7 @@ CarClassified.Controllers.ListingController = function (listingService) {
             buyer.email = $('#buyer_email').val().trim();
             if (isEmailValid(buyer.email)) {
                 listingService.contactSeller(buyer, successContact)
+                $('#detail_modal').modal('hide');
             } else {
                 $('#buyer_email_error').removeClass('hidden');
                 $('#buyer_email_error').html('<p>Please enter a valid email  </p>');
