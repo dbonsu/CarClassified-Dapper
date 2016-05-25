@@ -1,7 +1,9 @@
 ﻿using CarClassified.Models.Views;
 using CarClassified.Web.Utilities.Interfaces;
 using CarClassified.Web.ViewModels;
+using SendGrid;
 using System;
+using System.Net;
 using System.Net.Mail;
 
 namespace CarClassified.Web.Utilities
@@ -15,25 +17,24 @@ namespace CarClassified.Web.Utilities
     {
         private const string CONTACT_SUBJECT = "Car Classified Email Contact";
         private const string SUBJECT = "Car Classified Email Verification";
+        private static string USERNAME = System.Environment.GetEnvironmentVariable("SENDGRID_USER");
+        private static string PASSWORD = System.Environment.GetEnvironmentVariable("SENDGRID_PASS");
 
         public void SendContact(ContactVM buyer, Contact seller)
         {
             var body = "<div><p>Dear {0} :</p> </div>" +
                      "<div> <p> {1} with email {2} is interested in your car.</p> </div>";
 
-            var message = new MailMessage();
-            message.To.Add(new MailAddress(seller.Email));
+            var message = new SendGridMessage();
+            message.AddTo(seller.Email);
 
             message.Subject = SUBJECT;
-            message.Body = string.Format(body, seller.FirstName.Trim() + " " + seller.LastName.Trim(), buyer.Name, buyer.Email);
-            message.IsBodyHtml = true;
-
+            message.Html = string.Format(body, seller.FirstName.Trim() + " " + seller.LastName.Trim(), buyer.Name, buyer.Email);
+            var credentials = new NetworkCredential(USERNAME, PASSWORD);
+            var transportWeb = new SendGrid.Web(credentials);
             try
             {
-                using (var smtp = new SmtpClient())
-                {
-                    smtp.Send(message);
-                }
+                transportWeb.DeliverAsync(message);
             }
             catch (Exception ex)
             {
@@ -51,19 +52,16 @@ namespace CarClassified.Web.Utilities
                             "<p>Please follow the link below to complete your posting.</p>" +
                         "</div>" +
                    "<div><p><a href=\"{0}\">Confirm Your Email</a></p></div";
-            var message = new MailMessage();
-            message.To.Add(new MailAddress(emailAddress));
+            var message = new SendGridMessage();
+            message.AddTo(emailAddress);
 
             message.Subject = SUBJECT;
-            message.Body = string.Format(body, url);
-            message.IsBodyHtml = true;
+            message.Html = string.Format(body, url);
 
             try
             {
-                using (var smtp = new SmtpClient())
-                {
-                    smtp.Send(message);
-                }
+                var credentials = new NetworkCredential(USERNAME, PASSWORD);
+                var transportWeb = new SendGrid.Web(credentials);
             }
             catch (Exception ex)
             {
