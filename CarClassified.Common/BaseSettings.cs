@@ -63,6 +63,22 @@ namespace CarClassified.Common
             }
         }
 
+        public static string SENDGRID_USER
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["SENDGRID_USER"];
+            }
+        }
+
+        public static string SENDGRID_PASS
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["SENDGRID_PASS"];
+            }
+        }
+
         /// <summary>
         /// Gets the symmetric key.
         /// </summary>

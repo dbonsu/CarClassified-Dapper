@@ -1,4 +1,5 @@
-﻿using CarClassified.Models.Views;
+﻿using CarClassified.Common;
+using CarClassified.Models.Views;
 using CarClassified.Web.Utilities.Interfaces;
 using CarClassified.Web.ViewModels;
 using SendGrid;
@@ -17,8 +18,8 @@ namespace CarClassified.Web.Utilities
     {
         private const string CONTACT_SUBJECT = "Car Classified Email Contact";
         private const string SUBJECT = "Car Classified Email Verification";
-        private static string USERNAME = System.Environment.GetEnvironmentVariable("SENDGRID_USER");
-        private static string PASSWORD = System.Environment.GetEnvironmentVariable("SENDGRID_PASS");
+        private static string USERNAME = BaseSettings.SENDGRID_USER;
+        private static string PASSWORD = BaseSettings.SENDGRID_PASS;
 
         public void SendContact(ContactVM buyer, Contact seller)
         {
